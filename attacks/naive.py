@@ -72,7 +72,7 @@ def random_attack_model(local_model, global_model):
 
 
 
-def gaussian_attack_model(local_model, global_model, sigma=0.01):
+def gaussian_attack_model(local_model, global_model, sigma=0.1):
 
     local_dict = local_model.state_dict()
     global_dict = global_model.state_dict()

@@ -215,13 +215,16 @@ if __name__ == "__main__":
             #         local_model,
             #         global_model
             #     )
-            if client_idx< args.num_byzantine and round_idx >= 5:
-
-                local_model = gaussian_attack_model(
-                    local_model,
-                    global_model
-                )    
-
+           # Apply Byzantine Attacks starting at Round 5
+            if client_idx < args.num_byzantine and round_idx >= 5:
+                if args.attack == "signflip":
+                    local_model = signflip_attack_model(local_model, global_model)
+                elif args.attack == "scaling":
+                    local_model = scaling_attack_model(local_model, global_model, factor=20)
+                elif args.attack == "gaussian":
+                    local_model = gaussian_attack_model(local_model, global_model, sigma=0.1)
+                elif args.attack == "random":
+                    local_model = random_attack_model(local_model, global_model)
             local_models.append(local_model)    
             clt_models[client_idx] = copy.deepcopy(local_model)
             # train_dice_l, _, _, train_iou_l = evaluate_network(
