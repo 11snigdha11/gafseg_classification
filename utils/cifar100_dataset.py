@@ -5,7 +5,7 @@ from torch.utils.data import DataLoader, Subset
 from torchvision import datasets, transforms
 import numpy as np
 
-def dirichlet_split_noniid(labels, n_clients, alpha=0.1):
+def dirichlet_split_noniid(labels, n_clients, alpha=0.5):
 
     n_classes = np.max(labels) + 1
 

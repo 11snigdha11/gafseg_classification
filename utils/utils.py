@@ -159,6 +159,45 @@ def update_global(global_model, local_models,args):
         for i in range(num_clients):
             client_theta = local_models[i].state_dict()[k].float()
             new_global_dict[k] += (m_t[i] * client_theta * (1/num_clients))
+    weight_sum = sum(max(x.item(), 0.0) for x in m_t) + 1e-12
+
+    # for k in old_global_dict.keys():
+
+    #     for i in range(num_clients):
+
+    #         w = max(m_t[i].item(), 0.0)
+
+    #         client_theta = local_models[i].state_dict()[k].float()
+
+    #         new_global_dict[k] += w * client_theta
+
+    #     new_global_dict[k] /= weight_sum
+
+
+
+    # new_global_dict = {}
+
+    # weight_sum = sum(max(x.item(), 0.0) for x in m_t) + 1e-12
+
+    # for k in old_global_dict.keys():
+
+    #     agg_update = torch.zeros_like(old_global_dict[k]).float()
+
+    #     for i in range(num_clients):
+
+    #         w = max(m_t[i].item(), 0.0)
+
+    #         local_theta = local_models[i].state_dict()[k].float()
+
+    #         delta_k = local_theta - old_global_dict[k].float()
+
+    #         agg_update += w * delta_k
+
+    #     agg_update /= weight_sum
+
+    #     new_global_dict[k] = old_global_dict[k].float() + agg_update
+
+          
     global_model.load_state_dict(new_global_dict)
     
 
@@ -171,7 +210,7 @@ def update_local(model, lc_model, train_loader, args, device,  client_idx=0, rou
     w_i= copy.deepcopy(lc_model)
     w = copy.deepcopy(model)
     mu = 0
-    beta = 0.5
+    beta = 0.7
     previous_round_dict= copy.deepcopy(lc_model.state_dict())
     model.train()
     optimizer = get_optimizer(args.client_optim, model, args.base_lr)

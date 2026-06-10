@@ -18,7 +18,8 @@ from torch import nn
 import torch.nn.functional as F
 import copy
 import datetime
-from utils.classification_metrics import evaluate_accuracy       
+from utils.classification_metrics import evaluate_accuracy  
+from attacks.naive import signflip_attack_model,scaling_attack_model,gaussian_attack_model,random_attack_model    
 def get_args(): 
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_name',type=str,default='GAFSEG',help="selection from list:[HSSF,LSSL,local]")
@@ -58,7 +59,17 @@ def get_args():
     # parser.add_argument('--dataset_name',
     #                 type=str,
     #                 default='cifar100') 
-                                                      
+    parser.add_argument(
+        "--attack",
+        type=str,
+        default="none"
+    )
+
+    parser.add_argument(
+        "--num_byzantine",
+        type=int,
+        default=0
+    )                                                  
     
     args = parser.parse_args()
     if args.task == 'classification':
@@ -196,7 +207,22 @@ if __name__ == "__main__":
             local_model = copy.deepcopy(global_model)
             lc_model = copy.deepcopy(clt_models[client_idx])
             local_model = update_local(local_model,  lc_model, train_loaders[client_idx], args, device, client_idx=client_idx, round_idx=round_idx, summary_writer=summary_writer)
-            local_models.append(local_model)
+            
+            #local_models.append(local_model)
+            # if client_idx == 0 and round_idx >= 5:
+
+            #     local_model = signflip_attack_model(
+            #         local_model,
+            #         global_model
+            #     )
+            if client_idx< args.num_byzantine and round_idx >= 5:
+
+                local_model = gaussian_attack_model(
+                    local_model,
+                    global_model
+                )    
+
+            local_models.append(local_model)    
             clt_models[client_idx] = copy.deepcopy(local_model)
             # train_dice_l, _, _, train_iou_l = evaluate_network(
             #     args=args, network=local_model, dataloader=train_loaders[client_idx]
@@ -288,7 +314,13 @@ if __name__ == "__main__":
             f"Round {round_idx+1} "
             f"Test Accuracy={test_acc:.4f}"
                  )    
+            with open("results.txt", "a") as f:
 
+                f.write(
+                    f"Round {round_idx}, "
+                    f"TestAcc={test_acc:.4f}, "
+                    #f"Scores={[x.item() for x in m_t]}\n"
+                )
 
                 
     
