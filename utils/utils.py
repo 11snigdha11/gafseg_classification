@@ -108,99 +108,203 @@ def update_global_fedavg(global_model, local_models, args):
 
     return global_model
 
-def update_global(global_model, local_models,args):
-    global_dict = copy.deepcopy(global_model.state_dict())
-    old_global_dict = copy.deepcopy(global_model.state_dict())
-    delta_dict = copy.deepcopy(global_model.state_dict())
-    num_clients=args.num_clients
-    for k in global_dict.keys():
-        global_dict[k] = torch.mean(
-            torch.stack([local_models[i].state_dict()[k].float() for i in range(len(local_models))]), dim=0
-        )
-    difference_list = []
-    for i in range(num_clients):
-        local_dict = local_models[i].state_dict() 
-        diff_i = {}
-        sum_of_squares = 0.0
-        for k in old_global_dict.keys():
-            difference = local_dict[k].float() - old_global_dict[k].float()
-            sum_of_squares += torch.sum(difference ** 2)
-        l2_norm = torch.sqrt(sum_of_squares)
-        for k in old_global_dict.keys():
-            difference = local_dict[k].float() - old_global_dict[k].float()
-            diff_i[k] = difference / (l2_norm + 1e-12)        
-        difference_list.append(diff_i)
-    delta_dict = {}
-    for k in old_global_dict.keys():
-        delta_dict[k] = torch.zeros_like(old_global_dict[k]).float()
-    total_sum_squares = 0.0
-    for k in old_global_dict.keys():
-        layer_diff = global_dict[k].float() - old_global_dict[k].float()
-        total_sum_squares += torch.sum(layer_diff ** 2)
-    global_l2_norm = torch.sqrt(total_sum_squares)
-    print("global_l2_norm =", global_l2_norm.item())
-    for k in old_global_dict.keys():
-        layer_diff = global_dict[k].float() - old_global_dict[k].float()
-        delta_dict[k] = layer_diff / (global_l2_norm + 1e-12)
-    m_t = []
-    for i in range(num_clients):
-        client_diff = difference_list[i]
-        total_squared_distance = 0.0
-        for k in old_global_dict.keys():
-            layerr_diff = delta_dict[k].float() - client_diff[k].float()
-            total_squared_distance += torch.sum(layerr_diff ** 2)
-        score = 1.0 - (total_squared_distance*0.5)
-        print(score)
-        m_t.append(score)
-    new_global_dict = {}
-    for k in old_global_dict.keys():
-        new_global_dict[k] = torch.zeros_like(old_global_dict[k]).float()
-    for k in old_global_dict.keys():   
-        for i in range(num_clients):
-            client_theta = local_models[i].state_dict()[k].float()
-            new_global_dict[k] += (m_t[i] * client_theta * (1/num_clients))
-    weight_sum = sum(max(x.item(), 0.0) for x in m_t) + 1e-12
+# def update_global(global_model, local_models,args):
+#     global_dict = copy.deepcopy(global_model.state_dict())
+#     old_global_dict = copy.deepcopy(global_model.state_dict())
+#     delta_dict = copy.deepcopy(global_model.state_dict())
+#     num_clients=args.num_clients
+#     for k in global_dict.keys():
+#         global_dict[k] = torch.mean(
+#             torch.stack([local_models[i].state_dict()[k].float() for i in range(len(local_models))]), dim=0
+#         )
+#     difference_list = []
+#     for i in range(num_clients):
+#         local_dict = local_models[i].state_dict() 
+#         diff_i = {}
+#         sum_of_squares = 0.0
+#         for k in old_global_dict.keys():
+#             difference = local_dict[k].float() - old_global_dict[k].float()
+#             sum_of_squares += torch.sum(difference ** 2)
+#         l2_norm = torch.sqrt(sum_of_squares)
+#         for k in old_global_dict.keys():
+#             difference = local_dict[k].float() - old_global_dict[k].float()
+#             diff_i[k] = difference / (l2_norm + 1e-12)        
+#         difference_list.append(diff_i)
+#     delta_dict = {}
+#     for k in old_global_dict.keys():
+#         delta_dict[k] = torch.zeros_like(old_global_dict[k]).float()
+#     total_sum_squares = 0.0
+#     for k in old_global_dict.keys():
+#         layer_diff = global_dict[k].float() - old_global_dict[k].float()
+#         total_sum_squares += torch.sum(layer_diff ** 2)
+#     global_l2_norm = torch.sqrt(total_sum_squares)
+#     print("global_l2_norm =", global_l2_norm.item())
+#     for k in old_global_dict.keys():
+#         layer_diff = global_dict[k].float() - old_global_dict[k].float()
+#         delta_dict[k] = layer_diff / (global_l2_norm + 1e-12)
+#     m_t = []
+#     for i in range(num_clients):
+#         client_diff = difference_list[i]
+#         total_squared_distance = 0.0
+#         for k in old_global_dict.keys():
+#             layerr_diff = delta_dict[k].float() - client_diff[k].float()
+#             total_squared_distance += torch.sum(layerr_diff ** 2)
+#         score = 1.0 - (total_squared_distance*0.5)
+#         print(score)
+#         m_t.append(score)
+#     new_global_dict = {}
+#     for k in old_global_dict.keys():
+#         new_global_dict[k] = torch.zeros_like(old_global_dict[k]).float()
+#     for k in old_global_dict.keys():   
+#         for i in range(num_clients):
+#             client_theta = local_models[i].state_dict()[k].float()
+#             new_global_dict[k] += (m_t[i] * client_theta * (1/num_clients))
+#     weight_sum = sum(max(x.item(), 0.0) for x in m_t) + 1e-12
 
-    # for k in old_global_dict.keys():
+#     # for k in old_global_dict.keys():
 
-    #     for i in range(num_clients):
+#     #     for i in range(num_clients):
 
-    #         w = max(m_t[i].item(), 0.0)
+#     #         w = max(m_t[i].item(), 0.0)
 
-    #         client_theta = local_models[i].state_dict()[k].float()
+#     #         client_theta = local_models[i].state_dict()[k].float()
 
-    #         new_global_dict[k] += w * client_theta
+#     #         new_global_dict[k] += w * client_theta
 
-    #     new_global_dict[k] /= weight_sum
+#     #     new_global_dict[k] /= weight_sum
 
 
 
-    # new_global_dict = {}
+#     # new_global_dict = {}
 
-    # weight_sum = sum(max(x.item(), 0.0) for x in m_t) + 1e-12
+#     # weight_sum = sum(max(x.item(), 0.0) for x in m_t) + 1e-12
 
-    # for k in old_global_dict.keys():
+#     # for k in old_global_dict.keys():
 
-    #     agg_update = torch.zeros_like(old_global_dict[k]).float()
+#     #     agg_update = torch.zeros_like(old_global_dict[k]).float()
 
-    #     for i in range(num_clients):
+#     #     for i in range(num_clients):
 
-    #         w = max(m_t[i].item(), 0.0)
+#     #         w = max(m_t[i].item(), 0.0)
 
-    #         local_theta = local_models[i].state_dict()[k].float()
+#     #         local_theta = local_models[i].state_dict()[k].float()
 
-    #         delta_k = local_theta - old_global_dict[k].float()
+#     #         delta_k = local_theta - old_global_dict[k].float()
 
-    #         agg_update += w * delta_k
+#     #         agg_update += w * delta_k
 
-    #     agg_update /= weight_sum
+#     #     agg_update /= weight_sum
 
-    #     new_global_dict[k] = old_global_dict[k].float() + agg_update
+#     #     new_global_dict[k] = old_global_dict[k].float() + agg_update
 
           
-    global_model.load_state_dict(new_global_dict)
+#     global_model.load_state_dict(new_global_dict)
     
 
+#     return global_model
+
+
+
+
+def update_global(global_model, local_models, args):
+    old_global_dict = copy.deepcopy(global_model.state_dict())
+    num_clients = args.num_clients
+    
+    # Threshold for Norm Bounding (Scaling Attack Defense)
+    # Note: You may need to tune M based on your normal update magnitudes.
+    # An L2 norm of 10.0 to 20.0 is typical for standard ResNet updates.
+    M = 400.0 
+    
+    # ---------------------------------------------------------
+    # Step 1: Extract and Norm-Bound the Updates (Deltas)
+    # ---------------------------------------------------------
+    bounded_updates = []
+    for i in range(num_clients):
+        local_dict = local_models[i].state_dict()
+        delta_k = {}
+        sum_of_squares = 0.0
+        
+        for k in old_global_dict.keys():
+            diff = local_dict[k].float() - old_global_dict[k].float()
+            delta_k[k] = diff
+            sum_of_squares += torch.sum(diff ** 2)
+            
+        l2_norm = torch.sqrt(sum_of_squares)
+        print(l2_norm)
+        
+        # Clip factor: if norm > M, scale down. Else, multiply by 1.0.
+        clip_factor = min(1.0, M / (l2_norm.item() + 1e-12))
+        print(clip_factor)
+        
+        bounded_delta_k = {}
+        for k in old_global_dict.keys():
+            bounded_delta_k[k] = delta_k[k] * clip_factor
+            
+        bounded_updates.append(bounded_delta_k)
+
+    # ---------------------------------------------------------
+    # Step 2: Calculate Reference Direction (using bounded updates)
+    # ---------------------------------------------------------
+    delta_g = {}
+    for k in old_global_dict.keys():
+        delta_g[k] = torch.mean(
+            torch.stack([bounded_updates[i][k] for i in range(num_clients)]), dim=0
+        )
+        
+    total_sum_squares = 0.0
+    for k in old_global_dict.keys():
+        total_sum_squares += torch.sum(delta_g[k] ** 2)
+    global_l2_norm = torch.sqrt(total_sum_squares)
+    
+    # Unit vector of global update (delta_g_tilda)
+    delta_g_tilda = {}
+    for k in old_global_dict.keys():
+        delta_g_tilda[k] = delta_g[k] / (global_l2_norm + 1e-12)
+
+    # ---------------------------------------------------------
+    # Step 3: Calculate Cosine Similarity Scores (m_t)
+    # ---------------------------------------------------------
+    m_t = []
+    for i in range(num_clients):
+        client_delta = bounded_updates[i]
+        
+        # Find L2 norm of the client's bounded update
+        sum_of_squares = 0.0
+        for k in old_global_dict.keys():
+            sum_of_squares += torch.sum(client_delta[k] ** 2)
+        client_l2_norm = torch.sqrt(sum_of_squares)
+        
+        total_squared_distance = 0.0
+        for k in old_global_dict.keys():
+            # Unit vector of client update (delta_k_tilda)
+            delta_k_tilda = client_delta[k] / (client_l2_norm + 1e-12)
+            layerr_diff = delta_g_tilda[k] - delta_k_tilda
+            total_squared_distance += torch.sum(layerr_diff ** 2)
+            
+        # Score calculation (equivalent to Cosine Similarity)
+        score = 1.0 - (total_squared_distance * 0.5)
+        print(f"Client {i} trust score: {score.item():.4f}")
+        m_t.append(score)
+
+    # ---------------------------------------------------------
+    # Step 4: Robust Aggregation (Filter Negatives, Normalize)
+    # ---------------------------------------------------------
+    new_global_dict = {}
+    weight_sum = sum(max(x.item(), 0.0) for x in m_t) + 1e-12
+
+    for k in old_global_dict.keys():
+        agg_update = torch.zeros_like(old_global_dict[k]).float()
+        
+        for i in range(num_clients):
+            w = max(m_t[i].item(), 0.0) # ReLU filter for Sign-Flipping
+            agg_update += w * bounded_updates[i][k]
+            
+        agg_update /= weight_sum # Normalizes weights to prevent decay
+        
+        # Apply the final safe update delta to the old global model
+        new_global_dict[k] = old_global_dict[k].float() + agg_update
+
+    global_model.load_state_dict(new_global_dict)
     return global_model
     
     
