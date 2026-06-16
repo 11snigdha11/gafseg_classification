@@ -162,43 +162,50 @@ def update_global(global_model, local_models,args):
     #     for i in range(num_clients):
     #         client_theta = local_models[i].state_dict()[k].float()
     #         new_global_dict[k] += (m_t[i] * client_theta * (1/num_clients))
-    #weight_sum = sum(max(x.item(), 0.0) for x in m_t) + 1e-12
+    new_global_dict = {}
+    weight_sum = sum(max(x.item(), 0.0) for x in m_t) + 1e-12
+   
+    for k in old_global_dict.keys():
+        new_global_dict[k] = torch.zeros_like(old_global_dict[k]).float()
+
+        for i in range(num_clients):
+
+
+            w = max(m_t[i].item(), 0.0)
+
+            client_theta = local_models[i].state_dict()[k].float()
+
+            new_global_dict[k] += w * client_theta
+
+        new_global_dict[k] /= weight_sum
+          
+    global_model.load_state_dict(new_global_dict)
+    
+
+    return global_model
+
+
+  # new_global_dict = {}
+
+    # weight_sum = sum(max(x.item(), 0.0) for x in m_t) + 1e-12
 
     # for k in old_global_dict.keys():
+
+    #     agg_update = torch.zeros_like(old_global_dict[k]).float()
 
     #     for i in range(num_clients):
 
     #         w = max(m_t[i].item(), 0.0)
 
-    #         client_theta = local_models[i].state_dict()[k].float()
+    #         local_theta = local_models[i].state_dict()[k].float()
 
-    #         new_global_dict[k] += w * client_theta
+    #         delta_k = local_theta - old_global_dict[k].float()
 
-    #     new_global_dict[k] /= weight_sum
+    #         agg_update += w * delta_k
 
+    #     agg_update /= weight_sum
 
-
-    new_global_dict = {}
-
-    weight_sum = sum(max(x.item(), 0.0) for x in m_t) + 1e-12
-
-    for k in old_global_dict.keys():
-
-        agg_update = torch.zeros_like(old_global_dict[k]).float()
-
-        for i in range(num_clients):
-
-            w = max(m_t[i].item(), 0.0)
-
-            local_theta = local_models[i].state_dict()[k].float()
-
-            delta_k = local_theta - old_global_dict[k].float()
-
-            agg_update += w * delta_k
-
-        agg_update /= weight_sum
-
-        new_global_dict[k] = old_global_dict[k].float() + agg_update
+    #     new_global_dict[k] = old_global_dict[k].float() + agg_update
     
 
 
@@ -223,14 +230,6 @@ def update_global(global_model, local_models,args):
     #         client_theta = local_models[i].state_dict()[k].float()
     #         # We multiply by softmax_weights[i] instead of (m_t[i] * (1/num_clients))
             #new_global_dict[k] += (softmax_weights[i].item() * client_theta)
-          
-    global_model.load_state_dict(new_global_dict)
-    
-
-    return global_model
-
-
-
 
 # def update_global(global_model, local_models, args):
 #     old_global_dict = copy.deepcopy(global_model.state_dict())
