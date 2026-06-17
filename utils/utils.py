@@ -162,23 +162,28 @@ def update_global(global_model, local_models,args):
     #     for i in range(num_clients):
     #         client_theta = local_models[i].state_dict()[k].float()
     #         new_global_dict[k] += (m_t[i] * client_theta * (1/num_clients))
+    # 
+    # ---------------------------------------------------------
+    # NEW: Apply Softmax to the raw similarity scores
+    # ---------------------------------------------------------
+    scores_tensor = torch.tensor([x.item() if torch.is_tensor(x) else x for x in m_t])
+    softmax_weights = F.softmax(scores_tensor, dim=0)
+    
+    for i in range(num_clients):
+        print(f"Client {i} Softmax weight: {softmax_weights[i].item():.4f}")
+
     new_global_dict = {}
-    weight_sum = sum(max(x.item(), 0.0) for x in m_t) + 1e-12
-   
     for k in old_global_dict.keys():
         new_global_dict[k] = torch.zeros_like(old_global_dict[k]).float()
-
+        
+    # ---------------------------------------------------------
+    # NEW: Aggregation using Softmax weights (No 1/K division)
+    # ---------------------------------------------------------
+    for k in old_global_dict.keys():   
         for i in range(num_clients):
-
-
-            w = max(m_t[i].item(), 0.0)
-
             client_theta = local_models[i].state_dict()[k].float()
-
-            new_global_dict[k] += w * client_theta
-
-        new_global_dict[k] /= weight_sum
-          
+            # We multiply by softmax_weights[i] instead of (m_t[i] * (1/num_clients))
+            new_global_dict[k] += (softmax_weights[i].item() * client_theta)
     global_model.load_state_dict(new_global_dict)
     
 
