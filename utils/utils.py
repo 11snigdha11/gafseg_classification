@@ -345,8 +345,9 @@ def update_global(global_model, local_models, args):
     # ---------------------------------------------------------
     # 1. FILTER: Identify only trainable weights for scoring
     # ---------------------------------------------------------
-    valid_keys = [k for k in old_global_dict.keys() if 'running' not in k and 'num_batches_tracked' not in k]
-
+    #valid_keys = [k for k in old_global_dict.keys() if 'running' not in k and 'num_batches_tracked' not in k]
+    # This looks ONLY at the pure signal in the final classification head
+    valid_keys = [k for k in old_global_dict.keys() if 'fc.weight' in k or 'fc.bias' in k]
     # Calculate the mean update ONLY for valid keys to serve as the reference direction
     global_dict_mean = {}
     for k in valid_keys:
