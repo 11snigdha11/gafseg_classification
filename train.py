@@ -30,15 +30,15 @@ def get_args():
     parser.add_argument('--localEpoch', type=int, default=1)
     parser.add_argument('--lrf', type=float, default=1e-4)
     parser.add_argument('--num_workers', type=int, default=8)
-    parser.add_argument('--num_classes', type=int, default=2)
+    parser.add_argument('--num_classes', type=int, default=100)
     parser.add_argument('--num_clients', type=int, default=5)
-    parser.add_argument('--global_name', type=str, default='resnet50',help='[resnet152,resnet34,resnet50,resnet101,xception,mobilenetv2,vgg,pvt]')
+    parser.add_argument('--global_name', type=str, default='resnet18',help='[resnet152,resnet34,resnet50,resnet101,xception,mobilenetv2,vgg,pvt]')
     parser.add_argument('--global_optim', type=str, default='adamw',help='[adam,sgd,adamw]')
     parser.add_argument('--client_optim', type=str, default='adamw',help='[adam,sgd,adamw]')
     parser.add_argument('--clients_model', type=list, default=['resnet50','resnet50','resnet50','resnet50', 'resnet50'],help='[resnet34,xception,mobilenetv2,vgg,pvt]')
-    parser.add_argument('--batch_size', type=int, default=4)
+    parser.add_argument('--batch_size', type=int, default=64)
     parser.add_argument('--seed', type=int, default=42)
-    parser.add_argument('--base_lr', type=float, default=1e-4) 
+    parser.add_argument('--base_lr', type=float, default=0.001) 
     parser.add_argument('--shape', type=tuple, default=384)
     parser.add_argument('--train_val_test', type=tuple, default=(0.8,0.1,0.1))
     parser.add_argument('--device',type=str,default='0',help="device id")
@@ -54,7 +54,7 @@ def get_args():
                         help='path to log')
     parser.add_argument('--task',
                     type=str,
-                    default='segmentation',
+                    default='classification',
                     choices=['segmentation','classification'])
     # parser.add_argument('--dataset_name',
     #                 type=str,
