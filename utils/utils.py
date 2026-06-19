@@ -424,7 +424,7 @@ def update_local(model, lc_model, train_loader, args, device,  client_idx=0, rou
         p.requires_grad = False
     w_i= copy.deepcopy(lc_model)
     w = copy.deepcopy(model)
-    mu = 0
+    mu = 0.5
     beta = 0.9
     previous_round_dict= copy.deepcopy(lc_model.state_dict())
     model.train()
@@ -484,12 +484,10 @@ def update_local(model, lc_model, train_loader, args, device,  client_idx=0, rou
                 if epoch == 0 and step_count < 10:
                     print("loss =", loss.item())
             prox_term = 0
-            for p_prev, p in zip(w_i.parameters(), model.parameters()):
-
-
-
-                prox_term += torch.sum((p_prev - p) ** 2)
-            total_loss= loss+ ((mu/2)*prox_term)
+            for p_global, p_local in zip(w.parameters(), model.parameters()):
+                prox_term += torch.sum((p_global - p_local) ** 2)
+                
+            total_loss = loss + ((mu/2)*prox_term)
             if summary_writer is not None:
                 global_step = round_idx * (args.localEpoch * max(1, len(train_loader))) + step_count
                 summary_writer.add_scalar(f"Client{client_idx}/Train_Loss", loss.item(), global_step)
