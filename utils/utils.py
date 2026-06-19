@@ -338,68 +338,158 @@ def update_global_fedavg(global_model, local_models, args):
 #     return global_model
 
 
+# def update_global(global_model, local_models, args):
+#     old_global_dict = copy.deepcopy(global_model.state_dict())
+#     num_clients = args.num_clients
+    
+#     # ---------------------------------------------------------
+#     # 1. FILTER: Identify only trainable weights for scoring
+#     # ---------------------------------------------------------
+#     #valid_keys = [k for k in old_global_dict.keys() if 'running' not in k and 'num_batches_tracked' not in k]
+#     # This looks ONLY at the pure signal in the final classification head
+#     valid_keys = [k for k in old_global_dict.keys() if 'fc.weight' in k or 'fc.bias' in k]
+#     # Calculate the mean update ONLY for valid keys to serve as the reference direction
+#     global_dict_mean = {}
+#     for k in valid_keys:
+#         global_dict_mean[k] = torch.mean(
+#             torch.stack([local_models[i].state_dict()[k].float() for i in range(num_clients)]), dim=0
+#         )
+
+#     # ---------------------------------------------------------
+#     # 2. SCORE: Calculate similarity ignoring BatchNorms
+#     # ---------------------------------------------------------
+#     difference_list = []
+#     for i in range(num_clients):
+#         local_dict = local_models[i].state_dict() 
+#         diff_i = {}
+#         sum_of_squares = 0.0
+        
+#         # L2 Norm ONLY on trainable weights
+#         for k in valid_keys:
+#             difference = local_dict[k].float() - old_global_dict[k].float()
+#             sum_of_squares += torch.sum(difference ** 2)
+#         l2_norm = torch.sqrt(sum_of_squares)
+        
+#         for k in valid_keys:
+#             difference = local_dict[k].float() - old_global_dict[k].float()
+#             diff_i[k] = difference / (l2_norm + 1e-12)        
+#         difference_list.append(diff_i)
+
+#     delta_dict = {}
+#     total_sum_squares = 0.0
+#     for k in valid_keys:
+#         layer_diff = global_dict_mean[k].float() - old_global_dict[k].float()
+#         total_sum_squares += torch.sum(layer_diff ** 2)
+#     global_l2_norm = torch.sqrt(total_sum_squares)
+    
+#     for k in valid_keys:
+#         layer_diff = global_dict_mean[k].float() - old_global_dict[k].float()
+#         delta_dict[k] = layer_diff / (global_l2_norm + 1e-12)
+
+#     m_t = []
+#     for i in range(num_clients):
+#         client_diff = difference_list[i]
+#         total_squared_distance = 0.0
+#         # Distance ONLY on trainable weights
+#         for k in valid_keys:
+#             layerr_diff = delta_dict[k].float() - client_diff[k].float()
+#             total_squared_distance += torch.sum(layerr_diff ** 2)
+#         score = 1.0 - (total_squared_distance * 0.5)
+#         print(f"Client {i} Raw Score: {score.item():.4f}")
+#         m_t.append(score)
+
+#     # ---------------------------------------------------------
+#     # 3. DEFEND: Apply Softmax to raw similarity scores
+#     # ---------------------------------------------------------
+#     scores_tensor = torch.tensor([x.item() if torch.is_tensor(x) else x for x in m_t])
+#     softmax_weights = F.softmax(scores_tensor, dim=0)
+    
+#     for i in range(num_clients):
+#         print(f"Client {i} Softmax weight: {softmax_weights[i].item():.4f}")
+
+#     # ---------------------------------------------------------
+#     # 4. AGGREGATE: Update ALL layers safely (including buffers)
+#     # ---------------------------------------------------------
+#     new_global_dict = {}
+#     for k in old_global_dict.keys(): # <--- Notice we iterate over ALL keys here!
+#         new_global_dict[k] = torch.zeros_like(old_global_dict[k]).float()
+#         for i in range(num_clients):
+#             client_theta = local_models[i].state_dict()[k].float()
+#             new_global_dict[k] += (softmax_weights[i].item() * client_theta)
+            
+#     global_model.load_state_dict(new_global_dict)
+#     return global_model    
+
+
 def update_global(global_model, local_models, args):
     old_global_dict = copy.deepcopy(global_model.state_dict())
     num_clients = args.num_clients
     
     # ---------------------------------------------------------
-    # 1. FILTER: Identify only trainable weights for scoring
+    # 1. FILTER: Only look at the pure classification signal
     # ---------------------------------------------------------
-    #valid_keys = [k for k in old_global_dict.keys() if 'running' not in k and 'num_batches_tracked' not in k]
-    # This looks ONLY at the pure signal in the final classification head
+    # ResNet uses 'fc' for the final layer. If your model uses a different name 
+    # (like 'classifier'), change 'fc' to match your architecture.
     valid_keys = [k for k in old_global_dict.keys() if 'fc.weight' in k or 'fc.bias' in k]
-    # Calculate the mean update ONLY for valid keys to serve as the reference direction
-    global_dict_mean = {}
-    for k in valid_keys:
-        global_dict_mean[k] = torch.mean(
-            torch.stack([local_models[i].state_dict()[k].float() for i in range(num_clients)]), dim=0
-        )
-
-    # ---------------------------------------------------------
-    # 2. SCORE: Calculate similarity ignoring BatchNorms
-    # ---------------------------------------------------------
-    difference_list = []
-    for i in range(num_clients):
-        local_dict = local_models[i].state_dict() 
-        diff_i = {}
-        sum_of_squares = 0.0
-        
-        # L2 Norm ONLY on trainable weights
-        for k in valid_keys:
-            difference = local_dict[k].float() - old_global_dict[k].float()
-            sum_of_squares += torch.sum(difference ** 2)
-        l2_norm = torch.sqrt(sum_of_squares)
-        
-        for k in valid_keys:
-            difference = local_dict[k].float() - old_global_dict[k].float()
-            diff_i[k] = difference / (l2_norm + 1e-12)        
-        difference_list.append(diff_i)
-
-    delta_dict = {}
-    total_sum_squares = 0.0
-    for k in valid_keys:
-        layer_diff = global_dict_mean[k].float() - old_global_dict[k].float()
-        total_sum_squares += torch.sum(layer_diff ** 2)
-    global_l2_norm = torch.sqrt(total_sum_squares)
     
-    for k in valid_keys:
-        layer_diff = global_dict_mean[k].float() - old_global_dict[k].float()
-        delta_dict[k] = layer_diff / (global_l2_norm + 1e-12)
+    # Fallback just in case 'fc' isn't found
+    if len(valid_keys) == 0:
+        valid_keys = [k for k in old_global_dict.keys() if 'running' not in k and 'num_batches_tracked' not in k]
 
+    # ---------------------------------------------------------
+    # 2. EXTRACT & NORMALIZE UPDATES (The Norm-Bounding Fix)
+    # ---------------------------------------------------------
+    normalized_updates = []
+    
+    for i in range(num_clients):
+        local_dict = local_models[i].state_dict()
+        update_i = {}
+        sq_sum = 0.0
+        
+        for k in valid_keys:
+            diff = local_dict[k].float() - old_global_dict[k].float()
+            update_i[k] = diff
+            sq_sum += torch.sum(diff ** 2)
+            
+        # Calculate L2 Norm of the client's update
+        norm = torch.sqrt(sq_sum) + 1e-12
+        
+        # Save the vector mathematically restricted to a length of exactly 1.0
+        normalized_updates.append({k: update_i[k] / norm for k in valid_keys})
+
+    # ---------------------------------------------------------
+    # 3. CALCULATE PURE REFERENCE MEAN 
+    # ---------------------------------------------------------
+    # Because all vectors are length 1.0, the 4 honest clients easily overpower the 1 attacker
+    reference_mean = {}
+    for k in valid_keys:
+        reference_mean[k] = torch.mean(
+            torch.stack([normalized_updates[i][k] for i in range(num_clients)]), dim=0
+        )
+        
+    # ---------------------------------------------------------
+    # 4. CALCULATE TRUE COSINE SIMILARITY
+    # ---------------------------------------------------------
     m_t = []
     for i in range(num_clients):
-        client_diff = difference_list[i]
-        total_squared_distance = 0.0
-        # Distance ONLY on trainable weights
+        dot_product = 0.0
+        ref_sq_sum = 0.0
+        
         for k in valid_keys:
-            layerr_diff = delta_dict[k].float() - client_diff[k].float()
-            total_squared_distance += torch.sum(layerr_diff ** 2)
-        score = 1.0 - (total_squared_distance * 0.5)
+            # Cosine similarity formula components
+            dot_product += torch.sum(normalized_updates[i][k] * reference_mean[k])
+            ref_sq_sum += torch.sum(reference_mean[k] ** 2)
+            
+        ref_norm = torch.sqrt(ref_sq_sum) + 1e-12
+        
+        # We don't need to divide by the client's norm because we already forced it to 1.0
+        score = dot_product / ref_norm 
+        
         print(f"Client {i} Raw Score: {score.item():.4f}")
         m_t.append(score)
 
     # ---------------------------------------------------------
-    # 3. DEFEND: Apply Softmax to raw similarity scores
+    # 5. DEFEND: Apply Softmax to raw similarity scores
     # ---------------------------------------------------------
     scores_tensor = torch.tensor([x.item() if torch.is_tensor(x) else x for x in m_t])
     softmax_weights = F.softmax(scores_tensor, dim=0)
@@ -408,18 +498,19 @@ def update_global(global_model, local_models, args):
         print(f"Client {i} Softmax weight: {softmax_weights[i].item():.4f}")
 
     # ---------------------------------------------------------
-    # 4. AGGREGATE: Update ALL layers safely (including buffers)
+    # 6. AGGREGATE: Update ALL layers safely (including buffers)
     # ---------------------------------------------------------
     new_global_dict = {}
-    for k in old_global_dict.keys(): # <--- Notice we iterate over ALL keys here!
+    for k in old_global_dict.keys(): # <--- Notice we iterate over ALL keys here
         new_global_dict[k] = torch.zeros_like(old_global_dict[k]).float()
+        
         for i in range(num_clients):
             client_theta = local_models[i].state_dict()[k].float()
             new_global_dict[k] += (softmax_weights[i].item() * client_theta)
             
     global_model.load_state_dict(new_global_dict)
-    return global_model    
     
+    return global_model    
 def update_local(model, lc_model, train_loader, args, device,  client_idx=0, round_idx=0, summary_writer=None):
     for p in lc_model.parameters():
         p.requires_grad = False
