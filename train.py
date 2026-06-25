@@ -19,7 +19,8 @@ import torch.nn.functional as F
 import copy
 import datetime
 from utils.classification_metrics import evaluate_accuracy  
-from attacks.naive import signflip_attack_model,scaling_attack_model,gaussian_attack_model,random_attack_model    
+from attacks.naive import signflip_attack_model,scaling_attack_model,additive_gaussian_attack_model,random_attack_model,orthogonal_noise_attack_model
+from attacks.adaptive import lie_attack, min_max_attack, min_sum_attack    
 def get_args(): 
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_name',type=str,default='GAFSEG',help="selection from list:[HSSF,LSSL,local]")
@@ -196,37 +197,82 @@ if __name__ == "__main__":
     for round_idx in range(args.CommunicationEpoch):
         print(f"\n========== Round [{round_idx+1}/{args.CommunicationEpoch}] ==========")
         logging.info(f"\n========== Round [{round_idx+1}/{args.CommunicationEpoch}] ==========")
-        local_models = []
-        
 
-    # ----- LOCAL TRAINING -----
+
+    #     local_models = []
+    # # ----- LOCAL TRAINING -----
+    #     for client_idx in range(args.num_clients):
+
+    #         print(f"\n Client {client_idx+1}/{args.num_clients}")
+    #         logging.info(f"\n Client {client_idx+1}/{args.num_clients}")
+    #         local_model = copy.deepcopy(global_model)
+    #         lc_model = copy.deepcopy(clt_models[client_idx])
+    #         local_model = update_local(local_model,  lc_model, train_loaders[client_idx], args, device, client_idx=client_idx, round_idx=round_idx, summary_writer=summary_writer)
+            
+    #         if client_idx < args.num_byzantine and round_idx >= 5:
+    #             if args.attack == "signflip":
+    #                 local_model = signflip_attack_model(local_model, global_model)
+    #             elif args.attack == "scaling":
+    #                 local_model = scaling_attack_model(local_model, global_model, factor=20)
+    #             elif args.attack == "gaussian":
+    #                 local_model = additive_gaussian_attack_model(local_model, global_model, sigma=0.1)
+    #             elif args.attack == "random":
+    #                 local_model = random_attack_model(local_model, global_model)
+    #             elif args.attack == "orthogonal_gaussian":
+    #                 local_model = orthogonal_noise_attack_model(local_model, global_model)    
+
+    #         local_models.append(local_model)    
+    #         clt_models[client_idx] = copy.deepcopy(local_model)
+    
+        local_models = []
+        # ----- LOCAL TRAINING -----
         for client_idx in range(args.num_clients):
 
             print(f"\n Client {client_idx+1}/{args.num_clients}")
             logging.info(f"\n Client {client_idx+1}/{args.num_clients}")
             local_model = copy.deepcopy(global_model)
             lc_model = copy.deepcopy(clt_models[client_idx])
-            local_model = update_local(local_model,  lc_model, train_loaders[client_idx], args, device, client_idx=client_idx, round_idx=round_idx, summary_writer=summary_writer)
+            local_model = update_local(local_model, lc_model, train_loaders[client_idx], args, device, client_idx=client_idx, round_idx=round_idx, summary_writer=summary_writer)
             
-            #local_models.append(local_model)
-            # if client_idx == 0 and round_idx >= 5:
-
-            #     local_model = signflip_attack_model(
-            #         local_model,
-            #         global_model
-            #     )
-           # Apply Byzantine Attacks starting at Round 5
-            if client_idx < args.num_byzantine and round_idx >= 5:
+            # Apply NAIVE Byzantine Attacks (Independent)
+            if client_idx < args.num_byzantine and round_idx >= 5 and args.attack not in ["lie", "min_max", "min_sum"]:
                 if args.attack == "signflip":
                     local_model = signflip_attack_model(local_model, global_model)
                 elif args.attack == "scaling":
                     local_model = scaling_attack_model(local_model, global_model, factor=20)
                 elif args.attack == "gaussian":
-                    local_model = gaussian_attack_model(local_model, global_model, sigma=0.1)
+                    local_model = additive_gaussian_attack_model(local_model, global_model, sigma=0.1)
                 elif args.attack == "random":
                     local_model = random_attack_model(local_model, global_model)
+                elif args.attack == "orthogonal_gaussian":
+                    local_model = orthogonal_noise_attack_model(local_model, global_model)    
+
             local_models.append(local_model)    
             clt_models[client_idx] = copy.deepcopy(local_model)
+
+            # --- YOUR EVALUATION CODE (train_acc, summary_writer, etc.) REMAINS HERE ---
+
+        # ----- ADAPTIVE OMNISCIENT ATTACKS (Coordinated) -----
+        # This runs after the loop, using the honest updates to craft the perfect malicious model
+        if args.num_byzantine > 0 and round_idx >= 5 and args.attack in ["lie", "min_max", "min_sum"]:
+            print(f"\n [!] Executing Adaptive Attack: {args.attack}")
+            
+            # Extract only the honest models (assuming first 'num_byzantine' are attackers)
+            honest_models = local_models[args.num_byzantine:]
+            
+            # Calculate the mathematically perfect malicious model
+            if args.attack == "lie":
+                malicious_model = lie_attack(honest_models, global_model, z=1.5)
+            elif args.attack == "min_max":
+                malicious_model = min_max_attack(honest_models, global_model)
+            elif args.attack == "min_sum":
+                malicious_model = min_sum_attack(honest_models, global_model)
+                
+            # Overwrite the attacker models with the crafted omniscient vector
+            for b_idx in range(args.num_byzantine):
+                local_models[b_idx] = copy.deepcopy(malicious_model)
+                clt_models[b_idx] = copy.deepcopy(malicious_model)
+
             # train_dice_l, _, _, train_iou_l = evaluate_network(
             #     args=args, network=local_model, dataloader=train_loaders[client_idx]
             # )
