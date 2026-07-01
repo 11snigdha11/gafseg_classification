@@ -406,7 +406,22 @@ def update_global(global_model, local_models, args):
     
     for i in range(num_clients):
         print(f"Client {i} Softmax weight: {softmax_weights[i].item():.4f}")
+    update_norms = []
 
+    for i in range(num_clients):
+
+        norm = 0.0
+
+        for k in valid_keys:
+
+            diff = (
+                local_models[i].state_dict()[k].float()
+                - old_global_dict[k].float()
+            )
+
+            norm += torch.sum(diff ** 2)
+
+        update_norms.append(torch.sqrt(norm).item())
     # ---------------------------------------------------------
     # 4. AGGREGATE: Update ALL layers safely (including buffers)
     # ---------------------------------------------------------
@@ -418,7 +433,16 @@ def update_global(global_model, local_models, args):
             new_global_dict[k] += (softmax_weights[i].item() * client_theta)
             
     global_model.load_state_dict(new_global_dict)
-    return global_model    
+
+   # Store statistics for experiment logging
+    raw_scores = [
+        score.item() if torch.is_tensor(score) else float(score)
+        for score in m_t
+    ]
+
+    softmax_scores = softmax_weights.cpu().tolist()
+
+    return global_model, raw_scores, softmax_scores,update_norms  
 
 
 # def update_global(global_model, local_models, args):

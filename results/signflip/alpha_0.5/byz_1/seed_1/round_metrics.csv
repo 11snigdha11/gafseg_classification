@@ -1,0 +1,6 @@
+round,attack,seed,alpha,num_byzantine,test_accuracy
+1,signflip,1,0.5,1,0.0105
+2,signflip,1,0.5,1,0.0177
+3,signflip,1,0.5,1,0.0416
+4,signflip,1,0.5,1,0.0605
+5,signflip,1,0.5,1,0.0786

@@ -1,0 +1,6 @@
+round,attack,seed,alpha,num_byzantine,test_accuracy
+1,lie,1,0.5,1,0.0105
+2,lie,1,0.5,1,0.0177
+3,lie,1,0.5,1,0.0422
+4,lie,1,0.5,1,0.0533
+5,lie,1,0.5,1,0.077

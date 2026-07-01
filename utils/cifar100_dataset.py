@@ -5,7 +5,7 @@ from torch.utils.data import DataLoader, Subset
 from torchvision import datasets, transforms
 import numpy as np
 
-def dirichlet_split_noniid(labels, n_clients, alpha=10):
+def dirichlet_split_noniid(labels, n_clients,dirichlet_alpha):
 
     n_classes = np.max(labels) + 1
 
@@ -18,7 +18,7 @@ def dirichlet_split_noniid(labels, n_clients, alpha=10):
         np.random.shuffle(idx_c)
 
         proportions = np.random.dirichlet(
-            alpha=np.ones(n_clients) * alpha
+            np.ones(n_clients) * dirichlet_alpha
         )
 
         proportions = (
@@ -73,7 +73,7 @@ def get_cifar100_loaders(args):
     client_indices = dirichlet_split_noniid(
         labels,
         args.num_clients,
-        alpha=10
+        args.dirichlet_alpha
     )
 
     train_loaders = []

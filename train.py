@@ -70,7 +70,26 @@ def get_args():
         "--num_byzantine",
         type=int,
         default=0
-    )                                                  
+    ) 
+    parser.add_argument(
+    "--dirichlet_alpha",
+    type=float,
+    default=0.5,
+    help="Dirichlet concentration parameter"
+    )
+    parser.add_argument(
+    "--beta",
+    type=float,
+    default=0.9,
+    help="EMA coefficient for GAFSeg"   
+    )
+
+    parser.add_argument(
+        "--mu",
+        type=float,
+        default=0.5,
+        help="FedProx coefficient"
+    )                                             
     
     args = parser.parse_args()
     if args.task == 'classification':
@@ -83,8 +102,12 @@ def get_args():
 
     elif args.data == 'isic':
         args.datasets = ['D1', 'D2', 'D3', 'D4', 'D5']
+
+
+
     return args    
         
+
 def set_seed(seed):
     random.seed(seed)
     np.random.seed(seed)
@@ -94,9 +117,8 @@ def set_seed(seed):
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
     os.environ['PYTHONHASHSEED'] = str(seed)  
-    
-if __name__ == "__main__":
-    args = get_args()
+def train(args):    
+
     set_seed(args.seed)
     
     exp_name = args.model_name+'-'+args.data+'-'+'-'+args.ver+'-'+str(args.base_lr)+str(args.global_name)+str(args.clients_model)
@@ -107,7 +129,17 @@ if __name__ == "__main__":
     os.makedirs(args.model_dir,exist_ok=True)
     nowtime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     summary_writer = SummaryWriter(args.log_dir)
-    logging.basicConfig(filename=os.path.join(args.log_dir,'train.log'),format='[%(asctime)s-%(filename)s-%(levelname)s:%(message)s]',level=logging.INFO,filemode='a',datefmt='%Y-%m-%d %I:%M:%S %p')
+    # Remove old handlers (important for batch experiments)
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
+
+    logging.basicConfig(
+        filename=os.path.join(args.log_dir, "train.log"),
+        format='[%(asctime)s-%(filename)s-%(levelname)s:%(message)s]',
+        level=logging.INFO,
+        filemode="w",
+        datefmt='%Y-%m-%d %I:%M:%S %p'
+    )
     logging.info('Hyperparameter setting{}'.format(args))
     print('Hyperparameter setting{}'.format(args))
     os.environ['CUDA_VISIBLE_DEVICES'] = args.device
@@ -194,35 +226,16 @@ if __name__ == "__main__":
     # -------------------------------
     #   COMMUNICATION ROUNDS
     # -------------------------------
+    history = {
+    "round_metrics": [],
+    "client_scores": [],
+    "client_accuracy": []
+    }
     for round_idx in range(args.CommunicationEpoch):
         print(f"\n========== Round [{round_idx+1}/{args.CommunicationEpoch}] ==========")
         logging.info(f"\n========== Round [{round_idx+1}/{args.CommunicationEpoch}] ==========")
 
 
-    #     local_models = []
-    # # ----- LOCAL TRAINING -----
-    #     for client_idx in range(args.num_clients):
-
-    #         print(f"\n Client {client_idx+1}/{args.num_clients}")
-    #         logging.info(f"\n Client {client_idx+1}/{args.num_clients}")
-    #         local_model = copy.deepcopy(global_model)
-    #         lc_model = copy.deepcopy(clt_models[client_idx])
-    #         local_model = update_local(local_model,  lc_model, train_loaders[client_idx], args, device, client_idx=client_idx, round_idx=round_idx, summary_writer=summary_writer)
-            
-    #         if client_idx < args.num_byzantine and round_idx >= 5:
-    #             if args.attack == "signflip":
-    #                 local_model = signflip_attack_model(local_model, global_model)
-    #             elif args.attack == "scaling":
-    #                 local_model = scaling_attack_model(local_model, global_model, factor=20)
-    #             elif args.attack == "gaussian":
-    #                 local_model = additive_gaussian_attack_model(local_model, global_model, sigma=0.1)
-    #             elif args.attack == "random":
-    #                 local_model = random_attack_model(local_model, global_model)
-    #             elif args.attack == "orthogonal_gaussian":
-    #                 local_model = orthogonal_noise_attack_model(local_model, global_model)    
-
-    #         local_models.append(local_model)    
-    #         clt_models[client_idx] = copy.deepcopy(local_model)
     
         local_models = []
         # ----- LOCAL TRAINING -----
@@ -255,83 +268,91 @@ if __name__ == "__main__":
         # ----- ADAPTIVE OMNISCIENT ATTACKS (Coordinated) -----
         # This runs after the loop, using the honest updates to craft the perfect malicious model
         if args.num_byzantine > 0 and round_idx >= 5 and args.attack in ["lie", "min_max", "min_sum"]:
+
+
             print(f"\n [!] Executing Adaptive Attack: {args.attack}")
-            
-            # Extract only the honest models (assuming first 'num_byzantine' are attackers)
+                
+                # Extract only the honest models (assuming first 'num_byzantine' are attackers)
             honest_models = local_models[args.num_byzantine:]
-            
-            # Calculate the mathematically perfect malicious model
+                
+                # Calculate the mathematically perfect malicious model
             if args.attack == "lie":
-                malicious_model = lie_attack(honest_models, global_model, z=1.5)
+                malicious_model = lie_attack(honest_models, global_model, args.num_clients,
+                args.num_byzantine)
             elif args.attack == "min_max":
                 malicious_model = min_max_attack(honest_models, global_model)
             elif args.attack == "min_sum":
                 malicious_model = min_sum_attack(honest_models, global_model)
-                
-            # Overwrite the attacker models with the crafted omniscient vector
+                    
+                # Overwrite the attacker models with the crafted omniscient vector
             for b_idx in range(args.num_byzantine):
                 local_models[b_idx] = copy.deepcopy(malicious_model)
                 clt_models[b_idx] = copy.deepcopy(malicious_model)
 
-            # train_dice_l, _, _, train_iou_l = evaluate_network(
-            #     args=args, network=local_model, dataloader=train_loaders[client_idx]
-            # )
-            # val_dice_l, _, _, val_iou_l = evaluate_network(
-            #     args=args, network=local_model, dataloader=val_loaders[client_idx]
-            # )
-            if args.task == "segmentation":
+                # train_dice_l, _, _, train_iou_l = evaluate_network(
+                #     args=args, network=local_model, dataloader=train_loaders[client_idx]
+                # )
+                # val_dice_l, _, _, val_iou_l = evaluate_network(
+                #     args=args, network=local_model, dataloader=val_loaders[client_idx]
+                # )  
 
 
-                train_dice_l, _, _, train_iou_l = evaluate_network(
-                    args=args,
-                    network=local_model,
-                    dataloader=train_loaders[client_idx]
-                )
+        if args.task == "segmentation":
 
-                val_dice_l, _, _, val_iou_l = evaluate_network(
-                    args=args,
-                    network=local_model,
-                    dataloader=val_loaders[client_idx]
-                )
 
-                print(f"  Local Model -> Train: Dice={train_dice_l:.4f}, IoU={train_iou_l:.4f}")
+            
 
-                summary_writer.add_scalar(
-                    f"Client{client_idx}/Train_Dice",
-                    train_dice_l,
-                    round_idx
-                )
 
-                summary_writer.add_scalar(
-                    f"Client{client_idx}/Train_IoU",
-                    train_iou_l,
-                    round_idx
-                )
+            train_dice_l, _, _, train_iou_l = evaluate_network(
+                args=args,
+                network=local_model,
+                dataloader=train_loaders[client_idx]
+            )
 
-                summary_writer.add_scalar(
-                    f"Client{client_idx}/Val_Dice",
-                    val_dice_l,
-                    round_idx
-                )
+            val_dice_l, _, _, val_iou_l = evaluate_network(
+                args=args,
+                network=local_model,
+                dataloader=val_loaders[client_idx]
+            )
 
-                summary_writer.add_scalar(
-                    f"Client{client_idx}/Val_IoU",
-                    val_iou_l,
-                    round_idx
-                )
+            print(f"  Local Model -> Train: Dice={train_dice_l:.4f}, IoU={train_iou_l:.4f}")
 
-                logging.info(
-                    f"Local Model -> Train: Dice={train_dice_l:.4f}, IoU={train_iou_l:.4f}"
-                )
+            summary_writer.add_scalar(
+                f"Client{client_idx}/Train_Dice",
+                train_dice_l,
+                round_idx
+            )
 
-                print(
-                    f"Val: Dice={val_dice_l:.4f}, IoU={val_iou_l:.4f}"
-                )
+            summary_writer.add_scalar(
+                f"Client{client_idx}/Train_IoU",
+                train_iou_l,
+                round_idx
+            )
 
-            else:
+            summary_writer.add_scalar(
+                f"Client{client_idx}/Val_Dice",
+                val_dice_l,
+                round_idx
+            )
 
+            summary_writer.add_scalar(
+                f"Client{client_idx}/Val_IoU",
+                val_iou_l,
+                round_idx
+            )
+
+            logging.info(
+                f"Local Model -> Train: Dice={train_dice_l:.4f}, IoU={train_iou_l:.4f}"
+            )
+
+            print(
+                f"Val: Dice={val_dice_l:.4f}, IoU={val_iou_l:.4f}"
+            )
+
+        else:
+            for client_idx in range(args.num_clients):
                 train_acc = evaluate_accuracy(
-                    local_model,
+                    local_models[client_idx],
                     train_loaders[client_idx],
                     device
                 )
@@ -339,6 +360,23 @@ if __name__ == "__main__":
                 print(
                     f"Client {client_idx} Train Acc={train_acc:.4f}"
                 )
+                history["client_accuracy"].append({
+
+                "round": round_idx + 1,
+
+                "client": client_idx,
+
+                "attack": args.attack,
+
+                "seed": args.seed,
+
+                "alpha": args.dirichlet_alpha,
+
+                "num_byzantine": args.num_byzantine,
+
+                "train_accuracy": float(train_acc)
+
+                })
 
                 summary_writer.add_scalar(
                     f"Client{client_idx}/Train_Acc",
@@ -348,11 +386,35 @@ if __name__ == "__main__":
 
                 logging.info(
                     f"Client {client_idx} Train Acc={train_acc:.4f}"
-                )
+                )      
 
-        global_model = update_global(global_model, local_models, args)
+        global_model,raw_scores, softmax_score,update_norms = update_global(global_model, local_models, args)
+        for i in range(args.num_clients):
 
+
+            history["client_scores"].append({
+            "round": round_idx + 1,
+
+            "client": i,
+
+            "attack": args.attack,
+
+            "seed": args.seed,
+
+            "alpha": args.dirichlet_alpha,
+
+            "num_byzantine": args.num_byzantine,
+
+            "raw_score": raw_scores[i],
+
+            "softmax_weight": softmax_score[i],
+
+            "update_norm": update_norms[i]
+            })
         if args.task == "classification":
+
+
+            
             test_acc = evaluate_accuracy(
                     global_model,
                     test_loader,
@@ -362,15 +424,22 @@ if __name__ == "__main__":
             print(
             f"Round {round_idx+1} "
             f"Test Accuracy={test_acc:.4f}"
-                 )    
-            with open("results.txt", "a") as f:
+                ) 
+            history["round_metrics"].append({
 
-                f.write(
-                    f"Round {round_idx}, "
-                    f"TestAcc={test_acc:.4f}, "
-                    #f"Scores={[x.item() for x in m_t]}\n"
-                )
+            "round": round_idx + 1,
 
+            "attack": args.attack,
+
+            "seed": args.seed,
+
+            "alpha": args.dirichlet_alpha,
+
+            "num_byzantine": args.num_byzantine,
+
+            "test_accuracy": float(test_acc)
+            })        
+           
                 
     
         global_model = global_model.to(device)
@@ -400,7 +469,14 @@ if __name__ == "__main__":
                     )
 
                 print("Saved final round global and client models")
+   
+
+    return history     
 
 
 
-                
+if __name__ == "__main__":
+
+    args = get_args()
+
+    train(args)                
