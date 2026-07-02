@@ -1,0 +1,46 @@
+{
+    "model_name": "GAFSEG",
+    "data": "polyp",
+    "CommunicationEpoch": 100,
+    "p_threshold": 0.6,
+    "localEpoch": 1,
+    "lrf": 0.0001,
+    "num_workers": 8,
+    "num_classes": 100,
+    "num_clients": 10,
+    "global_name": "resnet18",
+    "global_optim": "adamw",
+    "client_optim": "adamw",
+    "clients_model": [
+        "resnet50",
+        "resnet50",
+        "resnet50",
+        "resnet50",
+        "resnet50"
+    ],
+    "batch_size": 64,
+    "seed": 1,
+    "base_lr": 0.001,
+    "shape": 384,
+    "train_val_test": [
+        0.8,
+        0.1,
+        0.1
+    ],
+    "device": "0",
+    "ver": "v1",
+    "log_path": "./log",
+    "img_path": "data",
+    "split_path": "./data_split",
+    "task": "classification",
+    "attack": "signflip",
+    "num_byzantine": 3,
+    "dirichlet_alpha": 1.0,
+    "beta": 0.9,
+    "mu": 0.5,
+    "datasets": [
+        "cifar100"
+    ],
+    "log_dir": "./log/GAFSEG/GAFSEG/GAFSEG-polyp--v1-0.001resnet18['resnet50', 'resnet50', 'resnet50', 'resnet50', 'resnet50']/logs",
+    "model_dir": "./log/GAFSEG/GAFSEG/GAFSEG-polyp--v1-0.001resnet18['resnet50', 'resnet50', 'resnet50', 'resnet50', 'resnet50']/models"
+}

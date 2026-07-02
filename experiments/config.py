@@ -64,17 +64,21 @@ class ExperimentConfig:
 
     #     2,
 
-    #     3,
+    
     # ]
+    attacks=['scaling']
+    byzantine_clients=[1]
+    dirichlet_alpha=[0.5]
+    seed=[1]
 
 
-    # communication_rounds = 10
+    communication_rounds = 100
     # # Later change to 100.
-    attacks = ["signflip","lie"]
-    byzantine_clients = [1]
-    dirichlet_alpha = [0.5]
-    random_seeds = [1]
-    communication_rounds = 5
+    # attacks = ["signflip","lie"]
+    # byzantine_clients = [1]
+    # dirichlet_alpha = [0.5]
+    # random_seeds = [1]
+    # communication_rounds = 5
 
     # ======================================================
     # Logging

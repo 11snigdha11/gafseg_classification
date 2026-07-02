@@ -19,7 +19,7 @@ def signflip_attack_model(local_model, global_model):
     local_model.load_state_dict(attacked_dict)
     return local_model  
 
-def scaling_attack_model(local_model, global_model, factor=20):
+def scaling_attack_model(local_model, global_model, factor=5):
 
     local_dict = local_model.state_dict()
     global_dict = global_model.state_dict()

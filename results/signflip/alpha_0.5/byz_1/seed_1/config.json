@@ -1,7 +1,7 @@
 {
     "model_name": "GAFSEG",
     "data": "polyp",
-    "CommunicationEpoch": 5,
+    "CommunicationEpoch": 100,
     "p_threshold": 0.6,
     "localEpoch": 1,
     "lrf": 0.0001,

@@ -98,7 +98,7 @@ def main():
                 if attack != "none" and byz == 0:
                     continue
 
-                for seed in CONFIG.random_seeds:
+                for seed in CONFIG.seed:
 
                     experiments.append(
                         (
