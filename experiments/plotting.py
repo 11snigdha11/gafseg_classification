@@ -10,17 +10,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-# ---------------------------------------------------------
-# Common Plot Style
-# ---------------------------------------------------------
-
 plt.rcParams["figure.figsize"] = (8, 5)
 plt.rcParams["font.size"] = 12
 
-
-# ---------------------------------------------------------
-# Accuracy
-# ---------------------------------------------------------
 
 def plot_accuracy(round_df, save_dir):
 
@@ -46,10 +38,6 @@ def plot_accuracy(round_df, save_dir):
 
     plt.close()
 
-
-# ---------------------------------------------------------
-# Raw Scores
-# ---------------------------------------------------------
 
 def plot_raw_scores(score_df, save_dir):
 
@@ -85,10 +73,6 @@ def plot_raw_scores(score_df, save_dir):
     plt.close()
 
 
-# ---------------------------------------------------------
-# Softmax Weights
-# ---------------------------------------------------------
-
 def plot_softmax(score_df, save_dir):
 
     plt.figure()
@@ -122,10 +106,6 @@ def plot_softmax(score_df, save_dir):
 
     plt.close()
 
-
-# ---------------------------------------------------------
-# Update Norms
-# ---------------------------------------------------------
 
 def plot_update_norm(score_df, save_dir):
 
@@ -161,10 +141,6 @@ def plot_update_norm(score_df, save_dir):
     plt.close()
 
 
-# ---------------------------------------------------------
-# Client Train Accuracy
-# ---------------------------------------------------------
-
 def plot_client_accuracy(acc_df, save_dir):
 
     plt.figure()
@@ -198,10 +174,6 @@ def plot_client_accuracy(acc_df, save_dir):
 
     plt.close()
 
-
-# ---------------------------------------------------------
-# Generate everything
-# ---------------------------------------------------------
 
 def generate_all_plots(save_dir):
 

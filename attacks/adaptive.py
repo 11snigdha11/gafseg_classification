@@ -32,7 +32,7 @@ def lie_attack(honest_models, global_model, num_clients, num_byzantine):
 
     attacked_dict = {}
 
-    # ---------- Compute z_max ----------
+    # Compute z_max
     # n = total clients
     # f = Byzantine clients
 
@@ -46,7 +46,7 @@ def lie_attack(honest_models, global_model, num_clients, num_byzantine):
 
     print(f"LIE attack: z = {z_max:.4f}")
 
-    # ---------- Build malicious model ----------
+    # Build malicious model
     for k in global_dict.keys():
 
         # Keep BatchNorm statistics unchanged
@@ -78,7 +78,7 @@ def lie_attack(honest_models, global_model, num_clients, num_byzantine):
 
 def min_max_attack(honest_models, global_model):
     """
-    True Min-Max attack (Fang et al., USENIX Security 2020)
+     Min-Max attack (Fang et al., USENIX Security 2020)
 
     Finds the largest perturbation that remains inside the
     maximum pairwise distance of the honest updates.
@@ -108,9 +108,9 @@ def min_max_attack(honest_models, global_model):
         # Direction used by Fang et al.
         direction = torch.sign(mean)
 
-        # --------------------------------------------------
+        
         # Compute maximum pairwise honest distance
-        # --------------------------------------------------
+        
 
         honest_max_dist = 0.0
 
@@ -128,9 +128,9 @@ def min_max_attack(honest_models, global_model):
                     dist.item()
                 )
 
-        # --------------------------------------------------
+        
         # Binary search lambda
-        # --------------------------------------------------
+
 
         lam_low = 0.0
         lam_high = 10.0
@@ -206,9 +206,9 @@ def min_sum_attack(honest_models, global_model):
 
         direction = torch.sign(mean)
 
-        # ------------------------------------------
+       
         # Honest reference (maximum honest sum distance)
-        # ------------------------------------------
+       
 
         honest_sum_max = 0.0
 
@@ -229,9 +229,9 @@ def min_sum_attack(honest_models, global_model):
                 total
             )
 
-        # ------------------------------------------
+        
         # Binary search λ
-        # ------------------------------------------
+       
 
         lam_low = 0.0
         lam_high = 10.0

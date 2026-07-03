@@ -37,7 +37,7 @@ def save_history(history, args, save_dir):
 
     save_dir.mkdir(parents=True, exist_ok=True)
 
-    # ---------------- Round metrics ----------------
+    # Round metrics
 
     pd.DataFrame(
         history["round_metrics"]
@@ -48,7 +48,7 @@ def save_history(history, args, save_dir):
         index=False
     )
 
-    # ---------------- Client scores ----------------
+    #Client scores
 
     pd.DataFrame(
         history["client_scores"]
@@ -59,7 +59,7 @@ def save_history(history, args, save_dir):
         index=False
     )
 
-    # ---------------- Client accuracy ----------------
+    #Client accuracy
 
     pd.DataFrame(
         history["client_accuracy"]
@@ -70,7 +70,7 @@ def save_history(history, args, save_dir):
         index=False
     )
 
-    # ---------------- Config ----------------
+    #Config
 
     with open(save_dir / "config.json", "w") as f:
 
@@ -113,17 +113,17 @@ def main():
 
     for attack, alpha, byz, seed in tqdm(experiments):
 
-        # ------------------------------------
+       
         # Reset argparse
-        # ------------------------------------
+        
 
         sys.argv = ["batchrun"]
 
         args = get_args()
 
-        # ------------------------------------
+       
         # Override parameters
-        # ------------------------------------
+        
 
         args.attack = attack
 
@@ -137,9 +137,8 @@ def main():
 
         args.CommunicationEpoch = CONFIG.communication_rounds
 
-        # ------------------------------------
         # Run
-        # ------------------------------------
+       
 
         print("\n======================================")
 
@@ -155,9 +154,9 @@ def main():
 
         history = train(args)
 
-        # ------------------------------------
+      
         # Save
-        # ------------------------------------
+       
 
         save_dir = (
 

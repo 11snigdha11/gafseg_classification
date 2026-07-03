@@ -13,9 +13,9 @@ from pathlib import Path
 @dataclass
 class ExperimentConfig:
 
-    # ======================================================
+   
     # Experiment Grid
-    # ======================================================
+   
 
     # attacks = [
 
@@ -66,23 +66,23 @@ class ExperimentConfig:
 
     
     # ]
-    attacks=['scaling']
+    attacks=['minmax','minsum']
     byzantine_clients=[1]
     dirichlet_alpha=[0.5]
     seed=[1]
 
 
     communication_rounds = 100
-    # # Later change to 100.
+  
     # attacks = ["signflip","lie"]
     # byzantine_clients = [1]
     # dirichlet_alpha = [0.5]
     # random_seeds = [1]
     # communication_rounds = 5
 
-    # ======================================================
+   
     # Logging
-    # ======================================================
+    
 
     save_every_round = True
 
@@ -99,9 +99,9 @@ class ExperimentConfig:
     save_logs = True
 
 
-    # ======================================================
+   
     # Output
-    # ======================================================
+   
 
     results_dir = Path("results")
 

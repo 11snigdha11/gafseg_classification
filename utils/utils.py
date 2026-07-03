@@ -163,9 +163,9 @@ def update_global_fedavg(global_model, local_models, args):
 #     #         client_theta = local_models[i].state_dict()[k].float()
 #     #         new_global_dict[k] += (m_t[i] * client_theta * (1/num_clients))
 #     # 
-#     # ---------------------------------------------------------
+#    
 #     # NEW: Apply Softmax to the raw similarity scores
-#     # ---------------------------------------------------------
+#    
 #     scores_tensor = torch.tensor([x.item() if torch.is_tensor(x) else x for x in m_t])
 #     softmax_weights = F.softmax(scores_tensor, dim=0)
     
@@ -176,9 +176,9 @@ def update_global_fedavg(global_model, local_models, args):
 #     for k in old_global_dict.keys():
 #         new_global_dict[k] = torch.zeros_like(old_global_dict[k]).float()
         
-#     # ---------------------------------------------------------
+#    
 #     # NEW: Aggregation using Softmax weights (No 1/K division)
-#     # ---------------------------------------------------------
+#    
 #     for k in old_global_dict.keys():   
 #         for i in range(num_clients):
 #             client_theta = local_models[i].state_dict()[k].float()
@@ -227,9 +227,9 @@ def update_global_fedavg(global_model, local_models, args):
 #     for k in old_global_dict.keys():
 #         new_global_dict[k] = torch.zeros_like(old_global_dict[k]).float()
         
-#     # ---------------------------------------------------------
+#    
 #     # NEW: Aggregation using Softmax weights (No 1/K division)
-#     # ---------------------------------------------------------
+#    
 #     for k in old_global_dict.keys():   
 #         for i in range(num_clients):
 #             client_theta = local_models[i].state_dict()[k].float()
@@ -245,9 +245,9 @@ def update_global_fedavg(global_model, local_models, args):
 #     # An L2 norm of 10.0 to 20.0 is typical for standard ResNet updates.
 #     M = 400.0 
     
-#     # ---------------------------------------------------------
+#    
 #     # Step 1: Extract and Norm-Bound the Updates (Deltas)
-#     # ---------------------------------------------------------
+#    
 #     bounded_updates = []
 #     for i in range(num_clients):
 #         local_dict = local_models[i].state_dict()
@@ -272,9 +272,9 @@ def update_global_fedavg(global_model, local_models, args):
             
 #         bounded_updates.append(bounded_delta_k)
 
-#     # ---------------------------------------------------------
+#    
 #     # Step 2: Calculate Reference Direction (using bounded updates)
-#     # ---------------------------------------------------------
+#    
 #     delta_g = {}
 #     for k in old_global_dict.keys():
 #         delta_g[k] = torch.mean(
@@ -291,9 +291,9 @@ def update_global_fedavg(global_model, local_models, args):
 #     for k in old_global_dict.keys():
 #         delta_g_tilda[k] = delta_g[k] / (global_l2_norm + 1e-12)
 
-#     # ---------------------------------------------------------
+#    
 #     # Step 3: Calculate Cosine Similarity Scores (m_t)
-#     # ---------------------------------------------------------
+#    
 #     m_t = []
 #     for i in range(num_clients):
 #         client_delta = bounded_updates[i]
@@ -316,9 +316,9 @@ def update_global_fedavg(global_model, local_models, args):
 #         print(f"Client {i} trust score: {score.item():.4f}")
 #         m_t.append(score)
 
-#     # ---------------------------------------------------------
+#    
 #     # Step 4: Robust Aggregation (Filter Negatives, Normalize)
-#     # ---------------------------------------------------------
+#    
 #     new_global_dict = {}
 #     weight_sum = sum(max(x.item(), 0.0) for x in m_t) + 1e-12
 
@@ -342,9 +342,9 @@ def update_global(global_model, local_models, args):
     old_global_dict = copy.deepcopy(global_model.state_dict())
     num_clients = args.num_clients
     
-    # ---------------------------------------------------------
+   
     # 1. FILTER: Identify only trainable weights for scoring
-    # ---------------------------------------------------------
+   
     #valid_keys = [k for k in old_global_dict.keys() if 'running' not in k and 'num_batches_tracked' not in k]
     # This looks ONLY at the pure signal in the final classification head
     valid_keys = [k for k in old_global_dict.keys() if 'fc.weight' in k or 'fc.bias' in k]
@@ -355,9 +355,9 @@ def update_global(global_model, local_models, args):
             torch.stack([local_models[i].state_dict()[k].float() for i in range(num_clients)]), dim=0
         )
 
-    # ---------------------------------------------------------
+   
     # 2. SCORE: Calculate similarity ignoring BatchNorms
-    # ---------------------------------------------------------
+   
     difference_list = []
     for i in range(num_clients):
         local_dict = local_models[i].state_dict() 
@@ -398,9 +398,9 @@ def update_global(global_model, local_models, args):
         print(f"Client {i} Raw Score: {score.item():.4f}")
         m_t.append(score)
 
-    # ---------------------------------------------------------
+   
     # 3. DEFEND: Apply Softmax to raw similarity scores
-    # ---------------------------------------------------------
+   
     scores_tensor = torch.tensor([x.item() if torch.is_tensor(x) else x for x in m_t])
     softmax_weights = F.softmax(scores_tensor, dim=0)
     
@@ -422,9 +422,9 @@ def update_global(global_model, local_models, args):
             norm += torch.sum(diff ** 2)
 
         update_norms.append(torch.sqrt(norm).item())
-    # ---------------------------------------------------------
+   
     # 4. AGGREGATE: Update ALL layers safely (including buffers)
-    # ---------------------------------------------------------
+   
     new_global_dict = {}
     for k in old_global_dict.keys(): # <--- Notice we iterate over ALL keys here!
         new_global_dict[k] = torch.zeros_like(old_global_dict[k]).float()
@@ -449,9 +449,9 @@ def update_global(global_model, local_models, args):
 #     old_global_dict = copy.deepcopy(global_model.state_dict())
 #     num_clients = args.num_clients
     
-#     # ---------------------------------------------------------
+#    
 #     # 1. FILTER: Only look at the pure classification signal
-#     # ---------------------------------------------------------
+#    
 #     # ResNet uses 'fc' for the final layer. If your model uses a different name 
 #     # (like 'classifier'), change 'fc' to match your architecture.
 #     valid_keys = [k for k in old_global_dict.keys() if 'fc.weight' in k or 'fc.bias' in k]
@@ -460,9 +460,9 @@ def update_global(global_model, local_models, args):
 #     if len(valid_keys) == 0:
 #         valid_keys = [k for k in old_global_dict.keys() if 'running' not in k and 'num_batches_tracked' not in k]
 
-#     # ---------------------------------------------------------
+#    
 #     # 2. EXTRACT & NORMALIZE UPDATES (The Norm-Bounding Fix)
-#     # ---------------------------------------------------------
+#    
 #     normalized_updates = []
     
 #     for i in range(num_clients):
@@ -481,9 +481,9 @@ def update_global(global_model, local_models, args):
 #         # Save the vector mathematically restricted to a length of exactly 1.0
 #         normalized_updates.append({k: update_i[k] / norm for k in valid_keys})
 
-#     # ---------------------------------------------------------
+#    
 #     # 3. CALCULATE PURE REFERENCE MEAN 
-#     # ---------------------------------------------------------
+#    
 #     # Because all vectors are length 1.0, the 4 honest clients easily overpower the 1 attacker
 #     reference_mean = {}
 #     for k in valid_keys:
@@ -491,9 +491,9 @@ def update_global(global_model, local_models, args):
 #             torch.stack([normalized_updates[i][k] for i in range(num_clients)]), dim=0
 #         )
         
-#     # ---------------------------------------------------------
+#    
 #     # 4. CALCULATE TRUE COSINE SIMILARITY
-#     # ---------------------------------------------------------
+#    
 #     m_t = []
 #     for i in range(num_clients):
 #         dot_product = 0.0
@@ -512,18 +512,18 @@ def update_global(global_model, local_models, args):
 #         print(f"Client {i} Raw Score: {score.item():.4f}")
 #         m_t.append(score)
 
-#     # ---------------------------------------------------------
+#    
 #     # 5. DEFEND: Apply Softmax to raw similarity scores
-#     # ---------------------------------------------------------
+#    
 #     scores_tensor = torch.tensor([x.item() if torch.is_tensor(x) else x for x in m_t])
 #     softmax_weights = F.softmax(scores_tensor, dim=0)
     
 #     for i in range(num_clients):
 #         print(f"Client {i} Softmax weight: {softmax_weights[i].item():.4f}")
 
-#     # ---------------------------------------------------------
+#    
 #     # 6. AGGREGATE: Update ALL layers safely (including buffers)
-#     # ---------------------------------------------------------
+#    
 #     new_global_dict = {}
 #     for k in old_global_dict.keys(): # <--- Notice we iterate over ALL keys here
 #         new_global_dict[k] = torch.zeros_like(old_global_dict[k]).float()
