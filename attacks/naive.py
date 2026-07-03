@@ -105,3 +105,24 @@ def orthogonal_noise_attack_model(local_model, global_model, sigma=10.0):
 
     local_model.load_state_dict(attacked_dict)
     return local_model
+def modified_additive_gaussian_attack_model(local_model, global_model, sigma=0.1):
+    local_dict = local_model.state_dict()
+    global_dict = global_model.state_dict()
+    attacked_dict = {}
+
+    for k in global_dict.keys():
+
+        if 'running' in k or 'num_batches_tracked' in k:
+            attacked_dict[k] = local_dict[k].float()
+            continue
+
+        update = local_dict[k].float() - global_dict[k].float()
+
+        noise = torch.randn_like(update)
+        noise = noise / (torch.norm(noise) + 1e-12)
+
+        noise = noise * sigma * torch.norm(update)
+
+        attacked_dict[k] = global_dict[k].float() + update + noise
+    local_model.load_state_dict(attacked_dict)
+    return local_model    

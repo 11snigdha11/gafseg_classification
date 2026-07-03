@@ -66,7 +66,7 @@ class ExperimentConfig:
 
     
     # ]
-    attacks=['minmax','minsum']
+    attacks=['mod_gaussian','random','orthogonal_gaussian']
     byzantine_clients=[1]
     dirichlet_alpha=[0.5]
     seed=[1]
