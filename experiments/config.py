@@ -67,11 +67,12 @@ class ExperimentConfig:
     
     # ]
     attacks=[
-        "lie",
+        "min_max",
+        
+        "min_sum"
 
-        "minmax",
 
-        "minsum"]
+       ]
     byzantine_clients=[2,3]
     dirichlet_alpha=[0.5]
     seed=[1]

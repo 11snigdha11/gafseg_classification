@@ -83,7 +83,7 @@ def min_max_attack(honest_models, global_model):
     Finds the largest perturbation that remains inside the
     maximum pairwise distance of the honest updates.
     """
-
+    
     honest_updates, global_dict = get_honest_updates(
         honest_models,
         global_model
@@ -92,7 +92,7 @@ def min_max_attack(honest_models, global_model):
     attacked_dict = {}
 
     for k in global_dict.keys():
-
+        print(">>> ENTERED MIN-MAX ATTACK <<<")
         # Preserve BatchNorm buffers
         if "running" in k or "num_batches_tracked" in k:
             attacked_dict[k] = honest_models[0].state_dict()[k].clone()
@@ -161,6 +161,9 @@ def min_max_attack(honest_models, global_model):
             else:
 
                 lam_high = lam
+               
+        if k in ["conv1.weight", "layer4.1.conv2.weight", "fc.weight"]:
+            print(f"{k}: lambda = {lam_low:.6f}")    
 
         malicious_update = mean - lam_low * direction
 
@@ -258,13 +261,22 @@ def min_sum_attack(honest_models, global_model):
 
                 lam_high = lam
 
+        if k in ["conv1.weight", "layer4.1.conv2.weight", "fc.weight"]:
+
+            print(
+                f"{k}: lambda={lam_low:.6f}, "
+                f"honest_sum={honest_sum_max:.4f}, "
+                f"malicious_sum={malicious_sum:.4f}"
+            ) 
+             
+
         malicious_update = mean - lam_low * direction
 
         attacked_dict[k] = (
             global_dict[k].float()
             + malicious_update
         )
-
+ 
     malicious_model = copy.deepcopy(global_model)
     malicious_model.load_state_dict(attacked_dict)
 

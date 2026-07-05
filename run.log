@@ -1,4296 +1,2736 @@
-Hyperparameter settingNamespace(model_name='GAFSEG', data='polyp', CommunicationEpoch=50, p_threshold=0.6, localEpoch=1, lrf=0.0001, num_workers=8, num_classes=100, num_clients=5, global_name='resnet18', global_optim='adamw', client_optim='adamw', clients_model=['resnet50', 'resnet50', 'resnet50', 'resnet50', 'resnet50'], batch_size=64, seed=42, base_lr=0.001, shape=384, train_val_test=(0.8, 0.1, 0.1), device='0', ver='v1', log_path='./log', img_path='data', split_path='./data_split', task='classification', attack='min_sum', num_byzantine=1, datasets=['cifar100'], log_dir="./log/GAFSEG/GAFSEG/GAFSEG-polyp--v1-0.001resnet18['resnet50', 'resnet50', 'resnet50', 'resnet50', 'resnet50']/logs", model_dir="./log/GAFSEG/GAFSEG/GAFSEG-polyp--v1-0.001resnet18['resnet50', 'resnet50', 'resnet50', 'resnet50', 'resnet50']/models")
+
+Total Experiments = 4
+
+
+======================================
+Attack      : min_max
+Alpha       : 0.5
+Byzantine   : 2
+Seed        : 1
+======================================
+Hyperparameter settingNamespace(model_name='GAFSEG', data='polyp', CommunicationEpoch=100, p_threshold=0.6, localEpoch=1, lrf=0.0001, num_workers=8, num_classes=100, num_clients=10, global_name='resnet18', global_optim='adamw', client_optim='adamw', clients_model=['resnet50', 'resnet50', 'resnet50', 'resnet50', 'resnet50'], batch_size=64, seed=1, base_lr=0.001, shape=384, train_val_test=(0.8, 0.1, 0.1), device='0', ver='v1', log_path='./log', img_path='data', split_path='./data_split', task='classification', attack='min_max', num_byzantine=2, dirichlet_alpha=0.5, beta=0.9, mu=0.5, datasets=['cifar100'], log_dir="./log/GAFSEG/GAFSEG/GAFSEG-polyp--v1-0.001resnet18['resnet50', 'resnet50', 'resnet50', 'resnet50', 'resnet50']/logs", model_dir="./log/GAFSEG/GAFSEG/GAFSEG-polyp--v1-0.001resnet18['resnet50', 'resnet50', 'resnet50', 'resnet50', 'resnet50']/models")
 Files already downloaded and verified
 Files already downloaded and verified
-Client 0: 9935 samples
-Client 1: 10125 samples
-Client 2: 10026 samples
-Client 3: 9774 samples
-Client 4: 10140 samples
+Client 0: 4733 samples
+Client 1: 5497 samples
+Client 2: 5387 samples
+Client 3: 4508 samples
+Client 4: 4745 samples
+Client 5: 6108 samples
+Client 6: 4587 samples
+Client 7: 4652 samples
+Client 8: 4245 samples
+Client 9: 5538 samples
 
- Starting FedAvg Training with 5 clients
+ Starting FedAvg Training with 10 clients
 
-========== Round [1/50] ==========
+========== Round [1/100] ==========
 
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 4.63216495513916
-loss = 5.048877239227295
-loss = 4.791809558868408
-loss = 4.942897319793701
-loss = 4.95421028137207
-loss = 4.8038225173950195
-loss = 5.0174665451049805
-loss = 4.510901927947998
-loss = 4.972934246063232
-loss = 4.876068592071533
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 2 97
-loss = 4.817631721496582
-loss = 4.881584167480469
-loss = 4.968528747558594
-loss = 4.891603946685791
-loss = 4.9567413330078125
-loss = 4.785441875457764
-loss = 5.012569427490234
-loss = 4.5933756828308105
-loss = 4.828255653381348
-loss = 4.899795055389404
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 3 99
-loss = 4.886686325073242
-loss = 5.105225086212158
-loss = 4.9582133293151855
-loss = 4.929505348205566
-loss = 4.770843029022217
-loss = 5.02254581451416
-loss = 4.941144943237305
-loss = 4.883164882659912
-loss = 4.93319845199585
-loss = 4.7135443687438965
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 4.921082019805908
-loss = 4.904025077819824
-loss = 4.737734317779541
-loss = 4.640444278717041
-loss = 4.914201259613037
-loss = 4.91260290145874
-loss = 4.890810966491699
-loss = 4.866357326507568
-loss = 4.682520389556885
-loss = 4.76333475112915
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 2 91
-loss = 4.74470853805542
-loss = 4.848588466644287
-loss = 4.814176559448242
-loss = 4.7932209968566895
-loss = 4.885261535644531
-loss = 4.804128170013428
-loss = 4.711544990539551
-loss = 4.884278774261475
-loss = 5.082605361938477
-loss = 4.997259616851807
-Client 0 Raw Score: 0.5939
-Client 1 Raw Score: 0.6039
-Client 2 Raw Score: 0.5934
-Client 3 Raw Score: 0.6106
-Client 4 Raw Score: 0.6006
-Client 0 Softmax weight: 0.1987
-Client 1 Softmax weight: 0.2007
-Client 2 Softmax weight: 0.1986
-Client 3 Softmax weight: 0.2020
-Client 4 Softmax weight: 0.2000
-Round 1 Test Accuracy=0.0100
-
-========== Round [2/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 1 97
-loss = 4.585876941680908
-loss = 4.498491287231445
-loss = 4.518372058868408
-loss = 4.449742794036865
-loss = 4.579839706420898
-loss = 4.723169803619385
-loss = 4.6539459228515625
-loss = 4.364558219909668
-loss = 4.282172679901123
-loss = 4.5191802978515625
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 4.45200252532959
-loss = 4.418056488037109
-loss = 4.549964427947998
-loss = 4.377879619598389
-loss = 4.621475696563721
-loss = 4.603404998779297
-loss = 4.3548407554626465
-loss = 4.837622165679932
-loss = 4.666401386260986
-loss = 4.5622148513793945
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 4 98
-loss = 4.523393154144287
-loss = 4.496462821960449
-loss = 4.675249099731445
-loss = 4.4005913734436035
-loss = 4.778502941131592
-loss = 4.490968227386475
-loss = 4.476175308227539
-loss = 4.445589065551758
-loss = 4.588376998901367
-loss = 4.420498371124268
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 1 96
-loss = 4.452803134918213
-loss = 4.583608150482178
-loss = 4.3396100997924805
-loss = 4.413113117218018
-loss = 4.673509120941162
-loss = 4.806374549865723
-loss = 4.587335109710693
-loss = 4.4499406814575195
-loss = 4.405409336090088
-loss = 4.344432353973389
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 4.610906600952148
-loss = 4.453149795532227
-loss = 4.62753963470459
-loss = 4.89640474319458
-loss = 4.720269203186035
-loss = 4.451749324798584
-loss = 4.4779438972473145
-loss = 4.390872478485107
-loss = 4.545534610748291
-loss = 4.358832359313965
-Client 0 Raw Score: 0.5655
-Client 1 Raw Score: 0.5574
-Client 2 Raw Score: 0.5711
-Client 3 Raw Score: 0.5780
-Client 4 Raw Score: 0.5570
-Client 0 Softmax weight: 0.1999
-Client 1 Softmax weight: 0.1983
-Client 2 Softmax weight: 0.2011
-Client 3 Softmax weight: 0.2024
-Client 4 Softmax weight: 0.1982
-Round 2 Test Accuracy=0.0266
-
-========== Round [3/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 4.349716663360596
-loss = 4.136373519897461
-loss = 4.4124908447265625
-loss = 4.442330837249756
-loss = 4.399024486541748
-loss = 4.281195163726807
-loss = 4.610443115234375
-loss = 4.708744525909424
-loss = 4.166755676269531
-loss = 4.264438152313232
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 3 99
-loss = 4.210286617279053
-loss = 4.35782527923584
-loss = 4.401604175567627
-loss = 4.487578392028809
-loss = 4.187514305114746
-loss = 4.653763771057129
-loss = 4.704694747924805
-loss = 4.612619876861572
-loss = 4.5653910636901855
-loss = 4.299481391906738
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 1 94
-loss = 4.355679988861084
-loss = 4.200514316558838
-loss = 4.6768951416015625
-loss = 4.470639228820801
-loss = 4.582657337188721
-loss = 4.335888862609863
-loss = 4.670443058013916
-loss = 4.518093109130859
-loss = 4.405668258666992
-loss = 4.489604473114014
-
- Client 4/5
+ Client 1/10
 logits shape: torch.Size([64, 100])
 label range: 0 95
-loss = 4.134914875030518
-loss = 4.2945356369018555
-loss = 4.546550273895264
-loss = 4.56915807723999
-loss = 4.088374137878418
-loss = 4.33408260345459
-loss = 4.659780025482178
-loss = 4.249538421630859
-loss = 4.526529788970947
-loss = 4.314865589141846
+loss = 4.742448329925537
+loss = 4.657475471496582
+loss = 4.654013633728027
+loss = 4.331281661987305
+loss = 3.750274896621704
+loss = 4.296287536621094
+loss = 4.2277069091796875
+loss = 4.231037616729736
+loss = 4.20091438293457
+loss = 3.718198537826538
 
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 4.249736785888672
-loss = 4.408252239227295
-loss = 4.453394889831543
-loss = 4.442759037017822
-loss = 4.601403713226318
-loss = 4.488714218139648
-loss = 4.453415393829346
-loss = 4.567671298980713
-loss = 4.668914318084717
-loss = 4.373217582702637
-Client 0 Raw Score: 0.5432
-Client 1 Raw Score: 0.5397
-Client 2 Raw Score: 0.5557
-Client 3 Raw Score: 0.5426
-Client 4 Raw Score: 0.5407
-Client 0 Softmax weight: 0.1998
-Client 1 Softmax weight: 0.1991
-Client 2 Softmax weight: 0.2023
-Client 3 Softmax weight: 0.1996
-Client 4 Softmax weight: 0.1993
-Round 3 Test Accuracy=0.0539
-
-========== Round [4/50] ==========
-
- Client 1/5
+ Client 2/10
 logits shape: torch.Size([64, 100])
 label range: 1 97
-loss = 3.9448554515838623
-loss = 4.413248538970947
-loss = 4.478564262390137
-loss = 4.133068561553955
-loss = 4.328035354614258
-loss = 4.417503356933594
-loss = 4.55242395401001
-loss = 4.4629435539245605
-loss = 4.4234232902526855
-loss = 4.664799213409424
+loss = 5.021085739135742
+loss = 4.5885138511657715
+loss = 4.632845878601074
+loss = 3.979902505874634
+loss = 4.08510684967041
+loss = 3.9372658729553223
+loss = 4.266337871551514
+loss = 4.008215427398682
+loss = 4.337894916534424
+loss = 3.9805967807769775
 
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 4.172062873840332
-loss = 4.156843185424805
-loss = 4.179261684417725
-loss = 4.168752193450928
-loss = 4.547328948974609
-loss = 4.606316566467285
-loss = 4.429563045501709
-loss = 4.170742988586426
-loss = 4.328202247619629
-loss = 4.446430683135986
-
- Client 3/5
+ Client 3/10
 logits shape: torch.Size([64, 100])
 label range: 2 98
-loss = 4.001452922821045
-loss = 4.332298278808594
-loss = 4.2296552658081055
-loss = 4.5470404624938965
-loss = 4.507885932922363
-loss = 4.440706253051758
-loss = 4.437454700469971
-loss = 4.412160396575928
-loss = 4.732033729553223
-loss = 4.481694221496582
+loss = 4.849163055419922
+loss = 4.775788307189941
+loss = 4.337436199188232
+loss = 4.244218826293945
+loss = 4.326046943664551
+loss = 4.2013468742370605
+loss = 4.408524036407471
+loss = 4.179982662200928
+loss = 3.956636428833008
+loss = 4.151092529296875
 
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 4.046764373779297
-loss = 4.14879035949707
-loss = 4.159645080566406
-loss = 4.647650241851807
-loss = 4.351912975311279
-loss = 4.300198554992676
-loss = 4.506091594696045
-loss = 4.145445346832275
-loss = 4.390081882476807
-loss = 4.464572429656982
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 3.8996825218200684
-loss = 4.399669170379639
-loss = 4.260010242462158
-loss = 4.418310642242432
-loss = 4.350516319274902
-loss = 4.280988693237305
-loss = 4.325283050537109
-loss = 4.452311992645264
-loss = 4.326620101928711
-loss = 4.41357421875
-Client 0 Raw Score: 0.5269
-Client 1 Raw Score: 0.5364
-Client 2 Raw Score: 0.5349
-Client 3 Raw Score: 0.5103
-Client 4 Raw Score: 0.5146
-Client 0 Softmax weight: 0.2004
-Client 1 Softmax weight: 0.2024
-Client 2 Softmax weight: 0.2021
-Client 3 Softmax weight: 0.1971
-Client 4 Softmax weight: 0.1980
-Round 4 Test Accuracy=0.0796
-
-========== Round [5/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 1 95
-loss = 4.1924333572387695
-loss = 4.2307233810424805
-loss = 4.432220458984375
-loss = 4.319636821746826
-loss = 4.409589767456055
-loss = 4.34832239151001
-loss = 4.422550201416016
-loss = 4.193467617034912
-loss = 4.118485450744629
-loss = 4.202065467834473
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 4.155920028686523
-loss = 3.9549221992492676
-loss = 4.23642635345459
-loss = 4.093406677246094
-loss = 4.3389081954956055
-loss = 4.272696018218994
-loss = 4.3943190574646
-loss = 4.134794235229492
-loss = 4.3798604011535645
-loss = 4.412283420562744
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 3.768289566040039
-loss = 4.096206188201904
-loss = 4.330756187438965
-loss = 4.533731937408447
-loss = 4.499345779418945
-loss = 4.5563578605651855
-loss = 4.5409369468688965
-loss = 4.274983882904053
-loss = 4.473775386810303
-loss = 4.059097766876221
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.911846399307251
-loss = 4.185464382171631
-loss = 4.323586940765381
-loss = 4.304461479187012
-loss = 4.635958194732666
-loss = 4.543912887573242
-loss = 4.339470386505127
-loss = 4.15492057800293
-loss = 4.181936740875244
-loss = 4.254940986633301
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 3 97
-loss = 3.6554086208343506
-loss = 4.148430824279785
-loss = 4.194637298583984
-loss = 4.249918460845947
-loss = 4.0137410163879395
-loss = 4.593967437744141
-loss = 4.231189250946045
-loss = 3.8860669136047363
-loss = 4.5829548835754395
-loss = 4.347970962524414
-Client 0 Raw Score: 0.5174
-Client 1 Raw Score: 0.5111
-Client 2 Raw Score: 0.5108
-Client 3 Raw Score: 0.5194
-Client 4 Raw Score: 0.5249
-Client 0 Softmax weight: 0.2001
-Client 1 Softmax weight: 0.1989
-Client 2 Softmax weight: 0.1988
-Client 3 Softmax weight: 0.2005
-Client 4 Softmax weight: 0.2016
-Round 5 Test Accuracy=0.0983
-
-========== Round [6/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 91
-loss = 3.697802782058716
-loss = 4.081728458404541
-loss = 4.335414409637451
-loss = 4.195125579833984
-loss = 4.241293430328369
-loss = 4.392888069152832
-loss = 4.545287132263184
-loss = 4.27639102935791
-loss = 4.164346218109131
-loss = 3.906203269958496
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 7 99
-loss = 3.8659207820892334
-loss = 4.3363237380981445
-loss = 4.252310276031494
-loss = 4.482316493988037
-loss = 4.226795673370361
-loss = 4.467888832092285
-loss = 4.343815326690674
-loss = 4.662471294403076
-loss = 4.152681827545166
-loss = 4.276176929473877
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 1 97
-loss = 4.088035583496094
-loss = 4.172796249389648
-loss = 4.169425010681152
-loss = 4.011547088623047
-loss = 4.398589611053467
-loss = 4.1467366218566895
-loss = 4.5481343269348145
-loss = 4.240043640136719
-loss = 4.218499183654785
-loss = 4.166255950927734
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 4.149370193481445
-loss = 4.0221943855285645
-loss = 4.105902194976807
-loss = 4.375901699066162
-loss = 4.107961177825928
-loss = 4.180466651916504
-loss = 4.129819393157959
-loss = 4.188151836395264
-loss = 4.316298007965088
-loss = 4.269752502441406
-
- Client 5/5
+ Client 4/10
 logits shape: torch.Size([64, 100])
 label range: 2 99
-loss = 3.731182098388672
-loss = 4.216688632965088
-loss = 3.9311416149139404
-loss = 4.351346969604492
-loss = 4.3114399909973145
-loss = 4.21671199798584
-loss = 3.9091343879699707
-loss = 4.434953689575195
-loss = 4.553030490875244
-loss = 4.473518371582031
+loss = 4.758969306945801
+loss = 4.435216426849365
+loss = 4.4523234367370605
+loss = 3.993722438812256
+loss = 3.870849847793579
+loss = 4.117187023162842
+loss = 3.8981149196624756
+loss = 3.9309990406036377
+loss = 3.8858773708343506
+loss = 3.9511125087738037
 
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.0861
-Client 0 Raw Score: 0.7323
-Client 1 Raw Score: 0.5343
-Client 2 Raw Score: 0.5263
-Client 3 Raw Score: 0.5259
-Client 4 Raw Score: 0.5040
-Client 0 Softmax weight: 0.2356
-Client 1 Softmax weight: 0.1933
-Client 2 Softmax weight: 0.1918
-Client 3 Softmax weight: 0.1917
-Client 4 Softmax weight: 0.1876
-Round 6 Test Accuracy=0.0263
+ Client 5/10
+logits shape: torch.Size([64, 100])
+label range: 1 98
+loss = 4.7164998054504395
+loss = 4.7268853187561035
+loss = 4.355785369873047
+loss = 4.353011608123779
+loss = 4.348365306854248
+loss = 4.205260753631592
+loss = 3.99636173248291
+loss = 4.31928825378418
+loss = 3.861689805984497
+loss = 3.9097025394439697
 
-========== Round [7/50] ==========
-
- Client 1/5
+ Client 6/10
 logits shape: torch.Size([64, 100])
 label range: 0 99
-loss = 3.8449089527130127
-loss = 4.056974411010742
-loss = 4.366321086883545
-loss = 4.292686462402344
-loss = 3.850501537322998
-loss = 4.206646919250488
-loss = 4.099330902099609
-loss = 4.707536220550537
-loss = 4.599656581878662
-loss = 4.340125560760498
+loss = 4.926036834716797
+loss = 4.898619651794434
+loss = 4.475704193115234
+loss = 4.513216018676758
+loss = 4.6205291748046875
+loss = 4.157998085021973
+loss = 4.496192932128906
+loss = 3.9092650413513184
+loss = 4.219277858734131
+loss = 4.515307426452637
 
- Client 2/5
+ Client 7/10
 logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.944943428039551
-loss = 4.052201271057129
-loss = 4.141554355621338
-loss = 4.054618835449219
-loss = 4.325377464294434
-loss = 4.172025203704834
-loss = 4.359916687011719
-loss = 4.082103252410889
-loss = 4.371677398681641
-loss = 3.9772162437438965
+label range: 2 98
+loss = 5.077409744262695
+loss = 4.497046947479248
+loss = 4.591566562652588
+loss = 4.3788161277771
+loss = 4.367944240570068
+loss = 4.2865190505981445
+loss = 3.8468475341796875
+loss = 4.137462615966797
+loss = 4.0367560386657715
+loss = 3.8080742359161377
 
- Client 3/5
+ Client 8/10
 logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.83526611328125
-loss = 3.77485728263855
-loss = 4.2025651931762695
-loss = 4.443398475646973
-loss = 4.560781478881836
-loss = 4.380656719207764
-loss = 4.092922210693359
-loss = 4.630497455596924
-loss = 4.0958685874938965
-loss = 4.021493911743164
+label range: 1 97
+loss = 4.885552883148193
+loss = 4.545663833618164
+loss = 4.440255165100098
+loss = 4.299394607543945
+loss = 4.271007537841797
+loss = 4.023810386657715
+loss = 4.220814228057861
+loss = 4.014893531799316
+loss = 3.9098472595214844
+loss = 4.08172082901001
 
- Client 4/5
+ Client 9/10
 logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 3.9898970127105713
-loss = 3.7750890254974365
-loss = 4.281885623931885
-loss = 3.8798258304595947
-loss = 4.329198360443115
-loss = 4.435507774353027
-loss = 4.4622650146484375
-loss = 4.224641799926758
-loss = 4.45292329788208
-loss = 4.128714561462402
+label range: 6 99
+loss = 4.929864406585693
+loss = 4.5007758140563965
+loss = 4.616298198699951
+loss = 4.22297477722168
+loss = 4.360568046569824
+loss = 4.558382034301758
+loss = 4.118429660797119
+loss = 4.273277282714844
+loss = 3.9322566986083984
+loss = 4.129641532897949
 
- Client 5/5
+ Client 10/10
 logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 3.745821475982666
-loss = 3.992006301879883
-loss = 4.209820747375488
-loss = 4.10554313659668
-loss = 4.119626045227051
-loss = 4.177639484405518
-loss = 4.1705217361450195
-loss = 3.902475357055664
-loss = 4.147501468658447
-loss = 4.137834548950195
+label range: 3 99
+loss = 4.954939842224121
+loss = 4.714836597442627
+loss = 4.384005069732666
+loss = 4.587850570678711
+loss = 4.204678058624268
+loss = 4.421473979949951
+loss = 4.022884845733643
+loss = 4.120201110839844
+loss = 4.231473445892334
+loss = 4.262794017791748
+Client 0 Train Acc=0.1006
+Client 1 Train Acc=0.1035
+Client 2 Train Acc=0.0964
+Client 3 Train Acc=0.1036
+Client 4 Train Acc=0.0798
+Client 5 Train Acc=0.0845
+Client 6 Train Acc=0.1043
+Client 7 Train Acc=0.0914
+Client 8 Train Acc=0.0795
+Client 9 Train Acc=0.0890
+Client 0 Raw Score: 0.3641
+Client 1 Raw Score: 0.3751
+Client 2 Raw Score: 0.4360
+Client 3 Raw Score: 0.3133
+Client 4 Raw Score: 0.3686
+Client 5 Raw Score: 0.3803
+Client 6 Raw Score: 0.4687
+Client 7 Raw Score: 0.4163
+Client 8 Raw Score: 0.3430
+Client 9 Raw Score: 0.3763
+Client 0 Softmax weight: 0.0979
+Client 1 Softmax weight: 0.0990
+Client 2 Softmax weight: 0.1052
+Client 3 Softmax weight: 0.0931
+Client 4 Softmax weight: 0.0984
+Client 5 Softmax weight: 0.0995
+Client 6 Softmax weight: 0.1087
+Client 7 Softmax weight: 0.1032
+Client 8 Softmax weight: 0.0959
+Client 9 Softmax weight: 0.0991
+Round 1 Test Accuracy=0.0105
 
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.0802
-Client 0 Raw Score: 0.7180
-Client 1 Raw Score: 0.5081
-Client 2 Raw Score: 0.5218
-Client 3 Raw Score: 0.5181
-Client 4 Raw Score: 0.5081
-Client 0 Softmax weight: 0.2346
-Client 1 Softmax weight: 0.1902
-Client 2 Softmax weight: 0.1928
-Client 3 Softmax weight: 0.1921
-Client 4 Softmax weight: 0.1902
-Round 7 Test Accuracy=0.0439
+========== Round [2/100] ==========
 
-========== Round [8/50] ==========
-
- Client 1/5
+ Client 1/10
 logits shape: torch.Size([64, 100])
-label range: 2 95
-loss = 3.8746132850646973
-loss = 3.6466710567474365
-loss = 3.898977279663086
-loss = 4.536741256713867
-loss = 4.337187767028809
-loss = 4.454918384552002
-loss = 4.492313861846924
-loss = 4.0575714111328125
-loss = 4.132529258728027
-loss = 3.832021713256836
+label range: 8 98
+loss = 4.576625823974609
+loss = 4.22730827331543
+loss = 4.18280553817749
+loss = 4.000919818878174
+loss = 3.821528196334839
+loss = 4.160349369049072
+loss = 3.7733707427978516
+loss = 4.127467155456543
+loss = 4.084803104400635
+loss = 4.015537261962891
 
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 97
-loss = 3.854384660720825
-loss = 3.952392101287842
-loss = 4.006434917449951
-loss = 4.512744426727295
-loss = 4.203927993774414
-loss = 4.240530490875244
-loss = 3.8113853931427
-loss = 4.050516128540039
-loss = 4.032413959503174
-loss = 3.905782699584961
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 4.0046844482421875
-loss = 4.193003177642822
-loss = 4.270238876342773
-loss = 4.244731426239014
-loss = 4.369967460632324
-loss = 4.076935291290283
-loss = 4.3015031814575195
-loss = 4.1978325843811035
-loss = 4.441977500915527
-loss = 3.988950729370117
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 4.071035385131836
-loss = 3.890258550643921
-loss = 4.114292144775391
-loss = 4.293592929840088
-loss = 3.8757433891296387
-loss = 3.759401798248291
-loss = 4.205808639526367
-loss = 4.030900001525879
-loss = 3.979215621948242
-loss = 4.421555519104004
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 3.9234719276428223
-loss = 3.806511402130127
-loss = 4.315887451171875
-loss = 4.538098335266113
-loss = 4.021434783935547
-loss = 4.436417579650879
-loss = 3.98000431060791
-loss = 4.291122913360596
-loss = 3.7601935863494873
-loss = 4.405706405639648
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1087
-Client 0 Raw Score: 0.7192
-Client 1 Raw Score: 0.5184
-Client 2 Raw Score: 0.5180
-Client 3 Raw Score: 0.5002
-Client 4 Raw Score: 0.5047
-Client 0 Softmax weight: 0.2355
-Client 1 Softmax weight: 0.1927
-Client 2 Softmax weight: 0.1926
-Client 3 Softmax weight: 0.1892
-Client 4 Softmax weight: 0.1900
-Round 8 Test Accuracy=0.0559
-
-========== Round [9/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 4.012249946594238
-loss = 3.954760789871216
-loss = 4.25409460067749
-loss = 4.206593036651611
-loss = 4.251941680908203
-loss = 3.8017566204071045
-loss = 4.233964920043945
-loss = 4.199120998382568
-loss = 4.266486644744873
-loss = 4.022413730621338
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 3.7416293621063232
-loss = 4.082868576049805
-loss = 3.9467806816101074
-loss = 4.110226154327393
-loss = 4.338376998901367
-loss = 4.259900093078613
-loss = 4.111324310302734
-loss = 4.234490394592285
-loss = 4.252397537231445
-loss = 3.870899200439453
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 3 94
-loss = 3.798844337463379
-loss = 4.029009819030762
-loss = 3.9448201656341553
-loss = 4.306830883026123
-loss = 4.198889255523682
-loss = 4.208942413330078
-loss = 4.0674285888671875
-loss = 4.0376296043396
-loss = 4.16912317276001
-loss = 4.110447883605957
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 6 98
-loss = 3.8863883018493652
-loss = 4.155792713165283
-loss = 4.303357124328613
-loss = 4.578256130218506
-loss = 4.45125150680542
-loss = 4.072151184082031
-loss = 4.0215301513671875
-loss = 3.907546043395996
-loss = 4.225191593170166
-loss = 3.8547544479370117
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 3.8290765285491943
-loss = 4.013105869293213
-loss = 4.046309947967529
-loss = 4.398968696594238
-loss = 4.463418960571289
-loss = 4.136523246765137
-loss = 4.080374717712402
-loss = 4.044447422027588
-loss = 4.014439582824707
-loss = 3.8362138271331787
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1014
-Client 0 Raw Score: 0.7128
-Client 1 Raw Score: 0.4970
-Client 2 Raw Score: 0.5002
-Client 3 Raw Score: 0.4843
-Client 4 Raw Score: 0.5110
-Client 0 Softmax weight: 0.2366
-Client 1 Softmax weight: 0.1906
-Client 2 Softmax weight: 0.1912
-Client 3 Softmax weight: 0.1882
-Client 4 Softmax weight: 0.1933
-Round 9 Test Accuracy=0.0657
-
-========== Round [10/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 3.743859052658081
-loss = 3.912294387817383
-loss = 4.321267604827881
-loss = 4.236454486846924
-loss = 4.25314998626709
-loss = 4.374975204467773
-loss = 4.196213245391846
-loss = 4.099897384643555
-loss = 3.9329822063446045
-loss = 4.344517230987549
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.7488596439361572
-loss = 3.810828685760498
-loss = 3.7572290897369385
-loss = 3.781477928161621
-loss = 4.195348739624023
-loss = 4.197617053985596
-loss = 4.060893535614014
-loss = 4.086942672729492
-loss = 4.222178936004639
-loss = 4.060262680053711
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.452024459838867
-loss = 3.9764962196350098
-loss = 4.0293097496032715
-loss = 3.9087166786193848
-loss = 3.8648500442504883
-loss = 4.161894798278809
-loss = 4.531894207000732
-loss = 4.3341803550720215
-loss = 3.8843135833740234
-loss = 3.8480658531188965
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 4 99
-loss = 3.584594964981079
-loss = 3.861800193786621
-loss = 4.152694225311279
-loss = 3.7903811931610107
-loss = 4.493211269378662
-loss = 4.176523208618164
-loss = 4.005731582641602
-loss = 4.276010990142822
-loss = 3.940664768218994
-loss = 4.106868743896484
-
- Client 5/5
+ Client 2/10
 logits shape: torch.Size([64, 100])
 label range: 0 96
-loss = 3.74191951751709
-loss = 3.7895021438598633
-loss = 3.981480836868286
-loss = 4.435688495635986
-loss = 3.942833662033081
-loss = 4.048281192779541
-loss = 4.200543403625488
-loss = 4.0876312255859375
-loss = 4.3250274658203125
-loss = 4.078672409057617
+loss = 4.534496784210205
+loss = 4.181972503662109
+loss = 4.071146488189697
+loss = 4.194079875946045
+loss = 3.8801662921905518
+loss = 4.608319282531738
+loss = 4.125888824462891
+loss = 3.928065061569214
+loss = 4.033172130584717
+loss = 3.838113307952881
 
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.0976
-Client 0 Raw Score: 0.7122
-Client 1 Raw Score: 0.5244
-Client 2 Raw Score: 0.4864
-Client 3 Raw Score: 0.5225
-Client 4 Raw Score: 0.4970
-Client 0 Softmax weight: 0.2347
-Client 1 Softmax weight: 0.1945
-Client 2 Softmax weight: 0.1873
-Client 3 Softmax weight: 0.1942
-Client 4 Softmax weight: 0.1893
-Round 10 Test Accuracy=0.0825
-
-========== Round [11/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.8656179904937744
-loss = 4.035348415374756
-loss = 4.064075946807861
-loss = 3.792041540145874
-loss = 4.074458122253418
-loss = 3.9310922622680664
-loss = 4.474244117736816
-loss = 4.1767964363098145
-loss = 4.03127908706665
-loss = 4.071858882904053
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 3.5151426792144775
-loss = 3.7455854415893555
-loss = 3.6294643878936768
-loss = 3.764354705810547
-loss = 4.340878963470459
-loss = 4.01280403137207
-loss = 4.040948867797852
-loss = 4.130180358886719
-loss = 3.9746925830841064
-loss = 3.8491034507751465
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 3.866380214691162
-loss = 3.579613447189331
-loss = 4.027507305145264
-loss = 4.039280414581299
-loss = 4.234166145324707
-loss = 4.023020267486572
-loss = 3.903310537338257
-loss = 4.171380519866943
-loss = 4.035151481628418
-loss = 4.119221210479736
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 4.1287946701049805
-loss = 3.915113925933838
-loss = 4.1489386558532715
-loss = 4.123247146606445
-loss = 4.253951549530029
-loss = 4.27946662902832
-loss = 4.056396007537842
-loss = 3.779491901397705
-loss = 4.0093770027160645
-loss = 4.122873783111572
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.762904167175293
-loss = 3.987985372543335
-loss = 3.974191188812256
-loss = 4.295193672180176
-loss = 4.301686763763428
-loss = 4.4224958419799805
-loss = 4.0073113441467285
-loss = 4.391408443450928
-loss = 3.7997477054595947
-loss = 4.233170509338379
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1235
-Client 0 Raw Score: 0.7160
-Client 1 Raw Score: 0.5152
-Client 2 Raw Score: 0.4925
-Client 3 Raw Score: 0.5018
-Client 4 Raw Score: 0.5140
-Client 0 Softmax weight: 0.2357
-Client 1 Softmax weight: 0.1928
-Client 2 Softmax weight: 0.1885
-Client 3 Softmax weight: 0.1903
-Client 4 Softmax weight: 0.1926
-Round 11 Test Accuracy=0.0867
-
-========== Round [12/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 3.6168510913848877
-loss = 3.304579734802246
-loss = 4.1186442375183105
-loss = 3.94183611869812
-loss = 4.6899895668029785
-loss = 3.7077443599700928
-loss = 3.9866433143615723
-loss = 3.8676912784576416
-loss = 4.11304235458374
-loss = 4.26855993270874
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.264843463897705
-loss = 4.005672454833984
-loss = 3.796278238296509
-loss = 3.9095582962036133
-loss = 4.293262004852295
-loss = 3.9208831787109375
-loss = 4.046766757965088
-loss = 4.27578067779541
-loss = 3.8472743034362793
-loss = 3.898805618286133
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 6 98
-loss = 3.540794849395752
-loss = 3.7476089000701904
-loss = 3.8437108993530273
-loss = 3.8742668628692627
-loss = 3.977278709411621
-loss = 3.6931779384613037
-loss = 4.368544578552246
-loss = 4.192838191986084
-loss = 4.25626802444458
-loss = 4.189641952514648
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 3.4600255489349365
-loss = 3.989422082901001
-loss = 3.7887446880340576
-loss = 4.045679092407227
-loss = 4.034136772155762
-loss = 3.8723933696746826
-loss = 3.935359001159668
-loss = 4.055323600769043
-loss = 3.9510414600372314
-loss = 3.985652208328247
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 3.350275993347168
-loss = 4.0497870445251465
-loss = 3.8125319480895996
-loss = 4.330256938934326
-loss = 4.453063011169434
-loss = 4.338189601898193
-loss = 4.184908866882324
-loss = 4.061221122741699
-loss = 3.8787198066711426
-loss = 4.013089656829834
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1301
-Client 0 Raw Score: 0.7151
-Client 1 Raw Score: 0.5008
-Client 2 Raw Score: 0.5050
-Client 3 Raw Score: 0.5112
-Client 4 Raw Score: 0.5097
-Client 0 Softmax weight: 0.2354
-Client 1 Softmax weight: 0.1900
-Client 2 Softmax weight: 0.1908
-Client 3 Softmax weight: 0.1920
-Client 4 Softmax weight: 0.1917
-Round 12 Test Accuracy=0.0938
-
-========== Round [13/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 94
-loss = 3.875110387802124
-loss = 3.8006362915039062
-loss = 3.848111629486084
-loss = 4.240057945251465
-loss = 3.7739243507385254
-loss = 4.041378498077393
-loss = 4.330962657928467
-loss = 4.068295478820801
-loss = 4.276608467102051
-loss = 4.031731605529785
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 3.599992036819458
-loss = 3.642246723175049
-loss = 3.820634126663208
-loss = 3.7312023639678955
-loss = 3.900568962097168
-loss = 4.084172248840332
-loss = 4.231997966766357
-loss = 3.8684017658233643
-loss = 3.9446051120758057
-loss = 3.983289957046509
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 3 97
-loss = 3.636539936065674
-loss = 3.5896809101104736
-loss = 4.048234939575195
-loss = 3.9548892974853516
-loss = 4.343692779541016
-loss = 4.2923078536987305
-loss = 4.005544662475586
-loss = 3.982504367828369
-loss = 3.7353456020355225
-loss = 4.216872692108154
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 4 99
-loss = 3.4694125652313232
-loss = 3.826843023300171
-loss = 3.8179492950439453
-loss = 4.034226894378662
-loss = 4.103572845458984
-loss = 3.987222909927368
-loss = 3.940758228302002
-loss = 4.22733736038208
-loss = 3.961277723312378
-loss = 4.222114086151123
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.421602249145508
-loss = 4.277675628662109
-loss = 3.976653814315796
-loss = 4.173006057739258
-loss = 3.9386234283447266
-loss = 3.8482420444488525
-loss = 3.998246192932129
-loss = 3.8307411670684814
-loss = 4.245412826538086
-loss = 3.8072099685668945
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1228
-Client 0 Raw Score: 0.7168
-Client 1 Raw Score: 0.4913
-Client 2 Raw Score: 0.4883
-Client 3 Raw Score: 0.5023
-Client 4 Raw Score: 0.4982
-Client 0 Softmax weight: 0.2378
-Client 1 Softmax weight: 0.1898
-Client 2 Softmax weight: 0.1893
-Client 3 Softmax weight: 0.1919
-Client 4 Softmax weight: 0.1911
-Round 13 Test Accuracy=0.1123
-
-========== Round [14/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 2 96
-loss = 3.356703042984009
-loss = 3.586158037185669
-loss = 4.155462265014648
-loss = 3.9487905502319336
-loss = 4.210590362548828
-loss = 4.112332344055176
-loss = 3.8936784267425537
-loss = 4.114072322845459
-loss = 3.8491861820220947
-loss = 4.188333988189697
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 5 98
-loss = 3.4821269512176514
-loss = 3.6562094688415527
-loss = 4.104021072387695
-loss = 3.9273109436035156
-loss = 3.954498529434204
-loss = 3.8730509281158447
-loss = 3.922271251678467
-loss = 3.998631000518799
-loss = 4.25596809387207
-loss = 3.9760489463806152
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 0 94
-loss = 3.546034812927246
-loss = 4.036284923553467
-loss = 3.9919402599334717
-loss = 3.9591989517211914
-loss = 3.737182855606079
-loss = 3.922530174255371
-loss = 3.815974235534668
-loss = 4.0002336502075195
-loss = 4.275989532470703
-loss = 3.7049400806427
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 95
-loss = 3.279482364654541
-loss = 3.854379653930664
-loss = 4.228318214416504
-loss = 3.9454848766326904
-loss = 4.237851142883301
-loss = 3.9021360874176025
-loss = 3.7099103927612305
-loss = 3.814795970916748
-loss = 3.6929140090942383
-loss = 4.257230758666992
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 3.489525556564331
-loss = 3.918674945831299
-loss = 4.175146579742432
-loss = 3.9895055294036865
-loss = 3.9871790409088135
-loss = 4.0145263671875
-loss = 4.164947509765625
-loss = 3.8453421592712402
-loss = 3.866375684738159
-loss = 3.9944849014282227
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1217
-Client 0 Raw Score: 0.7067
-Client 1 Raw Score: 0.4597
-Client 2 Raw Score: 0.5021
-Client 3 Raw Score: 0.4944
-Client 4 Raw Score: 0.4918
-Client 0 Softmax weight: 0.2374
-Client 1 Softmax weight: 0.1855
-Client 2 Softmax weight: 0.1935
-Client 3 Softmax weight: 0.1920
-Client 4 Softmax weight: 0.1915
-Round 14 Test Accuracy=0.1011
-
-========== Round [15/50] ==========
-
- Client 1/5
+ Client 3/10
 logits shape: torch.Size([64, 100])
 label range: 2 98
-loss = 3.7376575469970703
-loss = 3.6229782104492188
-loss = 3.862975835800171
-loss = 4.072057247161865
-loss = 3.779963970184326
-loss = 4.103592395782471
-loss = 4.202559947967529
-loss = 3.959972858428955
-loss = 3.932804822921753
-loss = 3.9059815406799316
+loss = 4.706035614013672
+loss = 4.250655174255371
+loss = 4.1737518310546875
+loss = 4.421037673950195
+loss = 3.8322794437408447
+loss = 3.993373394012451
+loss = 4.304545879364014
+loss = 4.088626384735107
+loss = 4.19962739944458
+loss = 3.599928379058838
 
- Client 2/5
+ Client 4/10
+logits shape: torch.Size([64, 100])
+label range: 4 99
+loss = 4.6725358963012695
+loss = 4.111078262329102
+loss = 3.776163339614868
+loss = 3.7523016929626465
+loss = 4.217404842376709
+loss = 3.969125509262085
+loss = 4.141700267791748
+loss = 3.339718818664551
+loss = 3.7574970722198486
+loss = 3.7928812503814697
+
+ Client 5/10
+logits shape: torch.Size([64, 100])
+label range: 1 98
+loss = 4.665813446044922
+loss = 4.350937366485596
+loss = 4.318613052368164
+loss = 3.928828239440918
+loss = 3.8525047302246094
+loss = 4.126336574554443
+loss = 4.325941562652588
+loss = 3.3061914443969727
+loss = 4.134864807128906
+loss = 4.471549034118652
+
+ Client 6/10
 logits shape: torch.Size([64, 100])
 label range: 0 98
-loss = 3.681696891784668
-loss = 3.76468563079834
-loss = 4.037082195281982
-loss = 4.025696754455566
-loss = 3.9683847427368164
-loss = 4.097426891326904
-loss = 3.8308603763580322
-loss = 4.183189392089844
-loss = 3.8209118843078613
-loss = 3.7042765617370605
+loss = 4.594645977020264
+loss = 4.450652122497559
+loss = 4.346834659576416
+loss = 4.103837013244629
+loss = 4.078933238983154
+loss = 4.221662998199463
+loss = 3.859656572341919
+loss = 3.7942464351654053
+loss = 3.830829620361328
+loss = 4.308990001678467
 
- Client 3/5
+ Client 7/10
+logits shape: torch.Size([64, 100])
+label range: 6 99
+loss = 4.6495280265808105
+loss = 4.20764684677124
+loss = 4.341305732727051
+loss = 3.9586501121520996
+loss = 3.8567957878112793
+loss = 4.084973335266113
+loss = 4.0543670654296875
+loss = 4.017242908477783
+loss = 3.9663569927215576
+loss = 3.8611230850219727
+
+ Client 8/10
+logits shape: torch.Size([64, 100])
+label range: 3 96
+loss = 4.595491409301758
+loss = 4.238537788391113
+loss = 4.4396748542785645
+loss = 3.964386224746704
+loss = 4.494561195373535
+loss = 3.7754886150360107
+loss = 3.9452335834503174
+loss = 4.070184707641602
+loss = 3.813453197479248
+loss = 4.1811113357543945
+
+ Client 9/10
+logits shape: torch.Size([64, 100])
+label range: 0 95
+loss = 4.513844966888428
+loss = 4.109246253967285
+loss = 4.182015419006348
+loss = 3.9900381565093994
+loss = 3.9515345096588135
+loss = 3.9854648113250732
+loss = 4.242349624633789
+loss = 3.9973602294921875
+loss = 3.8961753845214844
+loss = 3.880746364593506
+
+ Client 10/10
+logits shape: torch.Size([64, 100])
+label range: 1 99
+loss = 4.752806186676025
+loss = 4.20790958404541
+loss = 4.482367992401123
+loss = 4.53477668762207
+loss = 3.860543966293335
+loss = 3.98408842086792
+loss = 3.9206230640411377
+loss = 4.058480262756348
+loss = 3.690155506134033
+loss = 4.060471534729004
+Client 0 Train Acc=0.1336
+Client 1 Train Acc=0.1711
+Client 2 Train Acc=0.1311
+Client 3 Train Acc=0.1634
+Client 4 Train Acc=0.1003
+Client 5 Train Acc=0.0911
+Client 6 Train Acc=0.1193
+Client 7 Train Acc=0.1506
+Client 8 Train Acc=0.1020
+Client 9 Train Acc=0.1177
+Client 0 Raw Score: 0.3141
+Client 1 Raw Score: 0.3584
+Client 2 Raw Score: 0.3703
+Client 3 Raw Score: 0.2947
+Client 4 Raw Score: 0.3721
+Client 5 Raw Score: 0.3429
+Client 6 Raw Score: 0.3861
+Client 7 Raw Score: 0.3390
+Client 8 Raw Score: 0.3218
+Client 9 Raw Score: 0.3340
+Client 0 Softmax weight: 0.0971
+Client 1 Softmax weight: 0.1015
+Client 2 Softmax weight: 0.1027
+Client 3 Softmax weight: 0.0952
+Client 4 Softmax weight: 0.1029
+Client 5 Softmax weight: 0.0999
+Client 6 Softmax weight: 0.1043
+Client 7 Softmax weight: 0.0995
+Client 8 Softmax weight: 0.0978
+Client 9 Softmax weight: 0.0990
+Round 2 Test Accuracy=0.0177
+
+========== Round [3/100] ==========
+
+ Client 1/10
+logits shape: torch.Size([64, 100])
+label range: 0 92
+loss = 4.563281059265137
+loss = 4.144467353820801
+loss = 4.149725437164307
+loss = 3.9578676223754883
+loss = 4.126171112060547
+loss = 3.8294730186462402
+loss = 3.7321176528930664
+loss = 3.660283088684082
+loss = 3.7879719734191895
+loss = 3.7655117511749268
+
+ Client 2/10
+logits shape: torch.Size([64, 100])
+label range: 3 97
+loss = 4.4083709716796875
+loss = 4.278748512268066
+loss = 4.197837829589844
+loss = 3.813383102416992
+loss = 3.893207550048828
+loss = 4.108728408813477
+loss = 3.570333480834961
+loss = 3.7429966926574707
+loss = 3.873124837875366
+loss = 3.5809810161590576
+
+ Client 3/10
+logits shape: torch.Size([64, 100])
+label range: 2 98
+loss = 4.283267974853516
+loss = 4.25706148147583
+loss = 3.866594076156616
+loss = 3.965282917022705
+loss = 3.7866761684417725
+loss = 3.932690143585205
+loss = 4.001972675323486
+loss = 3.7391366958618164
+loss = 4.139009952545166
+loss = 3.994208574295044
+
+ Client 4/10
+logits shape: torch.Size([64, 100])
+label range: 4 99
+loss = 4.475183010101318
+loss = 3.90906023979187
+loss = 3.6925504207611084
+loss = 4.066694259643555
+loss = 3.7068514823913574
+loss = 4.075349807739258
+loss = 4.00993537902832
+loss = 3.88010835647583
+loss = 3.808480978012085
+loss = 4.255085468292236
+
+ Client 5/10
+logits shape: torch.Size([64, 100])
+label range: 1 96
+loss = 4.419890403747559
+loss = 4.175130367279053
+loss = 4.093994140625
+loss = 3.891521453857422
+loss = 3.902872085571289
+loss = 3.8064253330230713
+loss = 3.7959272861480713
+loss = 4.4248175621032715
+loss = 4.149402141571045
+loss = 4.1309309005737305
+
+ Client 6/10
+logits shape: torch.Size([64, 100])
+label range: 0 94
+loss = 4.3997907638549805
+loss = 4.160886287689209
+loss = 4.109844207763672
+loss = 4.206474304199219
+loss = 4.147558689117432
+loss = 3.788893938064575
+loss = 3.986767292022705
+loss = 3.8302955627441406
+loss = 3.77059268951416
+loss = 3.61763858795166
+
+ Client 7/10
+logits shape: torch.Size([64, 100])
+label range: 0 98
+loss = 4.234988689422607
+loss = 4.115330696105957
+loss = 3.848799467086792
+loss = 4.017070770263672
+loss = 3.8938088417053223
+loss = 3.5201311111450195
+loss = 3.937363386154175
+loss = 3.7386233806610107
+loss = 3.6573679447174072
+loss = 3.7582855224609375
+
+ Client 8/10
 logits shape: torch.Size([64, 100])
 label range: 2 96
-loss = 3.4373621940612793
-loss = 3.668672561645508
-loss = 3.7695322036743164
-loss = 3.853062152862549
-loss = 4.1246442794799805
-loss = 4.150622844696045
-loss = 4.065216541290283
-loss = 3.5670053958892822
-loss = 3.723602533340454
-loss = 3.560208559036255
+loss = 4.2877936363220215
+loss = 4.21234655380249
+loss = 4.219357013702393
+loss = 3.6303272247314453
+loss = 4.312786102294922
+loss = 3.917536735534668
+loss = 4.088329792022705
+loss = 3.9996426105499268
+loss = 4.19237756729126
+loss = 3.7764854431152344
 
- Client 4/5
+ Client 9/10
+logits shape: torch.Size([64, 100])
+label range: 0 99
+loss = 4.431755065917969
+loss = 4.48670768737793
+loss = 3.967642307281494
+loss = 3.689398765563965
+loss = 4.1444573402404785
+loss = 3.854360580444336
+loss = 3.9094274044036865
+loss = 3.941908836364746
+loss = 4.104910850524902
+loss = 3.6883792877197266
+
+ Client 10/10
 logits shape: torch.Size([64, 100])
 label range: 1 99
-loss = 3.6139931678771973
-loss = 3.652378797531128
-loss = 4.092070579528809
-loss = 3.930539846420288
-loss = 4.14016580581665
-loss = 4.013212203979492
-loss = 4.070188522338867
-loss = 3.519293785095215
-loss = 3.848417282104492
-loss = 3.9754638671875
+loss = 4.344205856323242
+loss = 4.0555806159973145
+loss = 4.031464099884033
+loss = 4.112405776977539
+loss = 4.107787132263184
+loss = 4.248195171356201
+loss = 4.024229049682617
+loss = 3.7024614810943604
+loss = 3.6620519161224365
+loss = 3.596073627471924
+Client 0 Train Acc=0.1500
+Client 1 Train Acc=0.1555
+Client 2 Train Acc=0.1475
+Client 3 Train Acc=0.1656
+Client 4 Train Acc=0.1161
+Client 5 Train Acc=0.1186
+Client 6 Train Acc=0.1543
+Client 7 Train Acc=0.1348
+Client 8 Train Acc=0.1233
+Client 9 Train Acc=0.1190
+Client 0 Raw Score: 0.3171
+Client 1 Raw Score: 0.3304
+Client 2 Raw Score: 0.3637
+Client 3 Raw Score: 0.2958
+Client 4 Raw Score: 0.3435
+Client 5 Raw Score: 0.3333
+Client 6 Raw Score: 0.3396
+Client 7 Raw Score: 0.3304
+Client 8 Raw Score: 0.3072
+Client 9 Raw Score: 0.3111
+Client 0 Softmax weight: 0.0990
+Client 1 Softmax weight: 0.1003
+Client 2 Softmax weight: 0.1037
+Client 3 Softmax weight: 0.0969
+Client 4 Softmax weight: 0.1016
+Client 5 Softmax weight: 0.1006
+Client 6 Softmax weight: 0.1012
+Client 7 Softmax weight: 0.1003
+Client 8 Softmax weight: 0.0980
+Client 9 Softmax weight: 0.0984
+Round 3 Test Accuracy=0.0418
 
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.499898672103882
-loss = 4.061151504516602
-loss = 3.853043556213379
-loss = 3.813274621963501
-loss = 3.9709761142730713
-loss = 4.028209686279297
-loss = 3.9100449085235596
-loss = 3.848219394683838
-loss = 3.8402585983276367
-loss = 3.8728203773498535
+========== Round [4/100] ==========
 
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1594
-Client 0 Raw Score: 0.7078
-Client 1 Raw Score: 0.5110
-Client 2 Raw Score: 0.4880
-Client 3 Raw Score: 0.4808
-Client 4 Raw Score: 0.4776
-Client 0 Softmax weight: 0.2372
-Client 1 Softmax weight: 0.1949
-Client 2 Softmax weight: 0.1904
-Client 3 Softmax weight: 0.1890
-Client 4 Softmax weight: 0.1884
-Round 15 Test Accuracy=0.1120
-
-========== Round [16/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 3 99
-loss = 3.8306422233581543
-loss = 3.872527599334717
-loss = 3.99788498878479
-loss = 4.075407028198242
-loss = 3.778585910797119
-loss = 4.058284759521484
-loss = 3.9503345489501953
-loss = 4.141299724578857
-loss = 4.111901760101318
-loss = 3.7914133071899414
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.666576623916626
-loss = 3.3964977264404297
-loss = 4.217485427856445
-loss = 4.224268436431885
-loss = 3.9422996044158936
-loss = 4.095301628112793
-loss = 3.7136356830596924
-loss = 3.7548298835754395
-loss = 3.859100103378296
-loss = 3.553424119949341
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.253924608230591
-loss = 3.7492189407348633
-loss = 3.9372496604919434
-loss = 3.7613449096679688
-loss = 3.8463399410247803
-loss = 4.1000189781188965
-loss = 3.8437066078186035
-loss = 3.46596622467041
-loss = 4.040747165679932
-loss = 3.836191177368164
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.4348676204681396
-loss = 3.699099063873291
-loss = 4.141012668609619
-loss = 4.170701503753662
-loss = 3.9121932983398438
-loss = 4.130595684051514
-loss = 4.212707042694092
-loss = 4.075462341308594
-loss = 3.8902480602264404
-loss = 4.152557373046875
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 1 95
-loss = 3.7921674251556396
-loss = 3.6781578063964844
-loss = 3.3127758502960205
-loss = 3.8594374656677246
-loss = 4.266193389892578
-loss = 4.041178226470947
-loss = 3.7103283405303955
-loss = 4.059286594390869
-loss = 3.8758108615875244
-loss = 3.519536256790161
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1370
-Client 0 Raw Score: 0.7121
-Client 1 Raw Score: 0.4924
-Client 2 Raw Score: 0.5123
-Client 3 Raw Score: 0.5136
-Client 4 Raw Score: 0.5210
-Client 0 Softmax weight: 0.2343
-Client 1 Softmax weight: 0.1881
-Client 2 Softmax weight: 0.1919
-Client 3 Softmax weight: 0.1921
-Client 4 Softmax weight: 0.1936
-Round 16 Test Accuracy=0.1222
-
-========== Round [17/50] ==========
-
- Client 1/5
+ Client 1/10
 logits shape: torch.Size([64, 100])
 label range: 0 97
-loss = 3.4901041984558105
-loss = 3.6040666103363037
-loss = 3.991159439086914
-loss = 4.058474063873291
-loss = 4.017027854919434
-loss = 3.827727794647217
-loss = 4.366426467895508
-loss = 3.7605092525482178
-loss = 3.7392868995666504
-loss = 3.9390246868133545
+loss = 4.085951805114746
+loss = 4.0199360847473145
+loss = 4.291253089904785
+loss = 3.8402116298675537
+loss = 3.725633382797241
+loss = 3.8829150199890137
+loss = 3.9803600311279297
+loss = 4.5887017250061035
+loss = 3.614428758621216
+loss = 3.4861581325531006
 
- Client 2/5
+ Client 2/10
+logits shape: torch.Size([64, 100])
+label range: 1 97
+loss = 4.174197196960449
+loss = 4.075484275817871
+loss = 4.204341888427734
+loss = 4.091531276702881
+loss = 3.6514272689819336
+loss = 3.6875433921813965
+loss = 3.80204176902771
+loss = 3.8830959796905518
+loss = 3.8888399600982666
+loss = 3.6559977531433105
+
+ Client 3/10
+logits shape: torch.Size([64, 100])
+label range: 0 98
+loss = 4.109549045562744
+loss = 3.7134881019592285
+loss = 4.186224460601807
+loss = 3.6435203552246094
+loss = 3.574585199356079
+loss = 3.906142473220825
+loss = 3.9400808811187744
+loss = 4.00618839263916
+loss = 3.8492696285247803
+loss = 3.6446855068206787
+
+ Client 4/10
+logits shape: torch.Size([64, 100])
+label range: 4 98
+loss = 4.333975791931152
+loss = 3.83453631401062
+loss = 3.715960741043091
+loss = 3.784209966659546
+loss = 3.504786968231201
+loss = 3.613396167755127
+loss = 3.878145217895508
+loss = 3.628911018371582
+loss = 3.450792074203491
+loss = 3.204239845275879
+
+ Client 5/10
+logits shape: torch.Size([64, 100])
+label range: 1 99
+loss = 4.207790374755859
+loss = 3.8377676010131836
+loss = 4.083298683166504
+loss = 4.077832221984863
+loss = 3.6635241508483887
+loss = 4.0930585861206055
+loss = 3.8945817947387695
+loss = 3.9815125465393066
+loss = 3.7315149307250977
+loss = 3.683307409286499
+
+ Client 6/10
 logits shape: torch.Size([64, 100])
 label range: 0 99
-loss = 3.4679598808288574
-loss = 3.665595769882202
-loss = 3.8825414180755615
-loss = 4.4485578536987305
-loss = 4.440564155578613
-loss = 3.8256759643554688
-loss = 4.029730796813965
-loss = 3.666733980178833
-loss = 3.9574100971221924
-loss = 3.732492446899414
+loss = 4.035005569458008
+loss = 4.0715837478637695
+loss = 3.79744815826416
+loss = 3.8942174911499023
+loss = 4.13071346282959
+loss = 3.9039499759674072
+loss = 4.140650749206543
+loss = 3.761890411376953
+loss = 4.146781921386719
+loss = 3.7528929710388184
 
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 3 98
-loss = 3.3276865482330322
-loss = 3.884047031402588
-loss = 4.122964859008789
-loss = 4.349662780761719
-loss = 3.8646011352539062
-loss = 4.013765811920166
-loss = 3.87797212600708
-loss = 3.8566503524780273
-loss = 3.9630331993103027
-loss = 3.7399415969848633
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 93
-loss = 3.3859448432922363
-loss = 3.4362800121307373
-loss = 4.012404918670654
-loss = 4.044098854064941
-loss = 3.876657009124756
-loss = 3.878749132156372
-loss = 3.990579843521118
-loss = 3.7284786701202393
-loss = 3.8141050338745117
-loss = 3.682645797729492
-
- Client 5/5
+ Client 7/10
 logits shape: torch.Size([64, 100])
 label range: 2 99
-loss = 3.550459623336792
-loss = 3.884336471557617
-loss = 3.875298261642456
-loss = 4.190783977508545
-loss = 4.029033660888672
-loss = 4.028867721557617
-loss = 4.202572822570801
-loss = 3.9533910751342773
-loss = 3.96822452545166
-loss = 3.9338245391845703
+loss = 3.9681437015533447
+loss = 3.68852162361145
+loss = 4.3218536376953125
+loss = 3.8684630393981934
+loss = 3.711789131164551
+loss = 4.014110088348389
+loss = 3.675687551498413
+loss = 3.8756604194641113
+loss = 3.5179028511047363
+loss = 3.627058506011963
 
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1461
-Client 0 Raw Score: 0.7110
-Client 1 Raw Score: 0.5016
-Client 2 Raw Score: 0.4925
-Client 3 Raw Score: 0.4933
-Client 4 Raw Score: 0.4921
-Client 0 Softmax weight: 0.2368
-Client 1 Softmax weight: 0.1921
-Client 2 Softmax weight: 0.1903
-Client 3 Softmax weight: 0.1905
-Client 4 Softmax weight: 0.1903
-Round 17 Test Accuracy=0.1285
-
-========== Round [18/50] ==========
-
- Client 1/5
+ Client 8/10
 logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 3.5085439682006836
-loss = 3.694840431213379
-loss = 3.701155424118042
-loss = 3.9076004028320312
-loss = 3.462580680847168
-loss = 3.922753095626831
-loss = 4.031378746032715
-loss = 3.9321041107177734
-loss = 3.921093702316284
-loss = 3.9877333641052246
+label range: 1 94
+loss = 4.099536895751953
+loss = 3.7772226333618164
+loss = 4.145541667938232
+loss = 4.092995643615723
+loss = 3.523247480392456
+loss = 4.096564769744873
+loss = 3.9774959087371826
+loss = 3.9999594688415527
+loss = 4.522390842437744
+loss = 3.8101255893707275
 
- Client 2/5
+ Client 9/10
 logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 3.5298538208007812
-loss = 3.6186256408691406
-loss = 3.5493268966674805
-loss = 3.639970302581787
-loss = 4.153901100158691
-loss = 3.6408681869506836
-loss = 3.900819778442383
-loss = 3.795788288116455
-loss = 3.9700019359588623
-loss = 4.017447471618652
+label range: 0 99
+loss = 4.098374843597412
+loss = 4.272722244262695
+loss = 3.95855712890625
+loss = 3.576434373855591
+loss = 4.29636812210083
+loss = 3.7318525314331055
+loss = 3.865619421005249
+loss = 3.940605640411377
+loss = 4.251847267150879
+loss = 3.631342649459839
 
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 3 99
-loss = 3.733182191848755
-loss = 3.6640939712524414
-loss = 3.8566153049468994
-loss = 4.374159812927246
-loss = 4.031290531158447
-loss = 3.8359861373901367
-loss = 4.025052547454834
-loss = 3.915212392807007
-loss = 3.5197277069091797
-loss = 3.6482467651367188
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 3.4825382232666016
-loss = 3.6605160236358643
-loss = 4.043416500091553
-loss = 4.048585414886475
-loss = 3.8711113929748535
-loss = 3.5299737453460693
-loss = 3.7019500732421875
-loss = 3.829085350036621
-loss = 3.575336456298828
-loss = 3.8368349075317383
-
- Client 5/5
+ Client 10/10
 logits shape: torch.Size([64, 100])
 label range: 0 97
-loss = 3.2468552589416504
-loss = 4.073392868041992
-loss = 3.9432976245880127
-loss = 3.545337677001953
-loss = 3.8185999393463135
-loss = 3.811168909072876
-loss = 4.031005859375
-loss = 3.7324628829956055
-loss = 3.768676996231079
-loss = 3.801429033279419
+loss = 4.283802032470703
+loss = 4.137238025665283
+loss = 4.156996726989746
+loss = 4.109477996826172
+loss = 4.01635217666626
+loss = 3.7689929008483887
+loss = 4.007505416870117
+loss = 3.9582011699676514
+loss = 3.5043857097625732
+loss = 3.487086534500122
+Client 0 Train Acc=0.1528
+Client 1 Train Acc=0.1847
+Client 2 Train Acc=0.1453
+Client 3 Train Acc=0.1864
+Client 4 Train Acc=0.1104
+Client 5 Train Acc=0.1449
+Client 6 Train Acc=0.1347
+Client 7 Train Acc=0.1578
+Client 8 Train Acc=0.1186
+Client 9 Train Acc=0.1255
+Client 0 Raw Score: 0.3030
+Client 1 Raw Score: 0.3013
+Client 2 Raw Score: 0.3439
+Client 3 Raw Score: 0.2606
+Client 4 Raw Score: 0.3183
+Client 5 Raw Score: 0.3515
+Client 6 Raw Score: 0.3337
+Client 7 Raw Score: 0.3025
+Client 8 Raw Score: 0.2902
+Client 9 Raw Score: 0.3198
+Client 0 Softmax weight: 0.0990
+Client 1 Softmax weight: 0.0989
+Client 2 Softmax weight: 0.1032
+Client 3 Softmax weight: 0.0949
+Client 4 Softmax weight: 0.1006
+Client 5 Softmax weight: 0.1039
+Client 6 Softmax weight: 0.1021
+Client 7 Softmax weight: 0.0990
+Client 8 Softmax weight: 0.0978
+Client 9 Softmax weight: 0.1007
+Round 4 Test Accuracy=0.0587
 
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1511
-Client 0 Raw Score: 0.7111
-Client 1 Raw Score: 0.4896
-Client 2 Raw Score: 0.4794
-Client 3 Raw Score: 0.5077
-Client 4 Raw Score: 0.4938
-Client 0 Softmax weight: 0.2372
-Client 1 Softmax weight: 0.1901
-Client 2 Softmax weight: 0.1882
-Client 3 Softmax weight: 0.1936
-Client 4 Softmax weight: 0.1909
-Round 18 Test Accuracy=0.1261
+========== Round [5/100] ==========
 
-========== Round [19/50] ==========
+ Client 1/10
+logits shape: torch.Size([64, 100])
+label range: 0 97
+loss = 3.955758810043335
+loss = 4.228198528289795
+loss = 3.875504732131958
+loss = 3.847362518310547
+loss = 3.7434182167053223
+loss = 3.806488513946533
+loss = 4.115807056427002
+loss = 4.079428672790527
+loss = 3.8279542922973633
+loss = 3.557368040084839
 
- Client 1/5
+ Client 2/10
+logits shape: torch.Size([64, 100])
+label range: 0 97
+loss = 4.057399272918701
+loss = 3.8718366622924805
+loss = 3.8639185428619385
+loss = 3.7946033477783203
+loss = 3.8307266235351562
+loss = 3.76981782913208
+loss = 3.5988619327545166
+loss = 3.8891775608062744
+loss = 3.7059571743011475
+loss = 3.3845982551574707
+
+ Client 3/10
+logits shape: torch.Size([64, 100])
+label range: 2 96
+loss = 3.821993350982666
+loss = 3.7916908264160156
+loss = 3.9196503162384033
+loss = 3.7680182456970215
+loss = 3.56498384475708
+loss = 3.6050686836242676
+loss = 4.009848117828369
+loss = 3.634511709213257
+loss = 3.821312189102173
+loss = 4.057093620300293
+
+ Client 4/10
+logits shape: torch.Size([64, 100])
+label range: 3 97
+loss = 3.9970245361328125
+loss = 3.7342405319213867
+loss = 3.531266212463379
+loss = 3.8164501190185547
+loss = 3.3693981170654297
+loss = 3.6815578937530518
+loss = 3.715439558029175
+loss = 3.526967763900757
+loss = 3.4643666744232178
+loss = 3.140442132949829
+
+ Client 5/10
+logits shape: torch.Size([64, 100])
+label range: 5 90
+loss = 3.9738223552703857
+loss = 4.080338001251221
+loss = 4.044715404510498
+loss = 3.7970011234283447
+loss = 3.8939437866210938
+loss = 3.8772668838500977
+loss = 4.012718200683594
+loss = 3.7185049057006836
+loss = 3.7098426818847656
+loss = 3.520730495452881
+
+ Client 6/10
+logits shape: torch.Size([64, 100])
+label range: 0 99
+loss = 4.002278804779053
+loss = 4.199295997619629
+loss = 3.6594111919403076
+loss = 3.6062657833099365
+loss = 3.7444589138031006
+loss = 4.215014934539795
+loss = 4.140655994415283
+loss = 3.661759614944458
+loss = 4.119461536407471
+loss = 3.7180075645446777
+
+ Client 7/10
+logits shape: torch.Size([64, 100])
+label range: 0 99
+loss = 3.8396081924438477
+loss = 4.010042667388916
+loss = 4.034409999847412
+loss = 3.573913812637329
+loss = 3.7552242279052734
+loss = 3.7133796215057373
+loss = 4.125299453735352
+loss = 3.7865219116210938
+loss = 3.8577399253845215
+loss = 4.074506759643555
+
+ Client 8/10
+logits shape: torch.Size([64, 100])
+label range: 0 93
+loss = 4.090912818908691
+loss = 4.359119892120361
+loss = 3.8889455795288086
+loss = 3.8539464473724365
+loss = 3.975348949432373
+loss = 3.903217077255249
+loss = 3.294076919555664
+loss = 3.7053098678588867
+loss = 3.2622625827789307
+loss = 3.6934385299682617
+
+ Client 9/10
+logits shape: torch.Size([64, 100])
+label range: 8 99
+loss = 4.093306064605713
+loss = 4.144423007965088
+loss = 3.9994540214538574
+loss = 3.9468302726745605
+loss = 4.041514873504639
+loss = 4.167560577392578
+loss = 3.627227306365967
+loss = 3.4985110759735107
+loss = 3.643507957458496
+loss = 3.7931342124938965
+
+ Client 10/10
+logits shape: torch.Size([64, 100])
+label range: 0 96
+loss = 4.445357799530029
+loss = 4.175684928894043
+loss = 4.127285480499268
+loss = 3.9035277366638184
+loss = 4.101855754852295
+loss = 4.1275835037231445
+loss = 3.8014607429504395
+loss = 3.8821184635162354
+loss = 3.6879773139953613
+loss = 3.856559991836548
+Client 0 Train Acc=0.1764
+Client 1 Train Acc=0.1658
+Client 2 Train Acc=0.1466
+Client 3 Train Acc=0.2080
+Client 4 Train Acc=0.1161
+Client 5 Train Acc=0.1345
+Client 6 Train Acc=0.1664
+Client 7 Train Acc=0.1385
+Client 8 Train Acc=0.1293
+Client 9 Train Acc=0.1639
+Client 0 Raw Score: 0.2993
+Client 1 Raw Score: 0.3368
+Client 2 Raw Score: 0.3201
+Client 3 Raw Score: 0.2864
+Client 4 Raw Score: 0.2976
+Client 5 Raw Score: 0.2993
+Client 6 Raw Score: 0.3154
+Client 7 Raw Score: 0.3054
+Client 8 Raw Score: 0.3042
+Client 9 Raw Score: 0.2847
+Client 0 Softmax weight: 0.0994
+Client 1 Softmax weight: 0.1032
+Client 2 Softmax weight: 0.1015
+Client 3 Softmax weight: 0.0982
+Client 4 Softmax weight: 0.0993
+Client 5 Softmax weight: 0.0994
+Client 6 Softmax weight: 0.1010
+Client 7 Softmax weight: 0.1000
+Client 8 Softmax weight: 0.0999
+Client 9 Softmax weight: 0.0980
+Round 5 Test Accuracy=0.0772
+
+========== Round [6/100] ==========
+
+ Client 1/10
+logits shape: torch.Size([64, 100])
+label range: 0 97
+loss = 3.8119587898254395
+loss = 3.76706862449646
+loss = 3.7549681663513184
+loss = 3.429779529571533
+loss = 3.683209180831909
+loss = 3.4202213287353516
+loss = 4.05893611907959
+loss = 3.930549144744873
+loss = 3.78035306930542
+loss = 3.2412567138671875
+
+ Client 2/10
+logits shape: torch.Size([64, 100])
+label range: 3 95
+loss = 3.752803087234497
+loss = 3.6318233013153076
+loss = 3.6603353023529053
+loss = 3.9509363174438477
+loss = 4.363543510437012
+loss = 3.671830177307129
+loss = 3.8813436031341553
+loss = 3.614077568054199
+loss = 3.6417531967163086
+loss = 3.3235275745391846
+
+ Client 3/10
+logits shape: torch.Size([64, 100])
+label range: 2 99
+loss = 3.5939459800720215
+loss = 3.7227368354797363
+loss = 3.6515581607818604
+loss = 3.9332120418548584
+loss = 3.88608717918396
+loss = 3.6813433170318604
+loss = 3.6660759449005127
+loss = 3.3859970569610596
+loss = 3.7895915508270264
+loss = 3.404161214828491
+
+ Client 4/10
+logits shape: torch.Size([64, 100])
+label range: 4 97
+loss = 3.9712657928466797
+loss = 3.6916611194610596
+loss = 3.5459845066070557
+loss = 3.5259971618652344
+loss = 3.5564067363739014
+loss = 3.5824851989746094
+loss = 3.348284959793091
+loss = 3.7377383708953857
+loss = 3.6230525970458984
+loss = 3.4265847206115723
+
+ Client 5/10
+logits shape: torch.Size([64, 100])
+label range: 1 96
+loss = 3.805027723312378
+loss = 3.8346595764160156
+loss = 4.004746913909912
+loss = 3.8027431964874268
+loss = 3.6670045852661133
+loss = 3.950806140899658
+loss = 3.672015428543091
+loss = 3.74153470993042
+loss = 3.6716299057006836
+loss = 3.603682279586792
+
+ Client 6/10
+logits shape: torch.Size([64, 100])
+label range: 0 94
+loss = 3.5955443382263184
+loss = 4.1064910888671875
+loss = 4.093648433685303
+loss = 3.897481679916382
+loss = 3.8178930282592773
+loss = 3.9770894050598145
+loss = 3.7834880352020264
+loss = 3.8929290771484375
+loss = 3.8307225704193115
+loss = 3.740513563156128
+
+ Client 7/10
+logits shape: torch.Size([64, 100])
+label range: 2 99
+loss = 3.73396635055542
+loss = 3.7827956676483154
+loss = 3.9857187271118164
+loss = 3.7669777870178223
+loss = 3.668217420578003
+loss = 3.981168746948242
+loss = 4.043747425079346
+loss = 3.75919771194458
+loss = 3.8135738372802734
+loss = 3.786787509918213
+
+ Client 8/10
+logits shape: torch.Size([64, 100])
+label range: 1 96
+loss = 3.8248908519744873
+loss = 3.8237671852111816
+loss = 3.850368022918701
+loss = 3.6605663299560547
+loss = 3.8645997047424316
+loss = 3.5137522220611572
+loss = 3.8445217609405518
+loss = 3.730978012084961
+loss = 3.7714078426361084
+loss = 3.842888355255127
+
+ Client 9/10
+logits shape: torch.Size([64, 100])
+label range: 8 99
+loss = 3.975908041000366
+loss = 3.7473106384277344
+loss = 4.010535717010498
+loss = 4.088174343109131
+loss = 3.757331371307373
+loss = 3.3952219486236572
+loss = 3.837498426437378
+loss = 3.7671658992767334
+loss = 3.754434823989868
+loss = 3.7029848098754883
+
+ Client 10/10
+logits shape: torch.Size([64, 100])
+label range: 1 99
+loss = 4.081692695617676
+loss = 3.912876844406128
+loss = 4.10321569442749
+loss = 3.612401247024536
+loss = 3.767512798309326
+loss = 3.8045969009399414
+loss = 4.2117600440979
+loss = 3.4987452030181885
+loss = 3.533365488052368
+loss = 3.721562385559082
+
+ [!] Executing Adaptive Attack: min_max
+>>> ENTERED MIN-MAX ATTACK <<<
+conv1.weight: lambda = 0.004778
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+layer4.1.conv2.weight: lambda = 0.000525
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+fc.weight: lambda = 0.003328
+>>> ENTERED MIN-MAX ATTACK <<<
+Client 0 Train Acc=0.0625
+Client 1 Train Acc=0.0844
+Client 2 Train Acc=0.1778
+Client 3 Train Acc=0.1853
+Client 4 Train Acc=0.1522
+Client 5 Train Acc=0.1467
+Client 6 Train Acc=0.1842
+Client 7 Train Acc=0.1684
+Client 8 Train Acc=0.1484
+Client 9 Train Acc=0.1483
+Client 0 Raw Score: 0.0333
+Client 1 Raw Score: 0.0333
+Client 2 Raw Score: 0.2278
+Client 3 Raw Score: 0.2349
+Client 4 Raw Score: 0.2633
+Client 5 Raw Score: 0.2681
+Client 6 Raw Score: 0.1927
+Client 7 Raw Score: 0.2866
+Client 8 Raw Score: 0.2281
+Client 9 Raw Score: 0.2426
+Client 0 Softmax weight: 0.0842
+Client 1 Softmax weight: 0.0842
+Client 2 Softmax weight: 0.1023
+Client 3 Softmax weight: 0.1031
+Client 4 Softmax weight: 0.1060
+Client 5 Softmax weight: 0.1065
+Client 6 Softmax weight: 0.0988
+Client 7 Softmax weight: 0.1085
+Client 8 Softmax weight: 0.1024
+Client 9 Softmax weight: 0.1039
+Round 6 Test Accuracy=0.0775
+
+========== Round [7/100] ==========
+
+ Client 1/10
+logits shape: torch.Size([64, 100])
+label range: 8 94
+loss = 3.9244308471679688
+loss = 4.216919898986816
+loss = 3.51403546333313
+loss = 3.5974037647247314
+loss = 3.518718957901001
+loss = 3.88446044921875
+loss = 3.5604920387268066
+loss = 3.831808090209961
+loss = 3.5592427253723145
+loss = 3.610252618789673
+
+ Client 2/10
+logits shape: torch.Size([64, 100])
+label range: 3 95
+loss = 3.8416361808776855
+loss = 3.7875845432281494
+loss = 3.886167049407959
+loss = 3.68510103225708
+loss = 3.406486988067627
+loss = 3.659346103668213
+loss = 4.045609474182129
+loss = 3.496469259262085
+loss = 3.4382057189941406
+loss = 3.9086718559265137
+
+ Client 3/10
+logits shape: torch.Size([64, 100])
+label range: 5 99
+loss = 3.6167614459991455
+loss = 3.8523004055023193
+loss = 3.702728271484375
+loss = 3.8139665126800537
+loss = 3.573131799697876
+loss = 3.888536214828491
+loss = 3.6387956142425537
+loss = 3.807629346847534
+loss = 3.3688127994537354
+loss = 3.2824501991271973
+
+ Client 4/10
+logits shape: torch.Size([64, 100])
+label range: 0 99
+loss = 3.6451544761657715
+loss = 3.5444910526275635
+loss = 3.7282071113586426
+loss = 3.6001996994018555
+loss = 3.419365406036377
+loss = 3.3959333896636963
+loss = 3.7255098819732666
+loss = 3.7500967979431152
+loss = 3.5006589889526367
+loss = 3.451301336288452
+
+ Client 5/10
+logits shape: torch.Size([64, 100])
+label range: 1 96
+loss = 3.885190725326538
+loss = 3.6735715866088867
+loss = 3.8364405632019043
+loss = 4.1129913330078125
+loss = 3.8253188133239746
+loss = 3.7695932388305664
+loss = 3.9655227661132812
+loss = 3.7900593280792236
+loss = 3.9011123180389404
+loss = 3.9105887413024902
+
+ Client 6/10
+logits shape: torch.Size([64, 100])
+label range: 0 98
+loss = 3.9100534915924072
+loss = 4.123841762542725
+loss = 3.6855602264404297
+loss = 3.7745587825775146
+loss = 3.9482128620147705
+loss = 3.837817668914795
+loss = 3.7328388690948486
+loss = 3.610466957092285
+loss = 3.4232895374298096
+loss = 3.6110684871673584
+
+ Client 7/10
+logits shape: torch.Size([64, 100])
+label range: 8 99
+loss = 3.645493984222412
+loss = 3.564811944961548
+loss = 3.8526670932769775
+loss = 3.8400771617889404
+loss = 3.839327812194824
+loss = 3.699226140975952
+loss = 3.6025149822235107
+loss = 3.722252607345581
+loss = 3.8376259803771973
+loss = 3.329047441482544
+
+ Client 8/10
+logits shape: torch.Size([64, 100])
+label range: 1 99
+loss = 3.762570381164551
+loss = 4.117687702178955
+loss = 3.770975351333618
+loss = 3.9034574031829834
+loss = 3.844066619873047
+loss = 3.478827953338623
+loss = 3.6679561138153076
+loss = 3.4384305477142334
+loss = 3.8322439193725586
+loss = 3.5153908729553223
+
+ Client 9/10
+logits shape: torch.Size([64, 100])
+label range: 3 98
+loss = 3.546410322189331
+loss = 3.9228124618530273
+loss = 3.6033198833465576
+loss = 4.023555755615234
+loss = 3.729544162750244
+loss = 4.057380199432373
+loss = 3.7625367641448975
+loss = 4.057527542114258
+loss = 3.8347251415252686
+loss = 3.9125001430511475
+
+ Client 10/10
+logits shape: torch.Size([64, 100])
+label range: 3 99
+loss = 3.9997544288635254
+loss = 3.7827000617980957
+loss = 3.9597349166870117
+loss = 3.8292150497436523
+loss = 3.9326696395874023
+loss = 3.7512826919555664
+loss = 3.706911325454712
+loss = 3.86112642288208
+loss = 3.9290339946746826
+loss = 3.6967623233795166
+
+ [!] Executing Adaptive Attack: min_max
+>>> ENTERED MIN-MAX ATTACK <<<
+conv1.weight: lambda = 0.004559
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+layer4.1.conv2.weight: lambda = 0.000515
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+fc.weight: lambda = 0.003414
+>>> ENTERED MIN-MAX ATTACK <<<
+Client 0 Train Acc=0.0477
+Client 1 Train Acc=0.0563
+Client 2 Train Acc=0.1920
+Client 3 Train Acc=0.2069
+Client 4 Train Acc=0.1389
+Client 5 Train Acc=0.1421
+Client 6 Train Acc=0.1877
+Client 7 Train Acc=0.1871
+Client 8 Train Acc=0.1259
+Client 9 Train Acc=0.1624
+Client 0 Raw Score: 0.1022
+Client 1 Raw Score: 0.1022
+Client 2 Raw Score: 0.2370
+Client 3 Raw Score: 0.1942
+Client 4 Raw Score: 0.2356
+Client 5 Raw Score: 0.2187
+Client 6 Raw Score: 0.2021
+Client 7 Raw Score: 0.2290
+Client 8 Raw Score: 0.2102
+Client 9 Raw Score: 0.2126
+Client 0 Softmax weight: 0.0911
+Client 1 Softmax weight: 0.0911
+Client 2 Softmax weight: 0.1042
+Client 3 Softmax weight: 0.0999
+Client 4 Softmax weight: 0.1041
+Client 5 Softmax weight: 0.1023
+Client 6 Softmax weight: 0.1007
+Client 7 Softmax weight: 0.1034
+Client 8 Softmax weight: 0.1015
+Client 9 Softmax weight: 0.1017
+Round 7 Test Accuracy=0.0930
+
+========== Round [8/100] ==========
+
+ Client 1/10
+logits shape: torch.Size([64, 100])
+label range: 0 98
+loss = 3.873511552810669
+loss = 3.951547145843506
+loss = 3.83323073387146
+loss = 4.0600481033325195
+loss = 3.507833480834961
+loss = 3.6698696613311768
+loss = 3.826289653778076
+loss = 3.354735851287842
+loss = 3.6063499450683594
+loss = 3.655442237854004
+
+ Client 2/10
 logits shape: torch.Size([64, 100])
 label range: 1 98
-loss = 3.6747913360595703
-loss = 3.914043426513672
-loss = 3.846956253051758
-loss = 3.477064609527588
-loss = 3.915073871612549
-loss = 4.034804821014404
-loss = 4.210396766662598
-loss = 3.5427751541137695
-loss = 3.669015884399414
-loss = 3.6824498176574707
+loss = 3.959578037261963
+loss = 3.7477660179138184
+loss = 3.478264808654785
+loss = 3.6979103088378906
+loss = 4.295281410217285
+loss = 3.52199125289917
+loss = 3.4008054733276367
+loss = 3.4739978313446045
+loss = 3.3057820796966553
+loss = 3.3863000869750977
 
- Client 2/5
+ Client 3/10
 logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 3.5743746757507324
-loss = 3.7476930618286133
-loss = 3.5989267826080322
-loss = 3.9591472148895264
-loss = 4.1853928565979
-loss = 3.8964500427246094
-loss = 4.057909965515137
-loss = 4.21931266784668
-loss = 3.5988144874572754
-loss = 3.730509042739868
+label range: 1 99
+loss = 3.792219400405884
+loss = 3.7528936862945557
+loss = 3.6653506755828857
+loss = 3.774925947189331
+loss = 3.6408071517944336
+loss = 3.605057954788208
+loss = 3.6501851081848145
+loss = 3.495631456375122
+loss = 3.6726431846618652
+loss = 3.6764438152313232
 
- Client 3/5
+ Client 4/10
+logits shape: torch.Size([64, 100])
+label range: 4 97
+loss = 3.856019973754883
+loss = 3.525073766708374
+loss = 3.571953535079956
+loss = 3.4791617393493652
+loss = 3.7632977962493896
+loss = 3.6679868698120117
+loss = 3.5196099281311035
+loss = 3.6625142097473145
+loss = 3.686554431915283
+loss = 3.2221646308898926
+
+ Client 5/10
+logits shape: torch.Size([64, 100])
+label range: 1 92
+loss = 3.864595890045166
+loss = 3.959695339202881
+loss = 3.6861796379089355
+loss = 4.164754390716553
+loss = 4.000654697418213
+loss = 3.865473747253418
+loss = 3.820432186126709
+loss = 3.4230449199676514
+loss = 3.6859209537506104
+loss = 3.663560390472412
+
+ Client 6/10
+logits shape: torch.Size([64, 100])
+label range: 0 99
+loss = 3.8685860633850098
+loss = 3.889223575592041
+loss = 3.799842357635498
+loss = 3.7748119831085205
+loss = 3.459665298461914
+loss = 4.025339126586914
+loss = 3.8349320888519287
+loss = 3.651358127593994
+loss = 3.4498558044433594
+loss = 4.07283878326416
+
+ Client 7/10
+logits shape: torch.Size([64, 100])
+label range: 2 98
+loss = 3.869019031524658
+loss = 3.6977076530456543
+loss = 3.5986530780792236
+loss = 3.5912325382232666
+loss = 3.561065912246704
+loss = 3.6986608505249023
+loss = 3.792191743850708
+loss = 3.216845750808716
+loss = 3.6017777919769287
+loss = 3.592773914337158
+
+ Client 8/10
+logits shape: torch.Size([64, 100])
+label range: 1 99
+loss = 4.1340107917785645
+loss = 3.795445680618286
+loss = 3.6024112701416016
+loss = 3.6025140285491943
+loss = 3.848663806915283
+loss = 3.6623101234436035
+loss = 3.652489423751831
+loss = 3.827376365661621
+loss = 3.5447559356689453
+loss = 3.237252950668335
+
+ Client 9/10
+logits shape: torch.Size([64, 100])
+label range: 0 99
+loss = 4.046202659606934
+loss = 4.102019786834717
+loss = 3.963487148284912
+loss = 3.689432382583618
+loss = 3.9664809703826904
+loss = 3.9191269874572754
+loss = 3.7857489585876465
+loss = 3.684462308883667
+loss = 3.47674560546875
+loss = 3.591550588607788
+
+ Client 10/10
+logits shape: torch.Size([64, 100])
+label range: 1 99
+loss = 4.022352695465088
+loss = 3.5041422843933105
+loss = 4.175445079803467
+loss = 3.5285208225250244
+loss = 3.709913730621338
+loss = 3.664928913116455
+loss = 3.6059906482696533
+loss = 3.6724040508270264
+loss = 3.8889832496643066
+loss = 3.625572681427002
+
+ [!] Executing Adaptive Attack: min_max
+>>> ENTERED MIN-MAX ATTACK <<<
+conv1.weight: lambda = 0.004358
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+layer4.1.conv2.weight: lambda = 0.000486
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+fc.weight: lambda = 0.003157
+>>> ENTERED MIN-MAX ATTACK <<<
+Client 0 Train Acc=0.0503
+Client 1 Train Acc=0.0572
+Client 2 Train Acc=0.2000
+Client 3 Train Acc=0.2105
+Client 4 Train Acc=0.1478
+Client 5 Train Acc=0.1419
+Client 6 Train Acc=0.1972
+Client 7 Train Acc=0.1944
+Client 8 Train Acc=0.1650
+Client 9 Train Acc=0.1931
+Client 0 Raw Score: 0.0746
+Client 1 Raw Score: 0.0746
+Client 2 Raw Score: 0.2451
+Client 3 Raw Score: 0.1899
+Client 4 Raw Score: 0.2245
+Client 5 Raw Score: 0.2405
+Client 6 Raw Score: 0.1916
+Client 7 Raw Score: 0.2279
+Client 8 Raw Score: 0.2240
+Client 9 Raw Score: 0.2204
+Client 0 Softmax weight: 0.0888
+Client 1 Softmax weight: 0.0888
+Client 2 Softmax weight: 0.1053
+Client 3 Softmax weight: 0.0997
+Client 4 Softmax weight: 0.1032
+Client 5 Softmax weight: 0.1049
+Client 6 Softmax weight: 0.0999
+Client 7 Softmax weight: 0.1035
+Client 8 Softmax weight: 0.1031
+Client 9 Softmax weight: 0.1028
+Round 8 Test Accuracy=0.0994
+
+========== Round [9/100] ==========
+
+ Client 1/10
+logits shape: torch.Size([64, 100])
+label range: 0 98
+loss = 4.090847015380859
+loss = 3.729520559310913
+loss = 3.6343038082122803
+loss = 3.8818788528442383
+loss = 3.945110559463501
+loss = 3.6293351650238037
+loss = 3.8042750358581543
+loss = 3.5234227180480957
+loss = 3.5287742614746094
+loss = 3.545241355895996
+
+ Client 2/10
+logits shape: torch.Size([64, 100])
+label range: 3 97
+loss = 3.892496109008789
+loss = 3.870144844055176
+loss = 4.019792556762695
+loss = 3.4224843978881836
+loss = 3.6876883506774902
+loss = 3.7764627933502197
+loss = 3.610565185546875
+loss = 3.445695400238037
+loss = 3.5690903663635254
+loss = 3.3945305347442627
+
+ Client 3/10
+logits shape: torch.Size([64, 100])
+label range: 2 98
+loss = 3.338078498840332
+loss = 3.688087224960327
+loss = 3.316776990890503
+loss = 3.7472989559173584
+loss = 3.6938841342926025
+loss = 3.79170823097229
+loss = 3.3930137157440186
+loss = 3.9788694381713867
+loss = 3.702233076095581
+loss = 3.666534423828125
+
+ Client 4/10
+logits shape: torch.Size([64, 100])
+label range: 4 95
+loss = 3.732848644256592
+loss = 3.6547868251800537
+loss = 3.631897211074829
+loss = 4.018074035644531
+loss = 3.449531316757202
+loss = 3.377828598022461
+loss = 3.6173512935638428
+loss = 3.2627856731414795
+loss = 3.3687477111816406
+loss = 3.372131109237671
+
+ Client 5/10
+logits shape: torch.Size([64, 100])
+label range: 1 96
+loss = 3.6357200145721436
+loss = 3.7503437995910645
+loss = 3.638221502304077
+loss = 3.747204542160034
+loss = 3.5554370880126953
+loss = 3.533618450164795
+loss = 3.381373882293701
+loss = 3.494809627532959
+loss = 3.7526211738586426
+loss = 3.6956405639648438
+
+ Client 6/10
+logits shape: torch.Size([64, 100])
+label range: 1 99
+loss = 3.8487815856933594
+loss = 3.9092350006103516
+loss = 3.691789388656616
+loss = 3.5139801502227783
+loss = 3.5694189071655273
+loss = 4.050168991088867
+loss = 3.7910029888153076
+loss = 3.773383855819702
+loss = 3.5682437419891357
+loss = 3.538172960281372
+
+ Client 7/10
+logits shape: torch.Size([64, 100])
+label range: 2 99
+loss = 4.0648112297058105
+loss = 3.6904752254486084
+loss = 3.604534387588501
+loss = 3.342099189758301
+loss = 3.7294528484344482
+loss = 3.677384853363037
+loss = 3.491189956665039
+loss = 3.537674903869629
+loss = 3.637502670288086
+loss = 3.205390453338623
+
+ Client 8/10
+logits shape: torch.Size([64, 100])
+label range: 3 96
+loss = 3.501373767852783
+loss = 3.2820539474487305
+loss = 3.6844143867492676
+loss = 3.5354979038238525
+loss = 4.232046127319336
+loss = 3.697155475616455
+loss = 3.553849220275879
+loss = 3.4255731105804443
+loss = 3.47004771232605
+loss = 3.6465015411376953
+
+ Client 9/10
+logits shape: torch.Size([64, 100])
+label range: 8 99
+loss = 3.8820390701293945
+loss = 3.8078372478485107
+loss = 3.8309566974639893
+loss = 3.9731976985931396
+loss = 3.856283187866211
+loss = 3.882758378982544
+loss = 3.7364327907562256
+loss = 3.7535641193389893
+loss = 3.5462398529052734
+loss = 3.745681047439575
+
+ Client 10/10
+logits shape: torch.Size([64, 100])
+label range: 0 98
+loss = 3.9461467266082764
+loss = 3.7511661052703857
+loss = 3.765110969543457
+loss = 3.6847190856933594
+loss = 3.779327392578125
+loss = 3.929753065109253
+loss = 3.6571309566497803
+loss = 4.008607864379883
+loss = 4.237627029418945
+loss = 3.4843382835388184
+
+ [!] Executing Adaptive Attack: min_max
+>>> ENTERED MIN-MAX ATTACK <<<
+conv1.weight: lambda = 0.004368
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+layer4.1.conv2.weight: lambda = 0.000477
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+fc.weight: lambda = 0.003271
+>>> ENTERED MIN-MAX ATTACK <<<
+Client 0 Train Acc=0.0432
+Client 1 Train Acc=0.0750
+Client 2 Train Acc=0.1996
+Client 3 Train Acc=0.2286
+Client 4 Train Acc=0.1510
+Client 5 Train Acc=0.1655
+Client 6 Train Acc=0.2157
+Client 7 Train Acc=0.1882
+Client 8 Train Acc=0.1579
+Client 9 Train Acc=0.1799
+Client 0 Raw Score: 0.1036
+Client 1 Raw Score: 0.1036
+Client 2 Raw Score: 0.1735
+Client 3 Raw Score: 0.2120
+Client 4 Raw Score: 0.2158
+Client 5 Raw Score: 0.2420
+Client 6 Raw Score: 0.2090
+Client 7 Raw Score: 0.2200
+Client 8 Raw Score: 0.2120
+Client 9 Raw Score: 0.2017
+Client 0 Softmax weight: 0.0917
+Client 1 Softmax weight: 0.0917
+Client 2 Softmax weight: 0.0983
+Client 3 Softmax weight: 0.1022
+Client 4 Softmax weight: 0.1026
+Client 5 Softmax weight: 0.1053
+Client 6 Softmax weight: 0.1019
+Client 7 Softmax weight: 0.1030
+Client 8 Softmax weight: 0.1022
+Client 9 Softmax weight: 0.1011
+Round 9 Test Accuracy=0.1067
+
+========== Round [10/100] ==========
+
+ Client 1/10
+logits shape: torch.Size([64, 100])
+label range: 0 97
+loss = 4.452156066894531
+loss = 3.725616693496704
+loss = 3.665107250213623
+loss = 3.544719934463501
+loss = 3.700875759124756
+loss = 3.223956823348999
+loss = 3.5119690895080566
+loss = 3.2359838485717773
+loss = 3.5715720653533936
+loss = 3.5670273303985596
+
+ Client 2/10
+logits shape: torch.Size([64, 100])
+label range: 3 95
+loss = 3.8252408504486084
+loss = 3.6904966831207275
+loss = 3.648834228515625
+loss = 3.631922960281372
+loss = 3.0837819576263428
+loss = 3.5051512718200684
+loss = 3.677107095718384
+loss = 3.2564878463745117
+loss = 3.453623056411743
+loss = 3.7257115840911865
+
+ Client 3/10
+logits shape: torch.Size([64, 100])
+label range: 0 98
+loss = 3.599505662918091
+loss = 3.6550605297088623
+loss = 3.7411611080169678
+loss = 3.4122021198272705
+loss = 3.5858476161956787
+loss = 3.3303005695343018
+loss = 3.604451894760132
+loss = 3.7035865783691406
+loss = 3.7891807556152344
+loss = 3.7109174728393555
+
+ Client 4/10
+logits shape: torch.Size([64, 100])
+label range: 0 97
+loss = 3.912755250930786
+loss = 3.7214136123657227
+loss = 3.771812677383423
+loss = 3.612743616104126
+loss = 3.2297627925872803
+loss = 3.396064519882202
+loss = 3.3695757389068604
+loss = 3.5461556911468506
+loss = 3.1421916484832764
+loss = 3.445478677749634
+
+ Client 5/10
+logits shape: torch.Size([64, 100])
+label range: 1 92
+loss = 3.651968479156494
+loss = 4.092726707458496
+loss = 3.8470659255981445
+loss = 3.742326498031616
+loss = 3.5909616947174072
+loss = 3.859389543533325
+loss = 3.7302911281585693
+loss = 3.403794288635254
+loss = 3.740053653717041
+loss = 3.912860155105591
+
+ Client 6/10
+logits shape: torch.Size([64, 100])
+label range: 2 99
+loss = 3.7464776039123535
+loss = 3.7312052249908447
+loss = 3.6976611614227295
+loss = 3.957857608795166
+loss = 3.882566452026367
+loss = 3.717177152633667
+loss = 3.680264949798584
+loss = 3.710205078125
+loss = 3.810415267944336
+loss = 3.45371413230896
+
+ Client 7/10
+logits shape: torch.Size([64, 100])
+label range: 1 99
+loss = 3.7559354305267334
+loss = 3.133648157119751
+loss = 3.5327329635620117
+loss = 3.785501003265381
+loss = 4.261450290679932
+loss = 3.1658880710601807
+loss = 3.44831919670105
+loss = 4.023426532745361
+loss = 3.6695799827575684
+loss = 3.4523637294769287
+
+ Client 8/10
+logits shape: torch.Size([64, 100])
+label range: 0 92
+loss = 3.821627616882324
+loss = 3.6748383045196533
+loss = 3.3423209190368652
+loss = 3.606198310852051
+loss = 3.655656576156616
+loss = 3.60601544380188
+loss = 3.5312376022338867
+loss = 3.7834854125976562
+loss = 3.331533908843994
+loss = 3.6306118965148926
+
+ Client 9/10
+logits shape: torch.Size([64, 100])
+label range: 8 99
+loss = 3.531853675842285
+loss = 3.5653202533721924
+loss = 3.886624336242676
+loss = 3.9555606842041016
+loss = 3.8989760875701904
+loss = 3.949822187423706
+loss = 3.917602062225342
+loss = 3.556095838546753
+loss = 3.498389720916748
+loss = 3.7182774543762207
+
+ Client 10/10
 logits shape: torch.Size([64, 100])
 label range: 3 93
-loss = 3.4248275756835938
-loss = 3.8325536251068115
-loss = 4.050816535949707
-loss = 3.644923210144043
-loss = 3.641359567642212
-loss = 4.0558762550354
-loss = 3.634996175765991
-loss = 3.9896841049194336
-loss = 3.354731559753418
-loss = 3.5745415687561035
+loss = 3.902967929840088
+loss = 3.866903781890869
+loss = 3.3667643070220947
+loss = 3.8361358642578125
+loss = 3.7377665042877197
+loss = 3.6698055267333984
+loss = 3.599841833114624
+loss = 3.7203493118286133
+loss = 3.38586163520813
+loss = 3.823136329650879
 
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 3 96
-loss = 3.731419324874878
-loss = 3.476461172103882
-loss = 4.076907157897949
-loss = 3.7547807693481445
-loss = 3.835111618041992
-loss = 3.9441237449645996
-loss = 3.512299060821533
-loss = 3.9177486896514893
-loss = 3.4240336418151855
-loss = 3.628056526184082
+ [!] Executing Adaptive Attack: min_max
+>>> ENTERED MIN-MAX ATTACK <<<
+conv1.weight: lambda = 0.004349
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+layer4.1.conv2.weight: lambda = 0.000458
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+fc.weight: lambda = 0.003242
+>>> ENTERED MIN-MAX ATTACK <<<
+Client 0 Train Acc=0.0439
+Client 1 Train Acc=0.0996
+Client 2 Train Acc=0.1957
+Client 3 Train Acc=0.1900
+Client 4 Train Acc=0.1795
+Client 5 Train Acc=0.1673
+Client 6 Train Acc=0.2161
+Client 7 Train Acc=0.1973
+Client 8 Train Acc=0.1693
+Client 9 Train Acc=0.1771
+Client 0 Raw Score: 0.1311
+Client 1 Raw Score: 0.1311
+Client 2 Raw Score: 0.2158
+Client 3 Raw Score: 0.1773
+Client 4 Raw Score: 0.1872
+Client 5 Raw Score: 0.2105
+Client 6 Raw Score: 0.1916
+Client 7 Raw Score: 0.1842
+Client 8 Raw Score: 0.2144
+Client 9 Raw Score: 0.2096
+Client 0 Softmax weight: 0.0947
+Client 1 Softmax weight: 0.0947
+Client 2 Softmax weight: 0.1031
+Client 3 Softmax weight: 0.0992
+Client 4 Softmax weight: 0.1001
+Client 5 Softmax weight: 0.1025
+Client 6 Softmax weight: 0.1006
+Client 7 Softmax weight: 0.0998
+Client 8 Softmax weight: 0.1029
+Client 9 Softmax weight: 0.1024
+Round 10 Test Accuracy=0.1143
 
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.3847665786743164
-loss = 3.692826747894287
-loss = 3.6584067344665527
-loss = 4.225064277648926
-loss = 3.8021750450134277
-loss = 4.250705242156982
-loss = 3.744018316268921
-loss = 3.4955615997314453
-loss = 3.9564712047576904
-loss = 3.4197704792022705
+========== Round [11/100] ==========
 
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1611
-Client 0 Raw Score: 0.7068
-Client 1 Raw Score: 0.5029
-Client 2 Raw Score: 0.4860
-Client 3 Raw Score: 0.4877
-Client 4 Raw Score: 0.4916
-Client 0 Softmax weight: 0.2366
-Client 1 Softmax weight: 0.1929
-Client 2 Softmax weight: 0.1897
-Client 3 Softmax weight: 0.1900
-Client 4 Softmax weight: 0.1908
-Round 19 Test Accuracy=0.1455
-
-========== Round [20/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 94
-loss = 3.5659425258636475
-loss = 3.758854627609253
-loss = 3.911025047302246
-loss = 3.622272491455078
-loss = 3.3943684101104736
-loss = 3.714918851852417
-loss = 4.034759521484375
-loss = 3.7147955894470215
-loss = 3.59702467918396
-loss = 4.299935817718506
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 3 99
-loss = 3.2973670959472656
-loss = 3.61987566947937
-loss = 3.682435989379883
-loss = 3.604797601699829
-loss = 4.096444606781006
-loss = 4.025970458984375
-loss = 3.810858726501465
-loss = 3.5746922492980957
-loss = 3.890774965286255
-loss = 3.625617265701294
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.2028796672821045
-loss = 3.779171943664551
-loss = 3.8263039588928223
-loss = 4.006869792938232
-loss = 3.765364408493042
-loss = 3.761934757232666
-loss = 3.7384278774261475
-loss = 3.799860715866089
-loss = 3.875065803527832
-loss = 3.5724613666534424
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.3456053733825684
-loss = 3.8354549407958984
-loss = 3.8057057857513428
-loss = 3.7781412601470947
-loss = 3.665930986404419
-loss = 3.988508939743042
-loss = 4.029778003692627
-loss = 3.4301912784576416
-loss = 3.597058057785034
-loss = 3.35505747795105
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 1 97
-loss = 3.3601388931274414
-loss = 3.7021751403808594
-loss = 3.5144405364990234
-loss = 4.355605602264404
-loss = 3.883024215698242
-loss = 4.283519744873047
-loss = 4.249890327453613
-loss = 3.8023335933685303
-loss = 3.4508883953094482
-loss = 3.9037108421325684
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1542
-Client 0 Raw Score: 0.7133
-Client 1 Raw Score: 0.4656
-Client 2 Raw Score: 0.5079
-Client 3 Raw Score: 0.4967
-Client 4 Raw Score: 0.5018
-Client 0 Softmax weight: 0.2376
-Client 1 Softmax weight: 0.1854
-Client 2 Softmax weight: 0.1934
-Client 3 Softmax weight: 0.1913
-Client 4 Softmax weight: 0.1923
-Round 20 Test Accuracy=0.1358
-
-========== Round [21/50] ==========
-
- Client 1/5
+ Client 1/10
 logits shape: torch.Size([64, 100])
 label range: 0 96
-loss = 3.4758429527282715
-loss = 3.800241470336914
-loss = 3.544362783432007
-loss = 3.8971338272094727
-loss = 3.8237578868865967
-loss = 3.9200897216796875
-loss = 4.080636024475098
-loss = 3.4528753757476807
-loss = 3.9854156970977783
-loss = 3.98825740814209
+loss = 3.971944570541382
+loss = 3.962224006652832
+loss = 3.5678329467773438
+loss = 3.8198351860046387
+loss = 3.5431158542633057
+loss = 3.7070116996765137
+loss = 3.3638241291046143
+loss = 3.5330729484558105
+loss = 3.5497632026672363
+loss = 3.6714346408843994
 
- Client 2/5
+ Client 2/10
 logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 3.2681851387023926
-loss = 3.417677640914917
-loss = 3.48354172706604
-loss = 3.7701120376586914
-loss = 4.050034523010254
-loss = 3.645209550857544
-loss = 3.9057695865631104
-loss = 3.581209897994995
-loss = 3.8562424182891846
-loss = 3.665447235107422
+label range: 0 98
+loss = 4.037764072418213
+loss = 3.6327264308929443
+loss = 3.4649715423583984
+loss = 3.452446699142456
+loss = 3.518984317779541
+loss = 3.3110103607177734
+loss = 3.408843994140625
+loss = 3.4104366302490234
+loss = 3.5949177742004395
+loss = 3.233344078063965
 
- Client 3/5
+ Client 3/10
 logits shape: torch.Size([64, 100])
-label range: 3 96
-loss = 3.484879493713379
-loss = 3.5002331733703613
-loss = 3.8889286518096924
-loss = 3.6754472255706787
-loss = 3.6072583198547363
-loss = 3.786386489868164
-loss = 4.236106872558594
-loss = 3.7134132385253906
-loss = 3.742370128631592
-loss = 3.6176726818084717
+label range: 0 98
+loss = 3.396829128265381
+loss = 3.750044345855713
+loss = 3.8757944107055664
+loss = 3.891247034072876
+loss = 3.6490848064422607
+loss = 3.6156108379364014
+loss = 3.498896360397339
+loss = 3.310335636138916
+loss = 3.813760280609131
+loss = 3.3314638137817383
 
- Client 4/5
+ Client 4/10
 logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 3.272768974304199
-loss = 3.5637242794036865
-loss = 3.763212203979492
-loss = 4.110954761505127
-loss = 4.0551838874816895
-loss = 3.627795696258545
-loss = 3.9042091369628906
-loss = 3.8214635848999023
-loss = 3.9086196422576904
-loss = 3.567039966583252
+label range: 3 97
+loss = 3.764508008956909
+loss = 3.876272439956665
+loss = 3.4399588108062744
+loss = 3.778557062149048
+loss = 3.5159666538238525
+loss = 3.564422369003296
+loss = 3.4101860523223877
+loss = 3.6309845447540283
+loss = 3.525376796722412
+loss = 3.3383827209472656
 
- Client 5/5
+ Client 5/10
 logits shape: torch.Size([64, 100])
-label range: 1 94
-loss = 3.350149631500244
-loss = 3.5800375938415527
-loss = 3.6780686378479004
-loss = 4.019748210906982
-loss = 3.7177631855010986
-loss = 3.6661717891693115
-loss = 3.859909772872925
-loss = 3.798065423965454
-loss = 3.691545009613037
-loss = 3.58176326751709
+label range: 1 91
+loss = 3.84196400642395
+loss = 3.902639150619507
+loss = 3.635680913925171
+loss = 3.859506368637085
+loss = 3.833625078201294
+loss = 3.517828941345215
+loss = 3.3504579067230225
+loss = 3.527878999710083
+loss = 3.8370296955108643
+loss = 3.6683349609375
 
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1710
-Client 0 Raw Score: 0.7117
-Client 1 Raw Score: 0.5202
-Client 2 Raw Score: 0.5009
-Client 3 Raw Score: 0.5116
-Client 4 Raw Score: 0.5163
-Client 0 Softmax weight: 0.2338
-Client 1 Softmax weight: 0.1931
-Client 2 Softmax weight: 0.1894
-Client 3 Softmax weight: 0.1914
-Client 4 Softmax weight: 0.1923
-Round 21 Test Accuracy=0.1416
-
-========== Round [22/50] ==========
-
- Client 1/5
+ Client 6/10
 logits shape: torch.Size([64, 100])
 label range: 0 99
-loss = 3.3930535316467285
-loss = 3.5600333213806152
-loss = 3.5084218978881836
-loss = 3.7792983055114746
-loss = 4.474519729614258
-loss = 3.7484772205352783
-loss = 3.6936516761779785
-loss = 4.1314520835876465
-loss = 3.6307928562164307
-loss = 3.6634914875030518
+loss = 3.7957444190979004
+loss = 3.7621564865112305
+loss = 3.9054298400878906
+loss = 3.643660545349121
+loss = 3.4079642295837402
+loss = 3.7953250408172607
+loss = 3.4773459434509277
+loss = 3.6099414825439453
+loss = 3.3397133350372314
+loss = 3.6961050033569336
 
- Client 2/5
+ Client 7/10
 logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 3.218517541885376
-loss = 3.573045492172241
-loss = 3.737480640411377
-loss = 3.8359339237213135
-loss = 3.829180955886841
-loss = 3.563946008682251
-loss = 3.768345355987549
-loss = 3.441516160964966
-loss = 3.7533421516418457
-loss = 3.528891086578369
+label range: 8 98
+loss = 3.50728178024292
+loss = 3.5548081398010254
+loss = 3.434112071990967
+loss = 3.7024495601654053
+loss = 3.335123062133789
+loss = 3.4213058948516846
+loss = 3.514619827270508
+loss = 3.6691784858703613
+loss = 3.78891921043396
+loss = 3.6751046180725098
 
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.195106029510498
-loss = 3.563972234725952
-loss = 3.653277635574341
-loss = 3.41436767578125
-loss = 3.9308109283447266
-loss = 3.793011426925659
-loss = 3.6135337352752686
-loss = 3.718698263168335
-loss = 3.5949642658233643
-loss = 3.7803478240966797
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 1 95
-loss = 3.6512722969055176
-loss = 3.498241662979126
-loss = 3.593829870223999
-loss = 3.7755720615386963
-loss = 3.396554946899414
-loss = 3.8237903118133545
-loss = 3.8001461029052734
-loss = 3.3854596614837646
-loss = 3.848262071609497
-loss = 3.463925361633301
-
- Client 5/5
+ Client 8/10
 logits shape: torch.Size([64, 100])
 label range: 1 99
-loss = 3.2345757484436035
-loss = 3.72400164604187
-loss = 3.48128080368042
-loss = 3.9618418216705322
-loss = 4.210143566131592
-loss = 4.003929615020752
-loss = 4.095734119415283
-loss = 3.57617449760437
-loss = 3.4437103271484375
-loss = 3.8663904666900635
+loss = 3.718560218811035
+loss = 3.400528907775879
+loss = 3.5830230712890625
+loss = 3.8460474014282227
+loss = 4.001279830932617
+loss = 3.3385791778564453
+loss = 3.458784580230713
+loss = 3.69353985786438
+loss = 3.172642469406128
+loss = 3.5433120727539062
 
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1583
-Client 0 Raw Score: 0.7129
-Client 1 Raw Score: 0.5082
-Client 2 Raw Score: 0.4761
-Client 3 Raw Score: 0.4972
-Client 4 Raw Score: 0.4922
-Client 0 Softmax weight: 0.2374
-Client 1 Softmax weight: 0.1935
-Client 2 Softmax weight: 0.1874
-Client 3 Softmax weight: 0.1914
-Client 4 Softmax weight: 0.1904
-Round 22 Test Accuracy=0.1631
+ Client 9/10
+logits shape: torch.Size([64, 100])
+label range: 0 99
+loss = 3.8321752548217773
+loss = 3.8045997619628906
+loss = 3.6209776401519775
+loss = 3.575018882751465
+loss = 3.5998904705047607
+loss = 3.8293838500976562
+loss = 3.449408769607544
+loss = 3.6129801273345947
+loss = 3.579336643218994
+loss = 3.8960719108581543
 
-========== Round [23/50] ==========
+ Client 10/10
+logits shape: torch.Size([64, 100])
+label range: 1 99
+loss = 4.1272196769714355
+loss = 3.5428624153137207
+loss = 3.8434946537017822
+loss = 3.57916259765625
+loss = 3.577209949493408
+loss = 3.430771589279175
+loss = 3.7895567417144775
+loss = 3.6268057823181152
+loss = 3.310138702392578
+loss = 3.5971264839172363
 
- Client 1/5
+ [!] Executing Adaptive Attack: min_max
+>>> ENTERED MIN-MAX ATTACK <<<
+conv1.weight: lambda = 0.004072
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+layer4.1.conv2.weight: lambda = 0.000458
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+>>> ENTERED MIN-MAX ATTACK <<<
+fc.weight: lambda = 0.003242
+>>> ENTERED MIN-MAX ATTACK <<<
+Client 0 Train Acc=0.0571
+Client 1 Train Acc=0.0994
+Client 2 Train Acc=0.1802
+Client 3 Train Acc=0.2196
+Client 4 Train Acc=0.1636
+Client 5 Train Acc=0.1668
+Client 6 Train Acc=0.2110
+Client 7 Train Acc=0.1886
+Client 8 Train Acc=0.1759
+Client 9 Train Acc=0.1935
+Client 0 Raw Score: 0.1398
+Client 1 Raw Score: 0.1398
+Client 2 Raw Score: 0.2007
+Client 3 Raw Score: 0.1880
+Client 4 Raw Score: 0.2004
+Client 5 Raw Score: 0.1944
+Client 6 Raw Score: 0.2081
+Client 7 Raw Score: 0.2001
+Client 8 Raw Score: 0.1775
+Client 9 Raw Score: 0.1935
+Client 0 Softmax weight: 0.0956
+Client 1 Softmax weight: 0.0956
+Client 2 Softmax weight: 0.1016
+Client 3 Softmax weight: 0.1004
+Client 4 Softmax weight: 0.1016
+Client 5 Softmax weight: 0.1010
+Client 6 Softmax weight: 0.1024
+Client 7 Softmax weight: 0.1016
+Client 8 Softmax weight: 0.0993
+Client 9 Softmax weight: 0.1009
+Round 11 Test Accuracy=0.1222
+
+========== Round [12/100] ==========
+
+ Client 1/10
+logits shape: torch.Size([64, 100])
+label range: 8 97
+loss = 3.932314157485962
+loss = 3.6202168464660645
+loss = 3.721534252166748
+loss = 3.684248924255371
+loss = 3.551787853240967
+loss = 3.285429000854492
+loss = 3.897900104522705
+loss = 3.6199028491973877
+loss = 3.491403102874756
+loss = 3.196716547012329
+
+ Client 2/10
+logits shape: torch.Size([64, 100])
+label range: 1 97
+loss = 4.1355366706848145
+loss = 3.540604591369629
+loss = 3.391787052154541
+loss = 3.3729820251464844
+loss = 3.6448075771331787
+loss = 3.210310697555542
+loss = 3.122966766357422
+loss = 3.744736671447754
+loss = 3.3992176055908203
+loss = 3.618159294128418
+
+ Client 3/10
 logits shape: torch.Size([64, 100])
 label range: 1 96
-loss = 3.365065097808838
-loss = 4.017574787139893
-loss = 3.7930521965026855
-loss = 3.5839033126831055
-loss = 3.9044525623321533
-loss = 3.892047643661499
-loss = 3.9431023597717285
-loss = 3.821319103240967
-loss = 3.5973308086395264
-loss = 3.8761885166168213
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 3.4163224697113037
-loss = 3.5952305793762207
-loss = 3.8721745014190674
-loss = 3.986835479736328
-loss = 3.9507129192352295
-loss = 3.7164483070373535
-loss = 4.027983665466309
-loss = 3.9050071239471436
-loss = 3.8624258041381836
-loss = 3.546970844268799
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 4 99
-loss = 3.152589797973633
-loss = 3.8053412437438965
-loss = 3.7089195251464844
-loss = 3.7208845615386963
-loss = 3.636376142501831
-loss = 3.5564661026000977
-loss = 3.5927841663360596
-loss = 3.909487009048462
-loss = 3.5862998962402344
-loss = 3.750260829925537
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 2 97
-loss = 3.7199697494506836
-loss = 3.4641306400299072
-loss = 3.8484482765197754
-loss = 3.6829562187194824
-loss = 3.6440682411193848
-loss = 3.794462203979492
-loss = 3.6905782222747803
-loss = 3.868201732635498
-loss = 3.7767844200134277
-loss = 3.8229284286499023
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.5539207458496094
-loss = 3.9412872791290283
-loss = 3.8051416873931885
-loss = 3.9870259761810303
-loss = 3.860137701034546
-loss = 4.236880302429199
-loss = 3.61232852935791
-loss = 3.8570687770843506
-loss = 3.747833251953125
-loss = 3.673572301864624
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1754
-Client 0 Raw Score: 0.7029
-Client 1 Raw Score: 0.4884
-Client 2 Raw Score: 0.4819
-Client 3 Raw Score: 0.4817
-Client 4 Raw Score: 0.4715
-Client 0 Softmax weight: 0.2379
-Client 1 Softmax weight: 0.1920
-Client 2 Softmax weight: 0.1907
-Client 3 Softmax weight: 0.1907
-Client 4 Softmax weight: 0.1887
-Round 23 Test Accuracy=0.1794
-
-========== Round [24/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 2 96
-loss = 3.4668755531311035
-loss = 3.6648666858673096
-loss = 3.9174201488494873
-loss = 3.881253719329834
-loss = 3.855090379714966
-loss = 3.699857473373413
-loss = 3.926909923553467
-loss = 3.5677361488342285
-loss = 4.046566009521484
-loss = 3.5366170406341553
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 97
-loss = 3.3747174739837646
-loss = 3.546233654022217
-loss = 4.018691062927246
-loss = 3.80904483795166
-loss = 3.4119153022766113
-loss = 3.7845897674560547
-loss = 3.773066520690918
-loss = 3.6039068698883057
-loss = 3.880145311355591
-loss = 3.3979873657226562
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 2 96
-loss = 3.203953742980957
-loss = 3.422576904296875
-loss = 3.6890711784362793
-loss = 4.030048847198486
-loss = 3.7357311248779297
-loss = 3.837341785430908
-loss = 3.7585973739624023
-loss = 3.8575282096862793
-loss = 3.5680153369903564
-loss = 3.182063102722168
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.3338727951049805
-loss = 3.2960758209228516
-loss = 3.450275182723999
-loss = 3.725202798843384
-loss = 3.8089046478271484
-loss = 3.5955450534820557
-loss = 3.7868075370788574
-loss = 3.7561593055725098
-loss = 3.7491235733032227
-loss = 3.649341344833374
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 2 97
-loss = 3.1315371990203857
-loss = 3.8980913162231445
-loss = 3.674062728881836
-loss = 3.7334253787994385
-loss = 3.581547260284424
-loss = 3.639608860015869
-loss = 3.7339067459106445
-loss = 3.761929988861084
-loss = 3.798046112060547
-loss = 3.367037296295166
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1749
-Client 0 Raw Score: 0.7155
-Client 1 Raw Score: 0.4881
-Client 2 Raw Score: 0.4793
-Client 3 Raw Score: 0.4723
-Client 4 Raw Score: 0.4618
-Client 0 Softmax weight: 0.2412
-Client 1 Softmax weight: 0.1921
-Client 2 Softmax weight: 0.1904
-Client 3 Softmax weight: 0.1891
-Client 4 Softmax weight: 0.1871
-Round 24 Test Accuracy=0.1779
-
-========== Round [25/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 2 97
-loss = 3.3483543395996094
-loss = 3.545309543609619
-loss = 3.7904558181762695
-loss = 3.98380708694458
-loss = 4.055599689483643
-loss = 3.790350914001465
-loss = 3.5141961574554443
-loss = 3.8796935081481934
-loss = 3.724180221557617
-loss = 3.7374701499938965
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 1 97
-loss = 3.4344630241394043
-loss = 3.2283263206481934
-loss = 3.4001524448394775
-loss = 3.94388747215271
-loss = 3.8225741386413574
-loss = 3.906754970550537
-loss = 3.6023144721984863
-loss = 3.875795364379883
-loss = 3.657994031906128
-loss = 3.7809906005859375
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 3.606043815612793
-loss = 3.6069650650024414
-loss = 3.957031488418579
-loss = 3.5842459201812744
-loss = 3.978882312774658
-loss = 3.8191254138946533
-loss = 3.9653215408325195
-loss = 3.5726680755615234
-loss = 3.424595355987549
-loss = 3.489283800125122
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.5799009799957275
-loss = 3.567246913909912
-loss = 3.878537893295288
-loss = 3.9635066986083984
-loss = 3.762221097946167
-loss = 3.3985841274261475
-loss = 3.291480779647827
-loss = 3.4305245876312256
-loss = 3.821669578552246
-loss = 3.527963161468506
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.389423131942749
-loss = 3.5813169479370117
-loss = 3.3574953079223633
-loss = 3.689507246017456
-loss = 3.568301200866699
-loss = 3.7323155403137207
-loss = 3.757094383239746
-loss = 3.5813026428222656
-loss = 3.5717883110046387
-loss = 3.4818904399871826
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1729
-Client 0 Raw Score: 0.7070
-Client 1 Raw Score: 0.5181
-Client 2 Raw Score: 0.4886
-Client 3 Raw Score: 0.4878
-Client 4 Raw Score: 0.4647
-Client 0 Softmax weight: 0.2370
-Client 1 Softmax weight: 0.1962
-Client 2 Softmax weight: 0.1905
-Client 3 Softmax weight: 0.1903
-Client 4 Softmax weight: 0.1860
-Round 25 Test Accuracy=0.1809
-
-========== Round [26/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.377592086791992
-loss = 3.742570638656616
-loss = 3.9118423461914062
-loss = 3.607400417327881
-loss = 4.06771993637085
-loss = 3.569760322570801
-loss = 3.6759042739868164
-loss = 3.6042439937591553
-loss = 3.7858290672302246
-loss = 3.8355722427368164
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 3.4187114238739014
-loss = 3.6646580696105957
-loss = 3.475404977798462
-loss = 3.91070818901062
-loss = 3.84655499458313
-loss = 3.954148530960083
-loss = 3.5556981563568115
-loss = 3.347038507461548
-loss = 3.630065679550171
-loss = 3.5069217681884766
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 2 99
-loss = 3.4404406547546387
-loss = 3.8687338829040527
-loss = 3.9330832958221436
-loss = 3.9836926460266113
-loss = 3.6055948734283447
-loss = 3.7982311248779297
-loss = 3.56404972076416
-loss = 3.8254570960998535
-loss = 3.752415180206299
-loss = 3.7738659381866455
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 3 98
-loss = 3.213191270828247
-loss = 3.513794422149658
-loss = 3.9014954566955566
-loss = 3.589555501937866
-loss = 3.83445405960083
-loss = 3.6538755893707275
-loss = 3.914724349975586
-loss = 3.8813540935516357
-loss = 3.5894057750701904
-loss = 3.6392838954925537
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 6 99
-loss = 3.4232311248779297
-loss = 3.7643442153930664
-loss = 3.5621514320373535
-loss = 3.7625844478607178
-loss = 3.5865249633789062
-loss = 3.835615396499634
-loss = 3.587472677230835
-loss = 3.710407018661499
-loss = 3.610079526901245
-loss = 3.656855344772339
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1772
-Client 0 Raw Score: 0.7084
-Client 1 Raw Score: 0.4737
-Client 2 Raw Score: 0.4542
-Client 3 Raw Score: 0.4967
-Client 4 Raw Score: 0.4978
-Client 0 Softmax weight: 0.2389
-Client 1 Softmax weight: 0.1889
-Client 2 Softmax weight: 0.1853
-Client 3 Softmax weight: 0.1933
-Client 4 Softmax weight: 0.1935
-Round 26 Test Accuracy=0.1889
-
-========== Round [27/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 6 97
-loss = 3.2125086784362793
-loss = 3.737062931060791
-loss = 3.464143753051758
-loss = 3.831279754638672
-loss = 3.761654853820801
-loss = 3.6738409996032715
-loss = 3.7526280879974365
-loss = 3.4389407634735107
-loss = 3.634878396987915
-loss = 3.7698416709899902
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 3.176302433013916
-loss = 3.3137218952178955
-loss = 3.8272666931152344
-loss = 3.741760015487671
-loss = 3.906244993209839
-loss = 3.7150661945343018
-loss = 3.6080081462860107
-loss = 3.8654913902282715
-loss = 3.5540969371795654
-loss = 3.468163251876831
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 6 99
-loss = 3.39961576461792
-loss = 3.0927536487579346
-loss = 3.6994473934173584
-loss = 3.7000668048858643
-loss = 3.8673617839813232
-loss = 3.6562047004699707
-loss = 3.694584369659424
-loss = 3.9970083236694336
-loss = 3.601510763168335
-loss = 3.6045289039611816
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.0281450748443604
-loss = 3.6320059299468994
-loss = 3.5806450843811035
-loss = 3.6370105743408203
-loss = 3.837416648864746
-loss = 3.570956230163574
-loss = 3.6750731468200684
-loss = 3.151045560836792
-loss = 3.5723683834075928
-loss = 4.067145347595215
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 2 99
-loss = 3.3623945713043213
-loss = 3.243248224258423
-loss = 4.001735687255859
-loss = 3.434530735015869
-loss = 3.6863560676574707
-loss = 3.610430955886841
-loss = 3.631826877593994
-loss = 3.2445662021636963
-loss = 3.662121295928955
-loss = 3.2397572994232178
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1804
-Client 0 Raw Score: 0.7073
-Client 1 Raw Score: 0.4773
-Client 2 Raw Score: 0.4950
-Client 3 Raw Score: 0.4690
-Client 4 Raw Score: 0.4997
-Client 0 Softmax weight: 0.2379
-Client 1 Softmax weight: 0.1890
-Client 2 Softmax weight: 0.1924
-Client 3 Softmax weight: 0.1874
-Client 4 Softmax weight: 0.1933
-Round 27 Test Accuracy=0.1742
-
-========== Round [28/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 2 99
-loss = 3.257852077484131
-loss = 3.849997043609619
-loss = 3.8511834144592285
-loss = 3.6386799812316895
-loss = 3.8328967094421387
-loss = 3.4476075172424316
-loss = 3.490978240966797
-loss = 3.6250381469726562
-loss = 3.775113344192505
-loss = 3.4031729698181152
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.140376567840576
-loss = 3.536667585372925
-loss = 3.3711626529693604
-loss = 3.8704826831817627
-loss = 3.3794610500335693
-loss = 3.274951934814453
-loss = 3.67020845413208
-loss = 3.4032249450683594
-loss = 3.4882869720458984
-loss = 3.2986793518066406
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 3 99
-loss = 3.2343859672546387
-loss = 3.317633628845215
-loss = 3.901958465576172
-loss = 3.440307378768921
-loss = 3.6226730346679688
-loss = 3.697155714035034
-loss = 3.7924232482910156
-loss = 3.456939697265625
-loss = 3.20523738861084
-loss = 3.3917083740234375
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 3 98
-loss = 3.677175998687744
-loss = 3.4042551517486572
-loss = 3.6096456050872803
-loss = 3.8816726207733154
-loss = 3.6712331771850586
-loss = 3.2183375358581543
-loss = 3.5618600845336914
-loss = 3.45097279548645
-loss = 3.2811295986175537
-loss = 3.2624237537384033
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 2 92
-loss = 3.2277541160583496
-loss = 3.311906099319458
-loss = 3.691988706588745
-loss = 3.3812668323516846
-loss = 3.5358529090881348
-loss = 3.480614423751831
-loss = 4.159168243408203
-loss = 3.34023118019104
-loss = 3.7495169639587402
-loss = 3.9195504188537598
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1835
-Client 0 Raw Score: 0.7142
-Client 1 Raw Score: 0.4766
-Client 2 Raw Score: 0.4899
-Client 3 Raw Score: 0.5128
-Client 4 Raw Score: 0.4804
-Client 0 Softmax weight: 0.2383
-Client 1 Softmax weight: 0.1879
-Client 2 Softmax weight: 0.1904
-Client 3 Softmax weight: 0.1948
-Client 4 Softmax weight: 0.1886
-Round 28 Test Accuracy=0.1952
-
-========== Round [29/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 96
-loss = 3.4546639919281006
-loss = 3.332578420639038
-loss = 3.537325859069824
-loss = 3.925732135772705
-loss = 3.590245008468628
-loss = 3.5524656772613525
-loss = 3.632488965988159
-loss = 3.8568403720855713
-loss = 3.62736439704895
-loss = 3.712528944015503
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 3.3224291801452637
-loss = 3.192094326019287
-loss = 3.627082586288452
-loss = 3.646692991256714
-loss = 3.861917734146118
-loss = 4.008784294128418
-loss = 3.799267053604126
-loss = 3.613651752471924
-loss = 3.771282911300659
-loss = 3.6969223022460938
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 2 98
-loss = 3.069309949874878
-loss = 3.231703758239746
-loss = 3.4685051441192627
-loss = 3.776381731033325
-loss = 3.9455819129943848
-loss = 3.467566728591919
-loss = 3.604393720626831
-loss = 3.871494770050049
-loss = 3.8446438312530518
-loss = 3.5299174785614014
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 1 97
-loss = 3.167189121246338
-loss = 3.5281105041503906
-loss = 3.450155019760132
-loss = 3.983409881591797
-loss = 3.776665210723877
-loss = 3.840916395187378
-loss = 3.7433700561523438
-loss = 3.8307383060455322
-loss = 3.4716737270355225
-loss = 3.410982131958008
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 3.1932716369628906
-loss = 3.6062023639678955
-loss = 4.168093204498291
-loss = 4.018697261810303
-loss = 3.809953212738037
-loss = 3.642892599105835
-loss = 3.6893675327301025
-loss = 3.8349311351776123
-loss = 3.7432358264923096
-loss = 3.590106725692749
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1985
-Client 0 Raw Score: 0.7094
-Client 1 Raw Score: 0.4776
-Client 2 Raw Score: 0.5113
-Client 3 Raw Score: 0.4925
-Client 4 Raw Score: 0.5084
-Client 0 Softmax weight: 0.2361
-Client 1 Softmax weight: 0.1872
-Client 2 Softmax weight: 0.1936
-Client 3 Softmax weight: 0.1900
-Client 4 Softmax weight: 0.1931
-Round 29 Test Accuracy=0.1908
-
-========== Round [30/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 3.059983015060425
-loss = 3.5658295154571533
-loss = 3.945713758468628
-loss = 3.7911078929901123
-loss = 3.563969612121582
-loss = 3.94989275932312
-loss = 3.842785596847534
-loss = 4.126974105834961
-loss = 3.4664316177368164
-loss = 3.5901541709899902
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 6 97
-loss = 3.813464641571045
-loss = 3.744568347930908
-loss = 3.953645944595337
-loss = 3.7257890701293945
-loss = 3.49532413482666
-loss = 3.7946581840515137
-loss = 3.6293694972991943
-loss = 3.6004369258880615
-loss = 3.829338788986206
-loss = 3.526517391204834
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 3.0125250816345215
-loss = 3.200420618057251
-loss = 3.749450922012329
-loss = 3.602829694747925
-loss = 3.9425289630889893
-loss = 3.699862003326416
-loss = 3.762404203414917
-loss = 3.3778343200683594
-loss = 3.3957295417785645
-loss = 3.5178792476654053
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 3.1757988929748535
-loss = 3.3615283966064453
-loss = 3.303828477859497
-loss = 3.6900501251220703
-loss = 3.300861358642578
-loss = 3.215686559677124
-loss = 3.6643664836883545
-loss = 3.8974575996398926
-loss = 3.359243392944336
-loss = 3.4176700115203857
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 3.1475260257720947
-loss = 3.2508678436279297
-loss = 3.6614270210266113
-loss = 3.7882256507873535
-loss = 3.45930552482605
-loss = 3.669344902038574
-loss = 3.953036069869995
-loss = 4.192142009735107
-loss = 3.6454124450683594
-loss = 3.520698070526123
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1787
-Client 0 Raw Score: 0.7059
-Client 1 Raw Score: 0.4936
-Client 2 Raw Score: 0.4852
-Client 3 Raw Score: 0.4723
-Client 4 Raw Score: 0.4721
-Client 0 Softmax weight: 0.2384
-Client 1 Softmax weight: 0.1928
-Client 2 Softmax weight: 0.1912
-Client 3 Softmax weight: 0.1888
-Client 4 Softmax weight: 0.1887
-Round 30 Test Accuracy=0.1809
-
-========== Round [31/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 2 95
-loss = 3.2501280307769775
-loss = 3.054495096206665
-loss = 3.738676071166992
-loss = 3.765231132507324
-loss = 3.6325719356536865
-loss = 3.610858917236328
-loss = 4.078826427459717
-loss = 3.720937967300415
-loss = 4.3225555419921875
-loss = 3.7328975200653076
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 3 99
-loss = 3.120655059814453
-loss = 3.4542763233184814
-loss = 3.9714419841766357
-loss = 3.3070292472839355
-loss = 3.7240030765533447
-loss = 3.841508388519287
-loss = 3.507657766342163
-loss = 3.5140953063964844
-loss = 3.496469497680664
-loss = 3.1369271278381348
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 0 96
-loss = 3.0810468196868896
-loss = 3.2813684940338135
-loss = 3.576967239379883
-loss = 3.6744861602783203
-loss = 3.5396153926849365
-loss = 3.905311107635498
-loss = 3.3912806510925293
-loss = 3.76658296585083
-loss = 3.7334742546081543
-loss = 3.7196173667907715
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 3.317626476287842
-loss = 3.3240458965301514
-loss = 3.431352138519287
-loss = 3.578287124633789
-loss = 3.8089983463287354
-loss = 3.345282554626465
-loss = 3.622297525405884
-loss = 3.5507402420043945
-loss = 3.602466344833374
-loss = 3.6903271675109863
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 3.095316171646118
-loss = 3.6427645683288574
-loss = 3.6078412532806396
-loss = 3.4990057945251465
-loss = 3.613053798675537
-loss = 3.951582908630371
-loss = 3.683901309967041
-loss = 3.253933906555176
-loss = 3.521434783935547
-loss = 3.8318512439727783
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1974
-Client 0 Raw Score: 0.7110
-Client 1 Raw Score: 0.4996
-Client 2 Raw Score: 0.4927
-Client 3 Raw Score: 0.4638
-Client 4 Raw Score: 0.4870
-Client 0 Softmax weight: 0.2385
-Client 1 Softmax weight: 0.1930
-Client 2 Softmax weight: 0.1917
-Client 3 Softmax weight: 0.1862
-Client 4 Softmax weight: 0.1906
-Round 31 Test Accuracy=0.1892
-
-========== Round [32/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.0639519691467285
-loss = 3.1063053607940674
-loss = 3.503249406814575
-loss = 3.6175105571746826
-loss = 4.086312770843506
-loss = 3.6255970001220703
-loss = 3.495850086212158
-loss = 3.942871570587158
-loss = 3.8141472339630127
-loss = 3.6141791343688965
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.282343626022339
-loss = 3.2459006309509277
-loss = 3.7177202701568604
-loss = 3.4028801918029785
-loss = 3.837082862854004
-loss = 3.888012170791626
-loss = 3.15108585357666
-loss = 3.683906316757202
-loss = 3.4607956409454346
-loss = 3.705660581588745
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.330129384994507
-loss = 3.2604639530181885
-loss = 3.633589029312134
-loss = 3.5123472213745117
-loss = 3.9737839698791504
-loss = 3.8040401935577393
-loss = 3.418504476547241
-loss = 3.095154285430908
-loss = 3.146399736404419
-loss = 3.319960355758667
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.0027410984039307
-loss = 3.247398614883423
-loss = 3.7822530269622803
-loss = 3.5798840522766113
-loss = 3.491316080093384
-loss = 3.6095945835113525
-loss = 3.740828275680542
-loss = 3.3368852138519287
-loss = 3.6733438968658447
-loss = 3.9163897037506104
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 2.9737160205841064
-loss = 3.633500099182129
-loss = 3.521418809890747
-loss = 3.4442789554595947
-loss = 3.704578161239624
-loss = 3.688905954360962
-loss = 3.693554401397705
-loss = 3.3755478858947754
-loss = 3.4352259635925293
-loss = 3.832022190093994
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.2030
-Client 0 Raw Score: 0.6988
-Client 1 Raw Score: 0.4708
-Client 2 Raw Score: 0.4632
-Client 3 Raw Score: 0.4970
-Client 4 Raw Score: 0.4935
-Client 0 Softmax weight: 0.2371
-Client 1 Softmax weight: 0.1888
-Client 2 Softmax weight: 0.1873
-Client 3 Softmax weight: 0.1938
-Client 4 Softmax weight: 0.1931
-Round 32 Test Accuracy=0.2184
-
-========== Round [33/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 3.0577645301818848
-loss = 3.283262014389038
-loss = 3.7306861877441406
-loss = 3.898705005645752
-loss = 3.9067370891571045
-loss = 3.7954089641571045
-loss = 3.8093390464782715
-loss = 3.4458608627319336
-loss = 3.8230814933776855
-loss = 3.3613429069519043
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 2 99
-loss = 2.9180586338043213
-loss = 3.7356672286987305
-loss = 3.5441675186157227
-loss = 3.2629003524780273
-loss = 4.043349266052246
-loss = 3.4452874660491943
-loss = 3.569537878036499
-loss = 3.6663260459899902
-loss = 3.5333497524261475
-loss = 3.478728771209717
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 1 96
-loss = 3.1386682987213135
-loss = 3.272859573364258
-loss = 3.743825912475586
-loss = 3.393942356109619
-loss = 3.6809329986572266
-loss = 3.310370922088623
-loss = 3.5502963066101074
-loss = 3.6842081546783447
-loss = 3.511138677597046
-loss = 3.5566201210021973
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 97
-loss = 2.9379193782806396
-loss = 3.372580051422119
-loss = 3.5592544078826904
-loss = 3.226533889770508
-loss = 3.6137807369232178
-loss = 3.886965274810791
-loss = 3.71994948387146
-loss = 3.497044086456299
-loss = 3.4608917236328125
-loss = 3.4536728858947754
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 97
-loss = 3.007620096206665
-loss = 3.7760488986968994
-loss = 3.7503199577331543
-loss = 3.3244738578796387
-loss = 3.59477162361145
-loss = 3.4996376037597656
-loss = 3.789701223373413
-loss = 3.655893325805664
-loss = 3.6995673179626465
-loss = 3.6504933834075928
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1971
-Client 0 Raw Score: 0.7065
-Client 1 Raw Score: 0.4747
-Client 2 Raw Score: 0.4873
-Client 3 Raw Score: 0.4802
-Client 4 Raw Score: 0.4709
-Client 0 Softmax weight: 0.2390
-Client 1 Softmax weight: 0.1896
-Client 2 Softmax weight: 0.1920
-Client 3 Softmax weight: 0.1906
-Client 4 Softmax weight: 0.1888
-Round 33 Test Accuracy=0.2085
-
-========== Round [34/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 96
-loss = 3.3589584827423096
-loss = 3.429724931716919
-loss = 3.9439854621887207
-loss = 3.8342819213867188
-loss = 3.690959930419922
-loss = 4.198784828186035
-loss = 3.7262680530548096
-loss = 3.6629786491394043
-loss = 3.6337740421295166
-loss = 3.8452036380767822
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.0537290573120117
-loss = 3.642564058303833
-loss = 3.7450640201568604
-loss = 3.8731493949890137
-loss = 3.8328723907470703
-loss = 3.5057427883148193
-loss = 3.391187906265259
-loss = 3.3876285552978516
-loss = 3.88661527633667
-loss = 3.1598386764526367
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 2.923414707183838
-loss = 3.390254020690918
-loss = 3.633509874343872
-loss = 3.7581517696380615
-loss = 4.050649642944336
-loss = 3.5602293014526367
-loss = 3.460780620574951
-loss = 3.2503790855407715
-loss = 3.598853588104248
-loss = 3.322340488433838
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 97
-loss = 3.218093156814575
-loss = 3.039813756942749
-loss = 3.467459201812744
-loss = 3.7618727684020996
-loss = 3.6803057193756104
-loss = 4.0486040115356445
-loss = 3.8717308044433594
-loss = 3.7592341899871826
-loss = 3.2620315551757812
-loss = 3.209606885910034
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 97
-loss = 2.992328643798828
-loss = 3.356466293334961
-loss = 4.033331394195557
-loss = 3.569028377532959
-loss = 3.6899168491363525
-loss = 3.903323173522949
-loss = 3.906801462173462
-loss = 3.7060718536376953
-loss = 3.168856620788574
-loss = 3.5835976600646973
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1930
-Client 0 Raw Score: 0.7032
-Client 1 Raw Score: 0.5149
-Client 2 Raw Score: 0.4694
-Client 3 Raw Score: 0.4914
-Client 4 Raw Score: 0.4849
-Client 0 Softmax weight: 0.2362
-Client 1 Softmax weight: 0.1957
-Client 2 Softmax weight: 0.1870
-Client 3 Softmax weight: 0.1912
-Client 4 Softmax weight: 0.1899
-Round 34 Test Accuracy=0.2102
-
-========== Round [35/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 4 99
-loss = 3.3027517795562744
-loss = 3.737006664276123
-loss = 3.9834489822387695
-loss = 3.6827280521392822
-loss = 3.6392109394073486
-loss = 3.6209065914154053
-loss = 3.761094093322754
-loss = 3.559520959854126
-loss = 3.6022000312805176
-loss = 3.0625171661376953
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 97
-loss = 3.183485269546509
-loss = 3.446554660797119
-loss = 3.497748851776123
-loss = 3.6436612606048584
-loss = 3.4167134761810303
-loss = 3.6323647499084473
-loss = 3.7454891204833984
-loss = 3.3674070835113525
-loss = 3.59291672706604
-loss = 3.6063551902770996
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 1 95
-loss = 3.1125757694244385
-loss = 3.5626137256622314
-loss = 3.5365710258483887
-loss = 3.7157421112060547
-loss = 3.554774761199951
-loss = 3.548147439956665
-loss = 3.710200309753418
-loss = 3.682607412338257
-loss = 3.3369879722595215
-loss = 3.711013078689575
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.1613917350769043
-loss = 3.663969039916992
-loss = 3.1251907348632812
-loss = 3.653520107269287
-loss = 3.8862836360931396
-loss = 3.191378116607666
-loss = 3.0361111164093018
-loss = 3.689725875854492
-loss = 3.359285831451416
-loss = 3.3039870262145996
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 2.711724281311035
-loss = 3.2483861446380615
-loss = 3.682326555252075
-loss = 3.562091112136841
-loss = 3.46435284614563
-loss = 3.2380263805389404
-loss = 3.6824562549591064
-loss = 3.6236538887023926
-loss = 3.5105960369110107
-loss = 3.4556121826171875
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1942
-Client 0 Raw Score: 0.7111
-Client 1 Raw Score: 0.4631
-Client 2 Raw Score: 0.5052
-Client 3 Raw Score: 0.4931
-Client 4 Raw Score: 0.5044
-Client 0 Softmax weight: 0.2375
-Client 1 Softmax weight: 0.1853
-Client 2 Softmax weight: 0.1932
-Client 3 Softmax weight: 0.1909
-Client 4 Softmax weight: 0.1931
-Round 35 Test Accuracy=0.2241
-
-========== Round [36/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 93
-loss = 2.893768072128296
-loss = 3.4499058723449707
-loss = 3.3422415256500244
-loss = 3.479219913482666
-loss = 3.845768928527832
-loss = 3.492377519607544
-loss = 3.6558666229248047
-loss = 3.2619051933288574
-loss = 3.74739408493042
-loss = 3.6517536640167236
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.1747021675109863
-loss = 3.3135080337524414
-loss = 3.6607565879821777
-loss = 3.6578991413116455
-loss = 3.5949270725250244
-loss = 3.431025505065918
-loss = 3.3475217819213867
-loss = 3.750220775604248
-loss = 3.65803599357605
-loss = 3.507005453109741
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 3.1277191638946533
-loss = 3.4373698234558105
-loss = 3.4154365062713623
-loss = 3.7935056686401367
-loss = 3.5594675540924072
-loss = 3.6783995628356934
-loss = 3.556875705718994
-loss = 3.2454488277435303
-loss = 3.62316632270813
-loss = 3.4415946006774902
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 97
-loss = 2.8081068992614746
-loss = 3.4105911254882812
-loss = 3.356370210647583
-loss = 3.6085939407348633
-loss = 3.602370500564575
-loss = 3.613694667816162
-loss = 3.6165404319763184
-loss = 3.669748544692993
-loss = 3.281590700149536
-loss = 3.747654438018799
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 97
-loss = 3.198857069015503
-loss = 3.533841371536255
-loss = 3.749325752258301
-loss = 3.7279727458953857
-loss = 3.5978517532348633
-loss = 4.219717502593994
-loss = 3.9620862007141113
-loss = 3.640777111053467
-loss = 3.83394718170166
-loss = 3.4495129585266113
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.1955
-Client 0 Raw Score: 0.7013
-Client 1 Raw Score: 0.4909
-Client 2 Raw Score: 0.4903
-Client 3 Raw Score: 0.4645
-Client 4 Raw Score: 0.4699
-Client 0 Softmax weight: 0.2379
-Client 1 Softmax weight: 0.1928
-Client 2 Softmax weight: 0.1927
-Client 3 Softmax weight: 0.1878
-Client 4 Softmax weight: 0.1888
-Round 36 Test Accuracy=0.2109
-
-========== Round [37/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 96
-loss = 3.117595672607422
-loss = 3.34493088722229
-loss = 3.710049867630005
-loss = 3.493112564086914
-loss = 4.002446174621582
-loss = 3.3586585521698
-loss = 3.934337854385376
-loss = 3.3770487308502197
-loss = 3.3162472248077393
-loss = 3.6528782844543457
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 2.844012498855591
-loss = 3.326843500137329
-loss = 3.1202268600463867
-loss = 3.4890236854553223
-loss = 3.149014949798584
-loss = 3.4463396072387695
-loss = 3.383164167404175
-loss = 3.241849660873413
-loss = 3.1207618713378906
-loss = 3.2374489307403564
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 2 89
-loss = 3.4968698024749756
-loss = 3.5529348850250244
-loss = 3.7691352367401123
-loss = 3.53466796875
-loss = 3.4998788833618164
-loss = 3.7050015926361084
-loss = 3.3451220989227295
-loss = 3.8641560077667236
-loss = 3.3140861988067627
-loss = 3.4432506561279297
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 3.1982333660125732
-loss = 3.178938150405884
-loss = 3.701148271560669
-loss = 3.3894128799438477
-loss = 3.553635358810425
-loss = 3.479058265686035
-loss = 3.423485279083252
-loss = 3.9804484844207764
-loss = 3.6015942096710205
-loss = 3.746860980987549
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 2.992091417312622
-loss = 3.459312677383423
-loss = 3.7706825733184814
-loss = 3.415217876434326
-loss = 3.4497642517089844
-loss = 3.8917717933654785
-loss = 3.5458106994628906
-loss = 3.5623903274536133
-loss = 3.3066272735595703
-loss = 3.8255763053894043
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.2051
-Client 0 Raw Score: 0.7114
-Client 1 Raw Score: 0.4810
-Client 2 Raw Score: 0.4961
-Client 3 Raw Score: 0.4981
-Client 4 Raw Score: 0.4621
-Client 0 Softmax weight: 0.2388
-Client 1 Softmax weight: 0.1896
-Client 2 Softmax weight: 0.1925
-Client 3 Softmax weight: 0.1929
-Client 4 Softmax weight: 0.1861
-Round 37 Test Accuracy=0.2097
-
-========== Round [38/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 3.067225217819214
-loss = 3.713510274887085
-loss = 3.717817544937134
-loss = 3.614751100540161
-loss = 3.762948989868164
-loss = 3.6477935314178467
-loss = 3.784363269805908
-loss = 3.5389389991760254
-loss = 3.8423314094543457
-loss = 3.4201929569244385
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.1548216342926025
-loss = 3.730295419692993
-loss = 3.6302809715270996
-loss = 3.8268041610717773
-loss = 3.4296913146972656
-loss = 3.4135074615478516
-loss = 3.4826669692993164
-loss = 3.522331476211548
-loss = 3.407846689224243
-loss = 3.6523265838623047
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 2 98
-loss = 3.07814884185791
-loss = 3.2169888019561768
-loss = 3.6984357833862305
-loss = 3.432788372039795
-loss = 3.8048133850097656
-loss = 3.479795217514038
-loss = 3.4712634086608887
-loss = 3.5138936042785645
-loss = 3.449913501739502
-loss = 3.33516788482666
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 2.965240001678467
-loss = 2.9302384853363037
-loss = 3.3333616256713867
-loss = 3.4182052612304688
-loss = 3.5385794639587402
-loss = 4.048317909240723
-loss = 3.227606773376465
-loss = 3.620342254638672
-loss = 3.219444990158081
-loss = 3.4452476501464844
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 3.0256314277648926
-loss = 3.718723773956299
-loss = 3.7221896648406982
-loss = 3.6621768474578857
-loss = 3.4709479808807373
-loss = 3.587210178375244
-loss = 3.820467472076416
-loss = 3.237265110015869
-loss = 3.518075704574585
-loss = 3.514451265335083
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.2162
-Client 0 Raw Score: 0.6988
-Client 1 Raw Score: 0.4904
-Client 2 Raw Score: 0.4704
-Client 3 Raw Score: 0.4604
-Client 4 Raw Score: 0.4533
-Client 0 Softmax weight: 0.2394
-Client 1 Softmax weight: 0.1943
-Client 2 Softmax weight: 0.1905
-Client 3 Softmax weight: 0.1886
-Client 4 Softmax weight: 0.1873
-Round 38 Test Accuracy=0.2175
-
-========== Round [39/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.3260655403137207
-loss = 3.3947935104370117
-loss = 3.5299665927886963
-loss = 3.383251190185547
-loss = 3.425884246826172
-loss = 3.7906670570373535
-loss = 3.609222173690796
-loss = 3.4058308601379395
-loss = 3.2954745292663574
-loss = 3.2095935344696045
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 2.9215734004974365
-loss = 3.3292369842529297
-loss = 3.4868173599243164
-loss = 3.5800352096557617
-loss = 3.804194211959839
-loss = 3.542451858520508
-loss = 3.272878408432007
-loss = 3.7975234985351562
-loss = 3.6904296875
-loss = 3.7853496074676514
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 2 99
-loss = 3.3401072025299072
-loss = 3.3613440990448
-loss = 3.6315672397613525
-loss = 3.590059280395508
-loss = 3.4123620986938477
-loss = 3.468965768814087
-loss = 3.110531806945801
-loss = 3.5753610134124756
-loss = 3.9481468200683594
-loss = 3.1828339099884033
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 2 94
-loss = 3.2718496322631836
-loss = 3.1488187313079834
-loss = 3.3041470050811768
-loss = 3.4525058269500732
-loss = 3.3780126571655273
-loss = 3.345284938812256
-loss = 3.182239294052124
-loss = 3.4265317916870117
-loss = 3.377873420715332
-loss = 3.5373711585998535
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 3 98
-loss = 2.884655237197876
-loss = 3.559819459915161
-loss = 3.3325586318969727
-loss = 3.3323092460632324
-loss = 3.6829771995544434
-loss = 3.915968418121338
-loss = 3.4032349586486816
-loss = 3.3576011657714844
-loss = 3.1430575847625732
-loss = 3.750424861907959
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.2126
-Client 0 Raw Score: 0.7015
-Client 1 Raw Score: 0.4650
-Client 2 Raw Score: 0.4882
-Client 3 Raw Score: 0.4630
-Client 4 Raw Score: 0.4711
-Client 0 Softmax weight: 0.2393
-Client 1 Softmax weight: 0.1889
-Client 2 Softmax weight: 0.1933
-Client 3 Softmax weight: 0.1885
-Client 4 Softmax weight: 0.1900
-Round 39 Test Accuracy=0.2164
-
-========== Round [40/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 96
-loss = 3.340986967086792
-loss = 3.262875556945801
-loss = 3.73964524269104
-loss = 4.053061485290527
-loss = 3.6965978145599365
-loss = 3.8473832607269287
-loss = 3.715186357498169
-loss = 3.867875814437866
-loss = 3.600240468978882
-loss = 3.455697536468506
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 4 99
-loss = 3.0975286960601807
-loss = 3.1823129653930664
-loss = 2.9320061206817627
-loss = 3.458766222000122
-loss = 3.779973030090332
-loss = 3.624058485031128
-loss = 3.453969955444336
-loss = 3.433825969696045
-loss = 3.6033010482788086
-loss = 4.0777387619018555
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 0 97
-loss = 3.1808083057403564
-loss = 3.4544155597686768
-loss = 3.6186513900756836
-loss = 3.7012200355529785
-loss = 3.7338333129882812
-loss = 4.2022929191589355
-loss = 3.50797176361084
-loss = 3.5199930667877197
-loss = 3.609720230102539
-loss = 3.4697465896606445
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 2.7984185218811035
-loss = 3.5241405963897705
-loss = 3.1094894409179688
-loss = 3.6043777465820312
-loss = 3.522040605545044
-loss = 3.671710252761841
-loss = 3.502155303955078
-loss = 3.2706029415130615
-loss = 3.2471425533294678
-loss = 3.7460620403289795
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.0995895862579346
-loss = 3.2256648540496826
-loss = 3.507650852203369
-loss = 3.3310928344726562
-loss = 3.6054999828338623
-loss = 3.411721706390381
-loss = 3.566957950592041
-loss = 3.326064109802246
-loss = 3.339007616043091
-loss = 3.167436361312866
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.2102
-Client 0 Raw Score: 0.7004
-Client 1 Raw Score: 0.4978
-Client 2 Raw Score: 0.4764
-Client 3 Raw Score: 0.4787
-Client 4 Raw Score: 0.4617
-Client 0 Softmax weight: 0.2378
-Client 1 Softmax weight: 0.1942
-Client 2 Softmax weight: 0.1901
-Client 3 Softmax weight: 0.1905
-Client 4 Softmax weight: 0.1873
-Round 40 Test Accuracy=0.2245
-
-========== Round [41/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 1 94
-loss = 2.825592279434204
-loss = 3.1321308612823486
-loss = 3.5484399795532227
-loss = 3.615053653717041
-loss = 3.541088104248047
-loss = 3.115773916244507
-loss = 3.4874844551086426
-loss = 3.399322032928467
-loss = 3.3216090202331543
-loss = 3.319812297821045
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 96
-loss = 3.090367078781128
-loss = 3.1975646018981934
-loss = 3.4091389179229736
-loss = 3.4240970611572266
-loss = 3.7901854515075684
-loss = 3.350186347961426
-loss = 3.5552597045898438
-loss = 3.6828768253326416
-loss = 3.402975559234619
-loss = 3.2107739448547363
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 2.9331464767456055
-loss = 3.3258397579193115
-loss = 3.5545928478240967
-loss = 3.199125051498413
-loss = 3.1287105083465576
-loss = 3.6395082473754883
-loss = 3.062154769897461
-loss = 3.583042621612549
-loss = 3.4685630798339844
-loss = 3.4794702529907227
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 2.972005605697632
-loss = 3.0801069736480713
-loss = 3.5923800468444824
-loss = 3.39790678024292
-loss = 3.6045753955841064
-loss = 3.676300525665283
-loss = 3.3618407249450684
-loss = 3.5374181270599365
-loss = 4.112789154052734
-loss = 3.670888662338257
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 2.720752239227295
-loss = 3.365586280822754
-loss = 3.3824386596679688
-loss = 3.3392512798309326
-loss = 3.5887391567230225
-loss = 3.3697803020477295
-loss = 3.557715892791748
-loss = 3.1432719230651855
-loss = 3.593865156173706
-loss = 3.662290334701538
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.2319
-Client 0 Raw Score: 0.6992
-Client 1 Raw Score: 0.4469
-Client 2 Raw Score: 0.4702
-Client 3 Raw Score: 0.4824
-Client 4 Raw Score: 0.4699
-Client 0 Softmax weight: 0.2397
-Client 1 Softmax weight: 0.1862
-Client 2 Softmax weight: 0.1906
-Client 3 Softmax weight: 0.1930
-Client 4 Softmax weight: 0.1906
-Round 41 Test Accuracy=0.2358
-
-========== Round [42/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 2.820890426635742
-loss = 3.6435964107513428
-loss = 3.599601984024048
-loss = 3.387477397918701
-loss = 3.408494234085083
-loss = 3.6897614002227783
-loss = 3.558727979660034
-loss = 3.4939262866973877
-loss = 3.4272804260253906
-loss = 3.2792892456054688
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.0305514335632324
-loss = 3.6559698581695557
-loss = 3.95723557472229
-loss = 3.638209819793701
-loss = 3.711602210998535
-loss = 3.299602746963501
-loss = 3.3366193771362305
-loss = 3.352384328842163
-loss = 3.0860767364501953
-loss = 3.5529143810272217
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 3.0752437114715576
-loss = 3.231464147567749
-loss = 3.394862413406372
-loss = 3.721602201461792
-loss = 3.5391428470611572
-loss = 3.2858269214630127
-loss = 3.3712618350982666
-loss = 3.868774890899658
-loss = 3.175351619720459
-loss = 3.6914656162261963
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 2.842957019805908
-loss = 3.3893580436706543
-loss = 3.4871292114257812
-loss = 3.8309481143951416
-loss = 3.5526976585388184
-loss = 3.4860644340515137
-loss = 3.382943630218506
-loss = 3.2347500324249268
-loss = 3.4165120124816895
-loss = 3.1726484298706055
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 3.0045125484466553
-loss = 3.485905170440674
-loss = 3.6527836322784424
-loss = 3.453002691268921
-loss = 3.017670154571533
-loss = 3.4725310802459717
-loss = 3.883388042449951
-loss = 3.156020164489746
-loss = 3.1804730892181396
-loss = 3.408123016357422
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.2127
-Client 0 Raw Score: 0.6968
-Client 1 Raw Score: 0.4543
-Client 2 Raw Score: 0.4631
-Client 3 Raw Score: 0.4711
-Client 4 Raw Score: 0.4546
-Client 0 Softmax weight: 0.2404
-Client 1 Softmax weight: 0.1887
-Client 2 Softmax weight: 0.1903
-Client 3 Softmax weight: 0.1919
-Client 4 Softmax weight: 0.1887
-Round 42 Test Accuracy=0.2394
-
-========== Round [43/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 95
-loss = 3.158311605453491
-loss = 3.4912822246551514
-loss = 3.642180919647217
-loss = 3.601574182510376
-loss = 3.4696173667907715
-loss = 3.3165602684020996
-loss = 3.5436604022979736
-loss = 3.462787628173828
-loss = 3.7185380458831787
-loss = 3.6435556411743164
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 4 98
-loss = 2.754300117492676
-loss = 3.5029518604278564
-loss = 3.4521875381469727
-loss = 3.3366026878356934
-loss = 3.7276790142059326
-loss = 3.015057325363159
-loss = 3.67659068107605
-loss = 3.4209060668945312
-loss = 3.361952781677246
-loss = 3.313171625137329
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.241415023803711
-loss = 3.3159327507019043
-loss = 3.6608035564422607
-loss = 3.7032995223999023
-loss = 3.2021079063415527
-loss = 3.602062940597534
-loss = 3.5552172660827637
-loss = 3.4065451622009277
-loss = 3.430905342102051
-loss = 3.242414951324463
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 2 97
-loss = 2.9475045204162598
-loss = 3.2263762950897217
-loss = 3.726781129837036
-loss = 3.6904711723327637
-loss = 3.4921042919158936
-loss = 2.9613752365112305
-loss = 3.7369682788848877
-loss = 3.318805694580078
-loss = 3.2025187015533447
-loss = 3.4022669792175293
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 1 93
-loss = 3.0929222106933594
-loss = 3.1524243354797363
-loss = 3.556290626525879
-loss = 3.501703977584839
-loss = 3.522325038909912
-loss = 3.904916524887085
-loss = 3.57403826713562
-loss = 3.584458589553833
-loss = 3.466801404953003
-loss = 3.483668327331543
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.2212
-Client 0 Raw Score: 0.7093
-Client 1 Raw Score: 0.4710
-Client 2 Raw Score: 0.4494
-Client 3 Raw Score: 0.4790
-Client 4 Raw Score: 0.4678
-Client 0 Softmax weight: 0.2416
-Client 1 Softmax weight: 0.1904
-Client 2 Softmax weight: 0.1863
-Client 3 Softmax weight: 0.1919
-Client 4 Softmax weight: 0.1898
-Round 43 Test Accuracy=0.2307
-
-========== Round [44/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.053154468536377
-loss = 2.9467294216156006
-loss = 3.420717477798462
-loss = 3.546849489212036
-loss = 3.7571141719818115
-loss = 3.6990082263946533
-loss = 3.4264540672302246
-loss = 3.803410053253174
-loss = 3.6306557655334473
-loss = 3.396906614303589
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 2.8393046855926514
-loss = 2.986485719680786
-loss = 3.0780720710754395
-loss = 3.679370164871216
-loss = 3.349562406539917
-loss = 3.576535224914551
-loss = 3.47409987449646
-loss = 3.7162086963653564
-loss = 3.0989186763763428
-loss = 3.615569829940796
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 1 98
-loss = 3.252906322479248
-loss = 3.354848861694336
-loss = 3.586336135864258
-loss = 3.433337450027466
-loss = 3.5212936401367188
-loss = 3.5184850692749023
-loss = 3.315347671508789
-loss = 3.4169774055480957
-loss = 3.2338290214538574
-loss = 3.3342552185058594
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 2 99
-loss = 2.8319473266601562
-loss = 3.1973624229431152
-loss = 3.0042226314544678
-loss = 3.4612979888916016
-loss = 3.379794120788574
-loss = 3.4263782501220703
-loss = 3.43925404548645
-loss = 3.069139242172241
-loss = 3.604611396789551
-loss = 3.3077948093414307
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.13238525390625
-loss = 3.4301724433898926
-loss = 3.512038230895996
-loss = 3.4266040325164795
-loss = 3.709585666656494
-loss = 3.882762908935547
-loss = 3.7777585983276367
-loss = 3.041614294052124
-loss = 3.385897159576416
-loss = 3.388418197631836
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.2105
-Client 0 Raw Score: 0.7114
-Client 1 Raw Score: 0.5104
-Client 2 Raw Score: 0.4976
-Client 3 Raw Score: 0.4963
-Client 4 Raw Score: 0.5042
-Client 0 Softmax weight: 0.2356
-Client 1 Softmax weight: 0.1927
-Client 2 Softmax weight: 0.1902
-Client 3 Softmax weight: 0.1900
-Client 4 Softmax weight: 0.1915
-Round 44 Test Accuracy=0.2251
-
-========== Round [45/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 3.286489248275757
-loss = 3.712611436843872
-loss = 3.570974349975586
-loss = 3.6133065223693848
-loss = 3.5793652534484863
-loss = 3.544971466064453
-loss = 3.6395416259765625
-loss = 3.3844401836395264
-loss = 3.252220869064331
-loss = 3.1239590644836426
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.0796432495117188
-loss = 3.143439769744873
-loss = 3.3705573081970215
-loss = 3.73268985748291
-loss = 3.4450464248657227
-loss = 3.457723379135132
-loss = 3.683520555496216
-loss = 3.418078660964966
-loss = 3.232008218765259
-loss = 3.661553144454956
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 2 95
-loss = 3.049917459487915
-loss = 3.3746426105499268
-loss = 3.508913278579712
-loss = 3.6159849166870117
-loss = 3.5747175216674805
-loss = 3.8495140075683594
-loss = 3.7176132202148438
-loss = 3.3863978385925293
-loss = 3.938610792160034
-loss = 3.0452499389648438
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 3.221092939376831
-loss = 3.3507368564605713
-loss = 3.6141085624694824
-loss = 3.1847665309906006
-loss = 3.441833734512329
-loss = 3.3888778686523438
-loss = 3.450197458267212
-loss = 3.0985360145568848
-loss = 3.238800287246704
-loss = 3.651577949523926
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 2 98
-loss = 3.179253339767456
-loss = 3.370412588119507
-loss = 3.5495097637176514
-loss = 3.59224534034729
-loss = 3.6114139556884766
-loss = 3.653639316558838
-loss = 3.529498338699341
-loss = 3.405853748321533
-loss = 3.409605026245117
-loss = 3.60174822807312
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.2280
-Client 0 Raw Score: 0.7027
-Client 1 Raw Score: 0.4758
-Client 2 Raw Score: 0.5379
-Client 3 Raw Score: 0.4504
-Client 4 Raw Score: 0.4500
-Client 0 Softmax weight: 0.2382
-Client 1 Softmax weight: 0.1898
-Client 2 Softmax weight: 0.2020
-Client 3 Softmax weight: 0.1851
-Client 4 Softmax weight: 0.1850
-Round 45 Test Accuracy=0.2521
-
-========== Round [46/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 3 99
-loss = 3.1117308139801025
-loss = 3.3049373626708984
-loss = 3.260054588317871
-loss = 3.3932251930236816
-loss = 3.324826717376709
-loss = 3.6626861095428467
-loss = 3.5453126430511475
-loss = 3.4075896739959717
-loss = 3.2417101860046387
-loss = 3.6529159545898438
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 2.845459222793579
-loss = 3.3412413597106934
-loss = 3.4031457901000977
-loss = 3.645328998565674
-loss = 3.5772459506988525
-loss = 3.4592630863189697
-loss = 3.176466941833496
-loss = 2.950195550918579
-loss = 3.409231424331665
-loss = 3.6992673873901367
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 2.823364496231079
-loss = 3.462725877761841
-loss = 3.3366928100585938
-loss = 4.1451640129089355
-loss = 3.420046806335449
-loss = 3.2261712551116943
-loss = 3.346151113510132
-loss = 3.4208619594573975
-loss = 3.4250600337982178
-loss = 3.503486394882202
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 97
-loss = 2.8217172622680664
-loss = 3.5821568965911865
-loss = 3.610778570175171
-loss = 3.84836745262146
-loss = 3.5092854499816895
-loss = 3.4989724159240723
-loss = 3.201390266418457
-loss = 3.2132925987243652
-loss = 3.357794761657715
-loss = 3.3186182975769043
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.306431531906128
-loss = 3.401948928833008
-loss = 3.34952974319458
-loss = 3.542773962020874
-loss = 3.559194564819336
-loss = 3.1057610511779785
-loss = 3.1774773597717285
-loss = 3.469766139984131
-loss = 3.3110744953155518
-loss = 3.581454277038574
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.2109
-Client 0 Raw Score: 0.6960
-Client 1 Raw Score: 0.4848
-Client 2 Raw Score: 0.4250
-Client 3 Raw Score: 0.4829
-Client 4 Raw Score: 0.5005
-Client 0 Softmax weight: 0.2380
-Client 1 Softmax weight: 0.1926
-Client 2 Softmax weight: 0.1815
-Client 3 Softmax weight: 0.1923
-Client 4 Softmax weight: 0.1957
-Round 46 Test Accuracy=0.2576
-
-========== Round [47/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 5 99
-loss = 3.16630220413208
-loss = 3.467773914337158
-loss = 3.345700979232788
-loss = 3.712642192840576
-loss = 3.4988293647766113
-loss = 3.373051643371582
-loss = 3.1042160987854004
-loss = 3.3529913425445557
-loss = 3.14923095703125
-loss = 3.895803689956665
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 3.0097439289093018
-loss = 3.4274048805236816
-loss = 3.298508882522583
-loss = 3.526822566986084
-loss = 3.489638328552246
-loss = 3.2950828075408936
-loss = 3.0317234992980957
-loss = 3.354499340057373
-loss = 3.3621997833251953
-loss = 3.531174659729004
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 2.9696755409240723
-loss = 3.7010724544525146
-loss = 3.436293125152588
-loss = 3.169401168823242
-loss = 3.6398119926452637
-loss = 3.7587311267852783
-loss = 3.2868168354034424
-loss = 3.669780969619751
-loss = 3.3221333026885986
-loss = 3.115248680114746
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 2.9964637756347656
-loss = 3.200016498565674
-loss = 3.7531375885009766
-loss = 3.3012688159942627
-loss = 3.9498674869537354
-loss = 3.4186038970947266
-loss = 3.739908218383789
-loss = 3.2314164638519287
-loss = 3.121910572052002
-loss = 3.0579521656036377
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 3.1128363609313965
-loss = 3.1000099182128906
-loss = 3.2703473567962646
-loss = 4.003834247589111
-loss = 3.575803279876709
-loss = 3.6740591526031494
-loss = 3.7247262001037598
-loss = 3.646167516708374
-loss = 3.7464654445648193
-loss = 3.4376728534698486
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.2071
-Client 0 Raw Score: 0.6972
-Client 1 Raw Score: 0.4392
-Client 2 Raw Score: 0.4876
-Client 3 Raw Score: 0.4331
-Client 4 Raw Score: 0.4445
-Client 0 Softmax weight: 0.2422
-Client 1 Softmax weight: 0.1872
-Client 2 Softmax weight: 0.1964
-Client 3 Softmax weight: 0.1860
-Client 4 Softmax weight: 0.1881
-Round 47 Test Accuracy=0.2373
-
-========== Round [48/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 6 99
-loss = 3.0419516563415527
-loss = 3.3218445777893066
-loss = 3.396521806716919
-loss = 3.2883121967315674
-loss = 3.472691059112549
-loss = 3.229304552078247
-loss = 3.514461040496826
-loss = 3.660158634185791
-loss = 3.538572072982788
-loss = 2.8914051055908203
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 5 99
-loss = 3.406132221221924
-loss = 3.0706841945648193
-loss = 3.393494129180908
-loss = 3.4102847576141357
-loss = 3.365215539932251
-loss = 3.4379003047943115
-loss = 3.6959125995635986
-loss = 3.1750659942626953
-loss = 3.9205195903778076
-loss = 2.914763927459717
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 2 96
-loss = 3.1384084224700928
-loss = 3.020491361618042
-loss = 3.5588996410369873
-loss = 3.513848304748535
-loss = 3.6444592475891113
-loss = 3.228241443634033
-loss = 3.6621549129486084
-loss = 3.495394229888916
-loss = 3.285655975341797
-loss = 3.272568464279175
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 2 99
-loss = 3.133989095687866
-loss = 2.798161506652832
-loss = 3.491581439971924
-loss = 3.360639810562134
-loss = 3.436204433441162
-loss = 3.002408504486084
-loss = 3.7463996410369873
-loss = 2.9442341327667236
-loss = 3.170522689819336
-loss = 3.3765642642974854
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 2 99
-loss = 2.775465250015259
-loss = 3.0186970233917236
-loss = 3.6625044345855713
-loss = 3.749971866607666
-loss = 3.5098249912261963
-loss = 3.3131706714630127
-loss = 3.3840091228485107
-loss = 3.508385419845581
-loss = 3.113516330718994
-loss = 3.0116140842437744
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.2218
-Client 0 Raw Score: 0.6958
-Client 1 Raw Score: 0.4790
-Client 2 Raw Score: 0.4872
-Client 3 Raw Score: 0.4431
-Client 4 Raw Score: 0.4619
-Client 0 Softmax weight: 0.2389
-Client 1 Softmax weight: 0.1924
-Client 2 Softmax weight: 0.1940
-Client 3 Softmax weight: 0.1856
-Client 4 Softmax weight: 0.1891
-Round 48 Test Accuracy=0.2499
-
-========== Round [49/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 95
-loss = 3.146682024002075
-loss = 3.2232279777526855
-loss = 3.185635805130005
-loss = 3.2544636726379395
-loss = 3.5403079986572266
-loss = 3.4996705055236816
-loss = 3.5082764625549316
-loss = 3.471726655960083
-loss = 3.3006038665771484
-loss = 3.418217420578003
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 6 98
-loss = 2.7224864959716797
-loss = 2.87839937210083
-loss = 3.573166847229004
-loss = 3.2696869373321533
-loss = 3.551093339920044
-loss = 3.435311794281006
-loss = 3.468417167663574
-loss = 3.3358120918273926
-loss = 3.7433266639709473
-loss = 2.9944839477539062
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 0 98
-loss = 2.766493797302246
-loss = 2.8518805503845215
-loss = 3.4233970642089844
-loss = 3.3316304683685303
-loss = 3.194103479385376
-loss = 3.6115612983703613
-loss = 3.23643159866333
-loss = 3.2096569538116455
-loss = 2.9909520149230957
-loss = 3.2699618339538574
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 4 99
-loss = 3.116753339767456
-loss = 3.6239709854125977
-loss = 3.391514778137207
-loss = 3.4327759742736816
-loss = 3.5189692974090576
-loss = 3.187335968017578
-loss = 3.3802592754364014
-loss = 3.3320207595825195
-loss = 3.794219732284546
-loss = 3.2579941749572754
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 3.2861034870147705
-loss = 3.671142578125
-loss = 3.3716132640838623
-loss = 3.413782835006714
-loss = 3.3281428813934326
-loss = 3.3010098934173584
-loss = 3.273785352706909
-loss = 3.2114195823669434
-loss = 3.060253620147705
-loss = 3.371248483657837
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.2341
-Client 0 Raw Score: 0.7046
-Client 1 Raw Score: 0.4632
-Client 2 Raw Score: 0.4626
-Client 3 Raw Score: 0.4778
-Client 4 Raw Score: 0.4707
-Client 0 Softmax weight: 0.2404
-Client 1 Softmax weight: 0.1889
-Client 2 Softmax weight: 0.1888
-Client 3 Softmax weight: 0.1916
-Client 4 Softmax weight: 0.1903
-Round 49 Test Accuracy=0.2391
-
-========== Round [50/50] ==========
-
- Client 1/5
-logits shape: torch.Size([64, 100])
-label range: 0 97
-loss = 3.0688538551330566
-loss = 3.3026537895202637
-loss = 3.4029762744903564
-loss = 3.477017879486084
-loss = 3.442455768585205
-loss = 3.518554449081421
-loss = 3.7235825061798096
-loss = 3.2632858753204346
-loss = 3.216165781021118
-loss = 3.4009180068969727
-
- Client 2/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 2.7847867012023926
-loss = 3.5552804470062256
-loss = 3.2134811878204346
-loss = 2.9373106956481934
-loss = 3.475846290588379
-loss = 3.2908191680908203
-loss = 3.4664978981018066
-loss = 3.2728796005249023
-loss = 3.3460352420806885
-loss = 3.4689595699310303
-
- Client 3/5
-logits shape: torch.Size([64, 100])
-label range: 0 99
-loss = 2.66787052154541
-loss = 3.8517425060272217
-loss = 3.356393814086914
-loss = 3.345367670059204
-loss = 3.580345392227173
-loss = 3.1390392780303955
-loss = 3.5927274227142334
-loss = 3.0874576568603516
-loss = 3.2307419776916504
-loss = 3.3400471210479736
-
- Client 4/5
-logits shape: torch.Size([64, 100])
-label range: 0 96
-loss = 2.6343932151794434
-loss = 3.3692283630371094
-loss = 3.1809780597686768
-loss = 3.900810956954956
-loss = 3.6520018577575684
-loss = 3.648446798324585
-loss = 3.531062364578247
-loss = 3.512190103530884
-loss = 3.0194640159606934
-loss = 3.488452672958374
-
- Client 5/5
-logits shape: torch.Size([64, 100])
-label range: 1 99
-loss = 3.2610480785369873
-loss = 2.882580041885376
-loss = 3.2589168548583984
-loss = 3.511806011199951
-loss = 3.482107639312744
-loss = 3.477151870727539
-loss = 3.530158042907715
-loss = 3.08573317527771
-loss = 3.2774627208709717
-loss = 3.2024712562561035
-
- [!] Executing Adaptive Attack: min_sum
-Client 4 Train Acc=0.2228
-Client 0 Raw Score: 0.7053
-Client 1 Raw Score: 0.4534
-Client 2 Raw Score: 0.4933
-Client 3 Raw Score: 0.4707
-Client 4 Raw Score: 0.4637
-Client 0 Softmax weight: 0.2402
-Client 1 Softmax weight: 0.1867
-Client 2 Softmax weight: 0.1943
-Client 3 Softmax weight: 0.1900
-Client 4 Softmax weight: 0.1887
-Round 50 Test Accuracy=0.2505
-Saved final round global and client models
+loss = 3.5949249267578125
+loss = 3.342230796813965
+loss = 3.7933640480041504
+loss = 3.667041063308716
+loss = 3.9105217456817627
+loss = 3.800886631011963
+loss = 3.4414315223693848
+loss = 3.7014408111572266
+loss = 3.3805794715881348
+loss = 3.3895747661590576
+
+ Client 4/10
