@@ -19,7 +19,7 @@ import torch.nn.functional as F
 import copy
 import datetime
 from utils.classification_metrics import evaluate_accuracy  
-from attacks.naive import signflip_attack_model,scaling_attack_model,additive_gaussian_attack_model,random_attack_model,orthogonal_noise_attack_model
+from attacks.naive import signflip_attack_model,scaling_attack_model,additive_gaussian_attack_model,random_attack_model,orthogonal_noise_attack_model,modified_additive_gaussian_attack_model
 from attacks.adaptive import lie_attack, min_max_attack, min_sum_attack    
 def get_args(): 
     parser = argparse.ArgumentParser()
