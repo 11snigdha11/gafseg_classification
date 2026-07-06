@@ -67,9 +67,7 @@ class ExperimentConfig:
     
     # ]
     attacks=[
-        "min_max",
-        
-        "min_sum"
+       "random"
 
 
        ]
