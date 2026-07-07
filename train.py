@@ -259,7 +259,7 @@ def train(args):
                     local_model = random_attack_model(local_model, global_model)
                 elif args.attack == "orthogonal_gaussian":
                     local_model = orthogonal_noise_attack_model(local_model, global_model)    
-                elif args.attack == "mod_gaussian":
+                elif args.attack == "mod_gauss":
                     local_model = modified_additive_gaussian_attack_model(local_model, global_model, sigma=0.1)
             local_models.append(local_model)    
             clt_models[client_idx] = copy.deepcopy(local_model)

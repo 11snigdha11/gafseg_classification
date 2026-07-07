@@ -67,7 +67,7 @@ class ExperimentConfig:
     
     # ]
     attacks=[
-       "gauss"
+       "mod_gauss"
 
 
        ]

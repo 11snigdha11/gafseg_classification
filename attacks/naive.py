@@ -105,7 +105,7 @@ def orthogonal_noise_attack_model(local_model, global_model, sigma=10.0):
 
     local_model.load_state_dict(attacked_dict)
     return local_model
-def modified_additive_gaussian_attack_model(local_model, global_model, sigma=0.1):
+def modified_additive_gaussian_attack_model(local_model, global_model, sigma=0.2):
     local_dict = local_model.state_dict()
     global_dict = global_model.state_dict()
     attacked_dict = {}
