@@ -253,7 +253,7 @@ def train(args):
                     local_model = signflip_attack_model(local_model, global_model)
                 elif args.attack == "scaling":
                     local_model = scaling_attack_model(local_model, global_model, factor=20)
-                elif args.attack == "gaussian":
+                elif args.attack == "gauss":
                     local_model = additive_gaussian_attack_model(local_model, global_model, sigma=0.1)
                 elif args.attack == "random":
                     local_model = random_attack_model(local_model, global_model)

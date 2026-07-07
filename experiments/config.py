@@ -67,11 +67,11 @@ class ExperimentConfig:
     
     # ]
     attacks=[
-       "random"
+       "gauss"
 
 
        ]
-    byzantine_clients=[2,3]
+    byzantine_clients=[1]
     dirichlet_alpha=[0.5]
     seed=[1]
 
