@@ -50,14 +50,14 @@ def save_history(history, args, save_dir):
 
     #Client scores
 
-    pd.DataFrame(
-        history["client_scores"]
-    ).to_csv(
+    # pd.DataFrame(
+    #     history["client_scores"]
+    # ).to_csv(
 
-        save_dir / "client_scores.csv",
+    #     save_dir / "client_scores.csv",
 
-        index=False
-    )
+    #     index=False
+    # )
 
     #Client accuracy
 
@@ -160,7 +160,7 @@ def main():
 
         save_dir = (
 
-            Path("results")
+            Path("results_fedavg")
 
             / attack
 

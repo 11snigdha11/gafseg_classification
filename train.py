@@ -389,29 +389,29 @@ def train(args):
                     f"Client {client_idx} Train Acc={train_acc:.4f}"
                 )      
 
-        global_model,raw_scores, softmax_score,update_norms = update_global(global_model, local_models, args)
-        for i in range(args.num_clients):
+        global_model = update_global_fedavg(global_model, local_models, args)
+        # for i in range(args.num_clients):
 
 
-            history["client_scores"].append({
-            "round": round_idx + 1,
+            # history["client_scores"].append({
+            # "round": round_idx + 1,
 
-            "client": i,
+            # "client": i,
 
-            "attack": args.attack,
+            # "attack": args.attack,
 
-            "seed": args.seed,
+            # "seed": args.seed,
 
-            "alpha": args.dirichlet_alpha,
+            # "alpha": args.dirichlet_alpha,
 
-            "num_byzantine": args.num_byzantine,
+            # "num_byzantine": args.num_byzantine,
 
-            "raw_score": raw_scores[i],
+            # # "raw_score": raw_scores[i],
 
-            "softmax_weight": softmax_score[i],
+            # # "softmax_weight": softmax_score[i],
 
-            "update_norm": update_norms[i]
-            })
+            # # "update_norm": update_norms[i]
+            # })
         if args.task == "classification":
 
 

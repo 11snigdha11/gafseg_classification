@@ -67,11 +67,19 @@ class ExperimentConfig:
     
     # ]
     attacks=[
-       "mod_gauss"
-
+    #    "none",
+    #    "gauss",
+    #    "random",
+    #    "orthogonal_gaussian",
+    #    "lie",
+    #    "min_max",
+    #    "min_sum",
+    #    "scaling",
+    #    "mod_gauss"
+    "none"
 
        ]
-    byzantine_clients=[1]
+    byzantine_clients=[0]
     dirichlet_alpha=[0.5]
     seed=[1]
 
@@ -107,7 +115,7 @@ class ExperimentConfig:
     # Output
    
 
-    results_dir = Path("results")
+    results_dir = Path("results_fedavg")
 
     dpi = 300
 

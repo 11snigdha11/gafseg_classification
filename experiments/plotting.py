@@ -39,106 +39,106 @@ def plot_accuracy(round_df, save_dir):
     plt.close()
 
 
-def plot_raw_scores(score_df, save_dir):
+# def plot_raw_scores(score_df, save_dir):
 
-    plt.figure()
+#     plt.figure()
 
-    for client in sorted(score_df["client"].unique()):
+#     for client in sorted(score_df["client"].unique()):
 
-        df = score_df[
-            score_df["client"] == client
-        ]
+#         df = score_df[
+#             score_df["client"] == client
+#         ]
 
-        plt.plot(
-            df["round"],
-            df["raw_score"],
-            label=f"Client {client}"
-        )
+#         plt.plot(
+#             df["round"],
+#             df["raw_score"],
+#             label=f"Client {client}"
+#         )
 
-    plt.xlabel("Communication Round")
-    plt.ylabel("Raw Score")
-    plt.title("Client Raw Scores")
+#     plt.xlabel("Communication Round")
+#     plt.ylabel("Raw Score")
+#     plt.title("Client Raw Scores")
 
-    plt.legend()
+#     plt.legend()
 
-    plt.grid(True)
+#     plt.grid(True)
 
-    plt.tight_layout()
+#     plt.tight_layout()
 
-    plt.savefig(
-        Path(save_dir) / "raw_scores.png",
-        dpi=300
-    )
+#     plt.savefig(
+#         Path(save_dir) / "raw_scores.png",
+#         dpi=300
+#     )
 
-    plt.close()
-
-
-def plot_softmax(score_df, save_dir):
-
-    plt.figure()
-
-    for client in sorted(score_df["client"].unique()):
-
-        df = score_df[
-            score_df["client"] == client
-        ]
-
-        plt.plot(
-            df["round"],
-            df["softmax_weight"],
-            label=f"Client {client}"
-        )
-
-    plt.xlabel("Communication Round")
-    plt.ylabel("Softmax Weight")
-    plt.title("Aggregation Weights")
-
-    plt.legend()
-
-    plt.grid(True)
-
-    plt.tight_layout()
-
-    plt.savefig(
-        Path(save_dir) / "softmax_weights.png",
-        dpi=300
-    )
-
-    plt.close()
+#     plt.close()
 
 
-def plot_update_norm(score_df, save_dir):
+# def plot_softmax(score_df, save_dir):
 
-    plt.figure()
+#     plt.figure()
 
-    for client in sorted(score_df["client"].unique()):
+#     for client in sorted(score_df["client"].unique()):
 
-        df = score_df[
-            score_df["client"] == client
-        ]
+#         df = score_df[
+#             score_df["client"] == client
+#         ]
 
-        plt.plot(
-            df["round"],
-            df["update_norm"],
-            label=f"Client {client}"
-        )
+#         plt.plot(
+#             df["round"],
+#             df["softmax_weight"],
+#             label=f"Client {client}"
+#         )
 
-    plt.xlabel("Communication Round")
-    plt.ylabel("Update Norm")
-    plt.title("Client Update Norms")
+#     plt.xlabel("Communication Round")
+#     plt.ylabel("Softmax Weight")
+#     plt.title("Aggregation Weights")
 
-    plt.legend()
+#     plt.legend()
 
-    plt.grid(True)
+#     plt.grid(True)
 
-    plt.tight_layout()
+#     plt.tight_layout()
 
-    plt.savefig(
-        Path(save_dir) / "update_norms.png",
-        dpi=300
-    )
+#     plt.savefig(
+#         Path(save_dir) / "softmax_weights.png",
+#         dpi=300
+#     )
 
-    plt.close()
+#     plt.close()
+
+
+# def plot_update_norm(score_df, save_dir):
+
+#     plt.figure()
+
+#     for client in sorted(score_df["client"].unique()):
+
+#         df = score_df[
+#             score_df["client"] == client
+#         ]
+
+#         plt.plot(
+#             df["round"],
+#             df["update_norm"],
+#             label=f"Client {client}"
+#         )
+
+#     plt.xlabel("Communication Round")
+#     plt.ylabel("Update Norm")
+#     plt.title("Client Update Norms")
+
+#     plt.legend()
+
+#     plt.grid(True)
+
+#     plt.tight_layout()
+
+#     plt.savefig(
+#         Path(save_dir) / "update_norms.png",
+#         dpi=300
+#     )
+
+#     plt.close()
 
 
 def plot_client_accuracy(acc_df, save_dir):
@@ -183,9 +183,9 @@ def generate_all_plots(save_dir):
         save_dir / "round_metrics.csv"
     )
 
-    score_df = pd.read_csv(
-        save_dir / "client_scores.csv"
-    )
+    # score_df = pd.read_csv(
+    #     save_dir / "client_scores.csv"
+    # )
 
     acc_df = pd.read_csv(
         save_dir / "client_accuracy.csv"
@@ -196,20 +196,20 @@ def generate_all_plots(save_dir):
         save_dir
     )
 
-    plot_raw_scores(
-        score_df,
-        save_dir
-    )
+    # plot_raw_scores(
+    #     score_df,
+    #     save_dir
+    # )
 
-    plot_softmax(
-        score_df,
-        save_dir
-    )
+    # plot_softmax(
+    #     score_df,
+    #     save_dir
+    # )
 
-    plot_update_norm(
-        score_df,
-        save_dir
-    )
+    # plot_update_norm(
+    #     score_df,
+    #     save_dir
+    # )
 
     plot_client_accuracy(
         acc_df,

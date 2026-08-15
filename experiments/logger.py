@@ -46,12 +46,12 @@ def save_history(history, exp_dir):
         index=False
     )
 
-    pd.DataFrame(
-        history["client_scores"]
-    ).to_csv(
-        exp_dir / "client_scores.csv",
-        index=False
-    )
+    # pd.DataFrame(
+    #     history["client_scores"]
+    # ).to_csv(
+    #     exp_dir / "client_scores.csv",
+    #     index=False
+    # )
 
     pd.DataFrame(
         history["client_accuracy"]
